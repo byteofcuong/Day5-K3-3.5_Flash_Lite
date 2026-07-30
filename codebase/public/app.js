@@ -303,7 +303,7 @@ async function openDoc(id) {
             let traceHtml = "";
             if (res.docTrace && res.docTrace.length) {
               traceHtml = `
-                <details class="doc-trace-details" style="margin-bottom:8px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:6px 10px;font-size:0.78rem;">
+                <details class="doc-trace-details" style="margin-bottom:8px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:6px;padding:6px 10px;font-size:0.78rem;" open>
                   <summary style="cursor:pointer;font-weight:700;color:#0284c7;">🔍 Log AI Đọc Bài (${res.docTrace.length} bước)</summary>
                   <div style="margin-top:6px;display:flex;flex-direction:column;gap:4px;padding-left:6px;border-left:2px solid #38bdf8;">
                     ${res.docTrace.map(step => `<div>${formatMarkdown(step)}</div>`).join("")}
@@ -503,8 +503,8 @@ function formatMarkdown(text, matchedDocs = []) {
           let traceHtml = "";
           if (res.agentTrace && res.agentTrace.length) {
             traceHtml = `
-              <details class="agent-trace-details" style="margin-bottom:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:8px 12px;font-size:0.82rem;">
-                <summary style="cursor:pointer;font-weight:700;color:#0284c7;">🧠 Xem Chuỗi Hoạt Động & Suy Nghĩ Của Agent (${res.agentTrace.length} bước)</summary>
+              <details class="agent-trace-details" style="margin-bottom:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:8px 12px;font-size:0.82rem;" open>
+                <summary style="cursor:pointer;font-weight:700;color:#0284c7;">🧠 Chuỗi Hoạt Động & Suy Nghĩ ReAct Của Agent (${res.agentTrace.length} bước)</summary>
                 <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;padding-left:8px;border-left:2px solid #38bdf8;">
                   ${res.agentTrace.map(step => `<div>${formatMarkdown(step)}</div>`).join("")}
                 </div>
@@ -599,7 +599,14 @@ function formatMarkdown(text, matchedDocs = []) {
 
 function initTabs() {
   document.querySelectorAll(".tab").forEach((tab) => {
-    tab.onclick = () => setTab(tab.dataset.tab);
+    tab.onclick = () => {
+      if (tab.classList.contains("protected") && (!token || !user)) {
+        if ($("#auth-status")) $("#auth-status").innerHTML = `<div class="notice">Vui lòng đăng nhập để đăng tài liệu hoặc xem tài liệu cá nhân.</div>`;
+        openAuth("login");
+        return;
+      }
+      setTab(tab.dataset.tab);
+    };
   });
 }
 
@@ -614,5 +621,4 @@ function updateAuthUi() {
   if ($("#user-name")) $("#user-name").textContent = isAuth ? (user.displayName || user.email) : "";
   if ($("#user-actions")) $("#user-actions").classList.toggle("hidden", !isAuth);
   if ($("#guest-actions")) $("#guest-actions").classList.toggle("hidden", isAuth);
-  document.querySelectorAll(".protected").forEach((btn) => btn.classList.toggle("hidden", !isAuth));
 }
