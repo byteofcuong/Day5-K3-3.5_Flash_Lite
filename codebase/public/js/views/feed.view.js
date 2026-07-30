@@ -34,6 +34,7 @@ export function createFeedView() {
 
     try {
       const params = new URLSearchParams();
+      params.set("withFile", "true");
       if (filters.q) params.set("q", filters.q);
       if (filters.category !== "all") params.set("category", filters.category);
 
@@ -61,8 +62,8 @@ export function createFeedView() {
 
     try {
       const [docsResult, contributorsResult, roomsResult] = await Promise.all([
-        api.get(endpoints.documents),
-        api.get(endpoints.contributors),
+        api.get(`${endpoints.documents}?withFile=true`),
+        api.get(`${endpoints.contributors}?withFile=true`),
         api.get(endpoints.rooms),
       ]);
 

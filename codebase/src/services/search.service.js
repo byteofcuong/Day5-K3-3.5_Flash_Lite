@@ -80,7 +80,7 @@ async function runAgent(query, catalog) {
     const observation = executeAgentTool(turn.name, turn.args || {}, catalog);
     toolTrace.push({ step: step + 1, thought: turn.thought, tool: turn.name, args: turn.args || {}, observation });
 
-    contents.push({ role: "model", parts: [{ functionCall: { name: turn.name, args: turn.args || {} } }] });
+    contents.push({ role: "model", parts: turn.modelParts });
     contents.push({ role: "user", parts: [{ functionResponse: { name: turn.name, response: { result: observation } } }] });
   }
 

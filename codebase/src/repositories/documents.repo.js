@@ -11,14 +11,16 @@ export const documentsRepo = {
    * @param {object} [options]
    * @param {string} [options.ownerId]        restrict to one owner
    * @param {boolean} [options.includeUnavailable]  include soft-deleted docs
+   * @param {boolean} [options.withFile]       only documents backed by a real file
    * @param {string} [options.category]
    * @param {string} [options.search]         matches title, summary and tags
    */
-  list({ ownerId, includeUnavailable = false, category, search } = {}) {
+  list({ ownerId, includeUnavailable = false, withFile = false, category, search } = {}) {
     const needle = String(search || "").trim().toLowerCase();
     return repo
       .all()
       .filter((doc) => (includeUnavailable ? true : doc.available === true))
+      .filter((doc) => (withFile ? Boolean(String(doc.fileUrl || "").trim()) : true))
       .filter((doc) => (ownerId ? doc.ownerId === ownerId : true))
       .filter((doc) => (category ? doc.category === category : true))
       .filter((doc) => {
@@ -37,7 +39,7 @@ export const documentsRepo = {
 
   /** Catalog handed to the AI agent — availability filtering happens here, once. */
   catalog() {
-    return repo.all().filter((doc) => doc.available === true);
+    return repo.all().filter((doc) => doc.available === true && Boolean(String(doc.fileUrl || "").trim()));
   },
 
   async incrementDownload(id) {

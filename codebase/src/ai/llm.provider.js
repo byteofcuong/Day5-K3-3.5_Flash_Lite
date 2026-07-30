@@ -45,6 +45,9 @@ export async function callGeminiApi({ contents, systemInstruction, tools, temper
       name: functionCallPart.functionCall.name,
       args: functionCallPart.functionCall.args,
       thought: parts.find((p) => p.text)?.text || "Bắt đầu gọi tool...",
+      // Gemini thinking models attach thoughtSignature metadata to response
+      // parts. The next turn must receive every model part unchanged.
+      modelParts: parts,
     };
   }
 

@@ -125,12 +125,12 @@ export async function addRating({ documentId, rating, comment, user }) {
 }
 
 /** Ranks contributors by how many published documents they own. */
-export function listTopContributors(limit = 5) {
+export function listTopContributors(limit = 5, { withFile = false } = {}) {
   const size = Math.min(10, Math.max(1, Number(limit) || 5));
   return usersRepo
     .listActive()
     .map((user) => {
-      const docs = documentsRepo.list({ ownerId: user.id });
+      const docs = documentsRepo.list({ ownerId: user.id, withFile });
       return {
         userId: user.id,
         name: user.displayName,

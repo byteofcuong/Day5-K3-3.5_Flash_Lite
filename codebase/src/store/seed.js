@@ -1,7 +1,9 @@
 import fs from "node:fs/promises";
+import path from "node:path";
 import bcrypt from "bcryptjs";
 import { paths } from "../config/env.js";
 import { nowIso } from "../lib/ids.js";
+import { extractPdfText } from "../lib/pdf-text.js";
 
 /**
  * Builds the initial database the first time db.json is missing.
@@ -99,22 +101,41 @@ export async function buildSeed() {
   const admin = users[0];
   const members = users.filter((user) => user.role === "member");
 
-  const pdfDocuments = PDF_DOCUMENTS.map((doc) => ({
-    ...doc,
-    // No extracted full text for PDFs, so RAG falls back to the summary.
-    content: doc.summary,
-    category: "Tài liệu",
-    source: "official",
-    date: "2026-07-30",
-    available: true,
-    status: "published",
-    ownerId: admin.id,
-    ownerName: admin.displayName,
-    fileUrl: `/library/${encodeURIComponent(doc.fileName)}`,
-    mimeType: "application/pdf",
-    downloadCount: 0,
-    createdAt,
-    updatedAt: createdAt,
+  const pdfDocuments = await Promise.all(PDF_DOCUMENTS.map(async (doc) => {
+    const file = path.join(paths.library, doc.fileName);
+    let extraction;
+    let extractionError = "";
+
+    try {
+      extraction = await extractPdfText(file);
+    } catch (error) {
+      extraction = { text: "", pageCount: 0, charCount: 0 };
+      extractionError = error.message || "PDF extraction failed";
+    }
+
+    const extracted = extraction.charCount > 0;
+    return {
+      ...doc,
+      content: extracted ? extraction.text : doc.summary,
+      textExtraction: {
+        status: extracted ? "extracted" : "unavailable",
+        pageCount: extraction.pageCount,
+        charCount: extraction.charCount,
+        ...(extractionError ? { error: extractionError } : {}),
+      },
+      category: "Tài liệu",
+      source: "official",
+      date: "2026-07-30",
+      available: true,
+      status: "published",
+      ownerId: admin.id,
+      ownerName: admin.displayName,
+      fileUrl: `/library/${encodeURIComponent(doc.fileName)}`,
+      mimeType: "application/pdf",
+      downloadCount: 0,
+      createdAt,
+      updatedAt: createdAt,
+    };
   }));
 
   // Spread the text catalog across members so the contributor board is not a

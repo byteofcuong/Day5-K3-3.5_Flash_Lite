@@ -14,12 +14,15 @@ documentRoutes.get("/documents", (request, response) => {
   const items = listDocuments({
     category: request.query.category && request.query.category !== "all" ? request.query.category : undefined,
     search: request.query.q,
+    withFile: request.query.withFile === "true",
   });
   response.json({ items, total: items.length });
 });
 
 documentRoutes.get("/contributors", (request, response) => {
-  response.json({ items: listTopContributors(request.query.limit) });
+  response.json({
+    items: listTopContributors(request.query.limit, { withFile: request.query.withFile === "true" }),
+  });
 });
 
 documentRoutes.get("/my/documents", requireAuth, (request, response) => {

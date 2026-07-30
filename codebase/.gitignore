@@ -5,3 +5,5 @@ uploads/*
 !uploads/.gitkeep
 data/db.json
 data/db.json.*.tmp
+app.stdout.log
+app.stderr.log
