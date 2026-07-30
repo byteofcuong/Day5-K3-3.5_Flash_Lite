@@ -84,7 +84,7 @@ code {
 
 .muted { color: var(--text-tertiary); font-size: var(--text-sm); }
 .dot { color: var(--border-strong); user-select: none; }
-.is-hidden { display: none !important; }
+.is-hidden, [hidden] { display: none !important; }
 
 /* Micro label: uppercase, letterspaced. Used for every section heading. */
 .overline {
