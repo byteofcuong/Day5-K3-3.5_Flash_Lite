@@ -1,0 +1,5 @@
+node_modules/
+.env
+traces/*.jsonl
+uploads/*
+!uploads/.gitkeep

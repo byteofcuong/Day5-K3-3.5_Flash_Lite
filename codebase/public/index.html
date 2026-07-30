@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>VShare</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="page-head"><h1>📚 VShare</h1><p>Chia sẻ tài liệu và kết nối cộng đồng</p></div>
+      <div id="guest-actions"><button class="outline" data-auth="login">Đăng nhập</button><button class="primary" data-auth="register">Đăng ký</button></div>
+      <div id="user-actions" class="hidden"><span id="user-name"></span><button id="logout" class="outline">Đăng xuất</button></div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="feed">Bảng tin</button>
+      <button class="tab" data-tab="ai-search">✨ Tìm bằng AI</button>
+      <button class="tab protected" data-tab="create">Đăng tài liệu</button>
+      <button class="tab protected" data-tab="my-docs">Tài liệu của tôi</button>
+    </nav>
+
+    <section id="feed" class="panel active">
+      <aside class="contributors">
+        <div class="section-heading"><div><span class="eyebrow">CỘNG ĐỒNG</span><h2>Người đóng góp tích cực</h2></div><span class="caption">Xếp theo bài đã đăng</span></div>
+        <div id="contributors-list" class="contributors-list"><p class="caption">Đang tải…</p></div>
+      </aside>
+      <div class="filters"><input id="feed-search" placeholder="Tìm theo tiêu đề, mô tả hoặc tag..."><select id="category-filter"><option>Tất cả</option><option>Tài liệu</option><option>Kiến thức</option><option>Công cụ</option><option>Khác</option></select></div>
+      <p id="feed-count" class="caption"></p><div id="feed-list" class="stack"></div>
+    </section>
+
+    <section id="ai-search" class="panel">
+      <div class="ai-intro"><span class="ai-badge">✨ AI Search</span><h2>Bạn đang cần học liệu gì?</h2><p>Agent chỉ tìm trong kho tài liệu VShare và giải thích căn cứ cho từng gợi ý.</p></div>
+      <form id="search-form" class="search-row"><input id="query" maxlength="500" placeholder="Ví dụ: Tài liệu ReAct cho người mới" required><button class="primary">Tìm tài liệu</button></form>
+      <div id="status"></div><div id="results" class="stack"></div>
+    </section>
+
+    <section id="create" class="panel">
+      <h2>Đăng tài liệu của bạn</h2>
+      <form id="create-form" class="create-form">
+        <label>Tiêu đề<input name="title" maxlength="150" required></label>
+        <label>Mô tả<textarea name="summary" minlength="10" maxlength="2000" rows="5" required></textarea></label>
+        <div class="form-grid"><label>Danh mục<select name="category"><option>Tài liệu</option><option>Kiến thức</option><option>Công cụ</option><option>Khác</option></select></label><label>Trình độ<select name="level"><option value="all">Mọi trình độ</option><option value="beginner">Cơ bản</option><option value="intermediate">Trung cấp</option><option value="advanced">Nâng cao</option></select></label></div>
+        <label>Tags, phân cách bằng dấu phẩy<input name="tags" placeholder="ai, react, agent"></label>
+        <label>Tệp đính kèm, tối đa 20 MB<input name="file" type="file" accept=".pdf,.docx,.xlsx,.pptx,.txt,.png,.jpg,.jpeg,.zip" required></label>
+        <button class="primary">Đăng tài liệu</button>
+      </form><div id="create-status"></div>
+    </section>
+
+    <section id="my-docs" class="panel"><h2>Tài liệu của tôi</h2><div id="my-list" class="stack"></div></section>
+
+    <dialog id="auth-dialog">
+      <button class="close" data-close>×</button>
+      <h2 id="auth-title">Đăng nhập</h2>
+      <form id="auth-form">
+        <label id="name-field" class="hidden">Họ tên<input name="displayName" minlength="2" maxlength="60"></label>
+        <label>Email<input name="email" type="email" required></label>
+        <label>Mật khẩu<input name="password" type="password" minlength="8" required></label>
+        <button class="primary full" id="auth-submit">Đăng nhập</button>
+      </form><div id="auth-status"></div>
+      <p class="demo">Tài khoản demo: <code>viet@vshare.local</code> / <code>VShare@2026</code></p>
+    </dialog>
+
+    <dialog id="detail"><button class="close" data-detail-close>×</button><div id="detail-body"></div></dialog>
+    <footer>VShare · Kết quả AI cần được kiểm tra qua nguồn tài liệu</footer>
+  </main>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
