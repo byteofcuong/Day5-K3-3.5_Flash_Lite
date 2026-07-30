@@ -59,14 +59,15 @@ async function geminiSearch(query, catalog) {
   const model = process.env.GEMINI_MODEL || "gemini-2.5-flash";
   const startedAt = Date.now();
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(process.env.GEMINI_API_KEY)}`;
-  const contents = [{ role: "user", parts: [{ text: buildAgentInstruction(query) }] }];
+  const contents = [{ role: "user", parts: [{ text: query }] }];
+  const systemInstruction = buildAgentInstruction(query, catalog);
   const toolTrace = [];
   let raw = "";
   for (let step = 0; step < 4; step++) {
     const response = await fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ contents, tools: agentTools, toolConfig: { functionCallingConfig: { mode: "AUTO" } }, generationConfig: { temperature: 0.1 } }),
+      body: JSON.stringify({ contents, systemInstruction: { parts: [{ text: systemInstruction }] }, tools: agentTools, toolConfig: { functionCallingConfig: { mode: "AUTO" } }, generationConfig: { temperature: 0.1 } }),
     });
     const payload = await response.json();
     if (!response.ok) throw new Error(payload?.error?.message || `Gemini HTTP ${response.status}`);
