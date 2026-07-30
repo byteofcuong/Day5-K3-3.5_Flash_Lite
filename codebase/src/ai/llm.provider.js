@@ -7,18 +7,17 @@ export async function callGeminiApi({ contents, systemInstruction, tools, temper
   }
 
   let model = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
-  if (model === "gemini-2.5-flash" || model === "gemini-1.5-flash" || model === "gemini-2.0-flash") {
-    model = "gemini-3.5-flash-lite";
-  }
 
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(process.env.GEMINI_API_KEY)}`;
 
   const bodyPayload = {
-    contents: systemInstruction 
-      ? [{ role: "user", parts: [{ text: systemInstruction }] }, ...contents]
-      : contents,
+    contents,
     generationConfig: { temperature }
   };
+
+  if (systemInstruction) {
+    bodyPayload.systemInstruction = { parts: [{ text: systemInstruction }] };
+  }
 
   if (tools) {
     bodyPayload.tools = tools;

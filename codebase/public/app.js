@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 let token = localStorage.getItem("vshare_token") || "";
 let user = null;
 let activeTab = "feed";
@@ -51,10 +49,12 @@ async function renderFeed() {
     const category = $("#category-filter")?.value || "";
 
     const filtered = docArray.filter((doc) => {
-      const matchesSearch = !search || doc.title.toLowerCase().includes(search) || doc.summary.toLowerCase().includes(search);
-      const matchesCategory = !category || doc.category === category;
+      const matchesSearch = !search || (doc.title && doc.title.toLowerCase().includes(search)) || (doc.summary && doc.summary.toLowerCase().includes(search));
+      const matchesCategory = !category || category === "Tất cả" || doc.category === category;
       return matchesSearch && matchesCategory;
     });
+
+    if ($("#feed-count")) $("#feed-count").textContent = `Hiển thị ${filtered.length} / ${docArray.length} tài liệu`;
 
     feedEl.innerHTML = filtered.length ? filtered.map((doc) => card(doc)).join("") : '<div class="notice">Không tìm thấy tài liệu phù hợp.</div>';
   } catch (error) {
@@ -69,13 +69,12 @@ async function summarizeDoc(id) {
   try {
     const res = await api(`/api/documents/${encodeURIComponent(id)}/summarize`, { method: "POST" });
     const pointsHtml = (res.keyPoints || []).map((p) => `<li>${esc(p)}</li>`).join("");
+    const summaryText = res.summary || (typeof res === "string" ? res : "Đã hoàn thành tóm tắt.");
     container.innerHTML = `
-      <div class="summary-box">
-        <h4>✨ Bản tóm tắt RAG từ AI cho "${esc(res.title)}"</h4>
-        <p><strong>🎯 Đối tượng phù hợp:</strong> ${esc(res.targetAudience)}</p>
-        <p><strong>📌 3 Ý chính cốt lõi:</strong></p>
-        <ul>${pointsHtml}</ul>
-        <p><strong>💡 Khuyên đọc:</strong> ${esc(res.recommendedAction)}</p>
+      <div class="summary-box" style="margin-top:10px;padding:12px;background:#f8fafc;border:1px solid #cbd5e1;border-radius:8px;">
+        <h4 style="margin:0 0 8px;color:#0f172a;">✨ Bản tóm tắt RAG cho "${esc(res.title || "tài liệu")}"</h4>
+        <p style="margin:4px 0;line-height:1.5;">${esc(summaryText)}</p>
+        ${pointsHtml ? `<ul style="margin:6px 0;padding-left:20px;">${pointsHtml}</ul>` : ""}
       </div>
     `;
   } catch (error) {
@@ -97,27 +96,34 @@ async function renderContributors() {
   if (!el) return;
   try {
     const list = await api("/api/contributors");
-    el.innerHTML = list.map((item) => `
-      <div class="contributor-card">
-        <div class="rank">#${item.rank}</div>
-        <div class="avatar">${esc(item.name.charAt(0).toUpperCase())}</div>
-        <div class="contributor-info">
-          <strong>${esc(item.name)}</strong>
-          <small>${esc(item.topDoc)}</small>
+    el.innerHTML = (Array.isArray(list) ? list : []).map((item, index) => {
+      const name = item.displayName || item.name || "Thành viên";
+      const count = item.postCount ?? item.count ?? 0;
+      const rank = item.rank || (index + 1);
+      const topDoc = item.bio || item.role || "Đóng góp tài liệu";
+      const firstChar = name ? name.charAt(0).toUpperCase() : "U";
+      return `
+        <div class="contributor-card">
+          <div class="rank">#${rank}</div>
+          <div class="avatar">${esc(firstChar)}</div>
+          <div class="contributor-info">
+            <strong>${esc(name)}</strong>
+            <small>${esc(topDoc)}</small>
+          </div>
+          <div class="post-count">
+            <strong>${count}</strong>
+            <small>bài đăng</small>
+          </div>
         </div>
-        <div class="post-count">
-          <strong>${item.count}</strong>
-          <small>bài đăng</small>
-        </div>
-      </div>
-    `).join("");
+      `;
+    }).join("");
   } catch (error) {
     el.innerHTML = `<div class="notice error">${esc(error.message)}</div>`;
   }
 }
 
 async function renderMyDocs() {
-  const el = $("#mydocs-list");
+  const el = $("#my-list") || $("#mydocs-list");
   if (!el) return;
   try {
     const docs = await api("/api/my/documents");
@@ -319,6 +325,10 @@ async function openDoc(id) {
     $("#detail").showModal();
   } catch (error) { alert(error.message); }
 }
+
+window.openDoc = openDoc;
+window.summarizeDoc = summarizeDoc;
+window.deleteMyDoc = deleteMyDoc;
 
 function openAuth(mode = "login") {
   authMode = mode;
@@ -596,14 +606,13 @@ function initTabs() {
 function setTab(tabName) {
   activeTab = tabName;
   document.querySelectorAll(".tab").forEach((t) => t.classList.toggle("active", t.dataset.tab === tabName));
-  document.querySelectorAll(".panel").forEach((p) => p.classList.toggle("active", p.id === `tab-${tabName}`));
+  document.querySelectorAll(".panel").forEach((p) => p.classList.toggle("active", p.id === tabName));
 }
 
 function updateAuthUi() {
   const isAuth = Boolean(token && user);
-  if ($("#auth-user")) $("#auth-user").textContent = isAuth ? (user.displayName || user.email) : "";
-  if ($("#auth-user-box")) $("#auth-user-box").classList.toggle("hidden", !isAuth);
-  document.querySelectorAll("[data-auth]").forEach((btn) => btn.classList.toggle("hidden", isAuth));
-  const myTab = document.querySelector('[data-tab="mydocs"]');
-  if (myTab) myTab.classList.toggle("hidden", !isAuth);
+  if ($("#user-name")) $("#user-name").textContent = isAuth ? (user.displayName || user.email) : "";
+  if ($("#user-actions")) $("#user-actions").classList.toggle("hidden", !isAuth);
+  if ($("#guest-actions")) $("#guest-actions").classList.toggle("hidden", isAuth);
+  document.querySelectorAll(".protected").forEach((btn) => btn.classList.toggle("hidden", !isAuth));
 }

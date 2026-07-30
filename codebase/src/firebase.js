@@ -46,7 +46,7 @@ export function db() {
   return fbDb;
 }
 
-async function getDb() {
+export async function getDb() {
   if (!isFirebaseConfigured()) return null;
   if (!fbDb) {
     try {

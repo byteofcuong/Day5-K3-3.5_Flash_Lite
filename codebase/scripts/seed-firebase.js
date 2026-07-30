@@ -1,6 +1,18 @@
 import "dotenv/config";
 import bcrypt from "bcryptjs";
-import { db } from "../src/firebase.js";
+import { getDb, isFirebaseConfigured } from "../src/firebase.js";
+
+if (!isFirebaseConfigured()) {
+  console.error("❌ Lỗi: Chưa cấu hình thông tin Firebase trong file .env!");
+  console.error("Vui lòng tạo file .env chứa: FIREBASE_PROJECT_ID, FIREBASE_CLIENT_EMAIL, FIREBASE_PRIVATE_KEY");
+  process.exit(1);
+}
+
+const firestore = await getDb();
+if (!firestore) {
+  console.error("❌ Lỗi: Không thể kết nối Firebase (kiểm tra lại Service Account trong file .env)");
+  process.exit(1);
+}
 
 const passwordHash = await bcrypt.hash("VShare@2026", 12);
 const now = new Date().toISOString();
@@ -58,13 +70,13 @@ const communityPosts = [
   { id: "post-nam-community", authorId: "user-nam", authorName: "Nam Hoàng", title: "Cách mô tả tài liệu để cộng đồng dễ tìm", content: "Tiêu đề rõ ràng, mô tả có mục tiêu học và tags thống nhất.", category: "Khác", createdAt: "2026-07-30T08:00:00.000Z" },
 ];
 
-const batch = db().batch();
+const batch = firestore.batch();
 for (const user of users) {
   const { id, ...data } = user;
-  batch.set(db().collection("users").doc(id), data, { merge: true });
+  batch.set(firestore.collection("users").doc(id), data, { merge: true });
 }
 
-const existing = await db().collection("documents").get();
+const existing = await firestore.collection("documents").get();
 for (const snapshot of existing.docs) {
   if (!documents.some((document) => document.id === snapshot.id)) {
     batch.set(snapshot.ref, { available: false, status: "archived", updatedAt: now }, { merge: true });
@@ -73,8 +85,8 @@ for (const snapshot of existing.docs) {
 
 for (const document of documents) {
   const { id, ...data } = document;
-  batch.set(db().collection("documents").doc(id), data, { merge: true });
-  batch.set(db().collection("posts").doc(`post-${id}`), {
+  batch.set(firestore.collection("documents").doc(id), data, { merge: true });
+  batch.set(firestore.collection("posts").doc(`post-${id}`), {
     authorId: document.ownerId, authorName: document.ownerName, documentId: id,
     title: document.title, content: document.summary, category: document.category,
     status: "published", likeCount: id === "real-ai-llm-foundation" ? 3 : 1,
@@ -84,7 +96,7 @@ for (const document of documents) {
 
 for (const post of communityPosts) {
   const { id, ...data } = post;
-  batch.set(db().collection("posts").doc(id), {
+  batch.set(firestore.collection("posts").doc(id), {
     ...data, documentId: null, status: "published", likeCount: 0,
     commentCount: 0, updatedAt: data.createdAt,
   }, { merge: true });
@@ -98,7 +110,7 @@ const interactions = [
   ["user-nam", "real-ai-llm-foundation", "like"],
 ];
 for (const [userId, documentId, type] of interactions) {
-  batch.set(db().collection("documentInteractions").doc(`${userId}_${documentId}_${type}`), { userId, documentId, type, createdAt: now }, { merge: true });
+  batch.set(firestore.collection("documentInteractions").doc(`${userId}_${documentId}_${type}`), { userId, documentId, type, createdAt: now }, { merge: true });
 }
 
 await batch.commit();
