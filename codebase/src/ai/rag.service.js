@@ -72,7 +72,7 @@ export async function handleRagChat(messages, catalog) {
   try {
     const responseRound1 = await callGeminiApi({
       contents: currentContents,
-      systemInstruction: buildAgentInstruction(catalog),
+      systemInstruction: buildAgentInstruction(lastMessage, catalog),
       tools: agentTools,
       temperature: 0.2
     });
