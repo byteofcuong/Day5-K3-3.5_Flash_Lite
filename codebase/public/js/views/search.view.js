@@ -68,6 +68,29 @@ function resultCard(item, index) {
   `;
 }
 
+/** Shown before the first search — the screen explains itself instead of sitting empty. */
+function idlePanel() {
+  return html`
+    <div class="rules">
+      <div class="rule">
+        <span class="rule__num">01</span>
+        <h3 class="rule__title">Chỉ tìm trong kho VShare</h3>
+        <p class="rule__body">Agent không tra cứu ngoài internet. Mọi gợi ý đều là tài liệu có thật trong kho.</p>
+      </div>
+      <div class="rule">
+        <span class="rule__num">02</span>
+        <h3 class="rule__title">Luôn nêu căn cứ</h3>
+        <p class="rule__body">Mỗi kết quả kèm lý do được chọn và mức độ tin cậy, truy về tiêu đề, mô tả và thẻ.</p>
+      </div>
+      <div class="rule">
+        <span class="rule__num">03</span>
+        <h3 class="rule__title">Thiếu căn cứ thì hỏi lại</h3>
+        <p class="rule__body">Nếu truy vấn quá mơ hồ, agent hỏi thêm thay vì đoán bừa một tài liệu.</p>
+      </div>
+    </div>
+  `;
+}
+
 function renderOutcome(node, data) {
   if (data.status === "clarify" && data.clarifyingQuestion) {
     render(node, html`
@@ -154,7 +177,7 @@ export function createSearchView() {
             </div>
           </div>
 
-          <div data-results></div>
+          <div data-results>${idlePanel()}</div>
         `)}
       `);
 

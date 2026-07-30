@@ -15,7 +15,7 @@ export function createMyDocsView() {
     try {
       const { items } = await api.get(endpoints.myDocuments);
       render(listNode, items.length
-        ? html`${items.map((doc) => documentCard(doc, { owned: true }))}`
+        ? html`<div class="card-grid">${items.map((doc) => documentCard(doc, { owned: true }))}</div>`
         : emptyState({
             iconName: "folder",
             title: "Bạn chưa đăng tài liệu nào",
@@ -39,7 +39,7 @@ export function createMyDocsView() {
             ${icon("plus", 16)} Đăng tài liệu
           </button>`,
         })}
-        ${pageBody(html`<div class="stack" data-list></div>`, { width: "narrow" })}
+        ${pageBody(html`<div data-list></div>`)}
       `);
 
       const listNode = container.querySelector("[data-list]");

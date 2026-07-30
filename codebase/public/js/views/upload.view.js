@@ -1,5 +1,6 @@
 import { api, endpoints } from "../core/api.js";
 import { html, on, render } from "../core/dom.js";
+import { icon } from "../components/icons.js";
 import { pageBody, pageHeader } from "../components/page.js";
 import { notice } from "../components/states.js";
 import { navigate } from "../core/router.js";
@@ -26,7 +27,8 @@ export function createUploadView() {
           iconName: "upload",
         })}
         ${pageBody(html`
-          <form class="card form" data-upload-form novalidate>
+          <div class="with-rail">
+            <form class="card form" data-upload-form novalidate>
             <label class="field">
               <span class="field__label">Tiêu đề</span>
               <input class="input" name="title" minlength="3" maxlength="150" required
@@ -70,10 +72,40 @@ export function createUploadView() {
             <div>
               <button class="btn btn--primary" type="submit">Đăng tài liệu</button>
             </div>
-          </form>
+            </form>
+
+            <div class="rail">
+              <aside class="panel">
+                <div class="panel__head">
+                  <h2 class="panel__title">${icon("sparkles", 15)} Viết mô tả tốt</h2>
+                </div>
+                <div class="panel__body stack">
+                  <p class="muted">Agent đọc phần mô tả để quyết định có gợi ý tài liệu của bạn hay không. Nên nêu rõ:</p>
+                  <ul class="stack">
+                    <li class="muted">• Nội dung chính gồm những gì</li>
+                    <li class="muted">• Dành cho trình độ nào</li>
+                    <li class="muted">• Dùng trong bối cảnh nào</li>
+                    <li class="muted">• Công cụ hoặc framework liên quan</li>
+                  </ul>
+                </div>
+              </aside>
+
+              <aside class="panel">
+                <div class="panel__head">
+                  <h2 class="panel__title">${icon("file", 15)} Định dạng nhận</h2>
+                </div>
+                <div class="panel__body">
+                  <ul class="tags">
+                    ${ACCEPTED.split(",").map((ext) => html`<li class="tag">${ext.replace(".", "")}</li>`)}
+                  </ul>
+                  <p class="muted panel__note">Tối đa 20 MB.</p>
+                </div>
+              </aside>
+            </div>
+          </div>
 
           <div data-upload-status></div>
-        `, { width: "narrow" })}
+        `)}
       `);
 
       const form = container.querySelector("[data-upload-form]");

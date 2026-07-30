@@ -1,26 +1,28 @@
 /*
  * Design tokens — the single source for every colour, size and motion value.
  *
- * The system is built on one brand gradient (indigo → violet) plus a set of
- * per-section hues. Each area of the app owns a hue, which shows up in its nav
- * item, its page icon and its accents — so a screen is recognisable before you
- * read a word of it.
+ * Two rules define the look:
  *
- * Surfaces stay quiet (white cards on an off-white canvas); colour is spent on
- * actions, identity and state.
+ * 1. EVERYTHING IS SQUARE. No rounded corners anywhere — cards, buttons,
+ *    inputs, avatars, badges. The geometry is the identity; softness is what
+ *    made the earlier version read as generic.
+ *
+ * 2. Each area of the app owns a hue that flows through its nav item, page
+ *    header, card accents and controls, so a screen is recognisable before you
+ *    read a word of it.
  */
 :root {
   /* --- Neutral ramp (cool) --------------------------------------------- */
   --gray-0:   #ffffff;
-  --gray-50:  #f7f8fa;
-  --gray-100: #f1f2f6;
-  --gray-150: #e9ebf0;
-  --gray-200: #e2e5eb;
-  --gray-300: #d0d5de;
-  --gray-400: #a2aab9;
+  --gray-50:  #f6f7f9;
+  --gray-100: #eef0f4;
+  --gray-150: #e5e8ee;
+  --gray-200: #dce0e8;
+  --gray-300: #c7ccd8;
+  --gray-400: #98a0b0;
   --gray-500: #6b7280;
   --gray-600: #4b5261;
-  --gray-900: #12151c;
+  --gray-900: #10131a;
 
   /* --- Brand ------------------------------------------------------------ */
   --brand-50:  #eef2ff;
@@ -36,13 +38,13 @@
      Each solid shade clears WCAG AA on white; `-soft` is its tint background.
      Names match route ids so [data-hue] can map them mechanically below. */
   --hue-feed:     #4f46e5;  --hue-feed-soft:     #eef2ff;
-  --hue-search:   #9333ea;  --hue-search-soft:   #f9f0ff;
-  --hue-chat:     #0e7490;  --hue-chat-soft:     #ecfeff;
-  --hue-rooms:    #b45309;  --hue-rooms-soft:    #fff7ed;
-  --hue-upload:   #047857;  --hue-upload-soft:   #ecfdf5;
-  --hue-my-docs:  #be185d;  --hue-my-docs-soft:  #fdf2f8;
+  --hue-search:   #9333ea;  --hue-search-soft:   #f8f0ff;
+  --hue-chat:     #0e7490;  --hue-chat-soft:     #e9fcff;
+  --hue-rooms:    #b45309;  --hue-rooms-soft:    #fff6ea;
+  --hue-upload:   #047857;  --hue-upload-soft:   #eafdf3;
+  --hue-my-docs:  #be185d;  --hue-my-docs-soft:  #fdf1f6;
 
-  /* Hue of the current screen. Set on <body> by the router, and on each nav
+  /* Hue of the current screen. Set on <body> by the router and on each nav
      link, so navigation and page chrome always agree. */
   --hue: var(--brand-600);
   --hue-soft: var(--brand-50);
@@ -56,7 +58,14 @@
   --border: var(--gray-200);
   --border-strong: var(--gray-300);
 
+  /* Faint blueprint grid on the app canvas — geometry, not decoration. */
+  --pattern-grid:
+    linear-gradient(to right, rgb(16 19 26 / 3.5%) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(16 19 26 / 3.5%) 1px, transparent 1px);
+  --pattern-grid-size: 28px 28px;
+
   --scrim-light: rgb(255 255 255 / 65%);
+  --scrim-hover: rgb(255 255 255 / 18%);
 
   /* --- Text -------------------------------------------------------------- */
   --text-primary: var(--gray-900);
@@ -66,9 +75,9 @@
   --text-on-dark-dim: rgb(255 255 255 / 72%);
 
   /* --- Semantic ---------------------------------------------------------- */
-  --success: #047857;  --success-bg: #ecfdf5;  --success-border: #a7f3d0;
-  --warning: #b45309;  --warning-bg: #fffbeb;  --warning-border: #fcd9a4;
-  --danger:  #be123c;  --danger-bg:  #fff1f2;  --danger-border:  #fecdd3;
+  --success: #047857;  --success-bg: #eafdf3;  --success-border: #a7f3d0;
+  --warning: #b45309;  --warning-bg: #fff8ec;  --warning-border: #fcd9a4;
+  --danger:  #be123c;  --danger-bg:  #fff0f3;  --danger-border:  #fecdd3;
 
   --confidence-high: #047857;
   --confidence-medium: #b45309;
@@ -76,16 +85,14 @@
   --grad-confidence-high: linear-gradient(90deg, #10b981, #047857);
   --grad-confidence-medium: linear-gradient(90deg, #f59e0b, #b45309);
 
-  /* Podium tints for the top three contributors. */
   --medal-gold: #b45309;
   --medal-silver: #6b7280;
   --medal-bronze: #9a5b2e;
 
-  /* Decorative colour wash behind the search hero. */
   --glow-hero:
-    radial-gradient(38% 60% at 22% 40%, rgb(99 102 241 / 16%) 0%, transparent 70%),
-    radial-gradient(34% 55% at 78% 32%, rgb(168 85 247 / 15%) 0%, transparent 70%),
-    radial-gradient(30% 50% at 52% 68%, rgb(236 72 153 / 10%) 0%, transparent 70%);
+    radial-gradient(40% 62% at 20% 38%, rgb(99 102 241 / 15%) 0%, transparent 70%),
+    radial-gradient(36% 56% at 80% 30%, rgb(168 85 247 / 14%) 0%, transparent 70%),
+    radial-gradient(32% 52% at 52% 72%, rgb(236 72 153 / 10%) 0%, transparent 70%);
 
   /* --- Spacing ----------------------------------------------------------- */
   --space-1: 4px;
@@ -97,16 +104,13 @@
   --space-7: 32px;
   --space-8: 40px;
   --space-9: 56px;
-  --space-10: 80px;
+  --space-10: 72px;
 
-  /* --- Radius ------------------------------------------------------------ */
-  --radius-xs: 4px;
-  --radius-sm: 6px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-2xl: 22px;
-  --radius-pill: 999px;
+  /* --- Geometry ----------------------------------------------------------
+     Square by design: the global `border-radius: 0` lives in base.css, so
+     there is no radius token to accidentally re-introduce softness. */
+  --edge: 1px;          /* hairline border width   */
+  --edge-accent: 3px;   /* solid hue bar on a card */
 
   /* --- Typography -------------------------------------------------------- */
   --font-sans: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
@@ -120,42 +124,42 @@
   --text-lg:  1.0625rem;  /* 17 */
   --text-xl:  1.25rem;    /* 20 */
   --text-2xl: 1.5rem;     /* 24 */
-  --text-3xl: 2.125rem;   /* 34 */
+  --text-3xl: 2.25rem;    /* 36 */
 
-  --leading-tight: 1.22;
+  --leading-tight: 1.2;
   --leading-normal: 1.55;
   --leading-relaxed: 1.7;
 
   --tracking-tight: -0.02em;
   --tracking-tighter: -0.035em;
-  --tracking-wide: 0.06em;
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.14em;
 
-  /* --- Elevation --------------------------------------------------------- */
-  --shadow-xs: 0 1px 2px rgb(18 21 28 / 6%);
-  --shadow-sm: 0 1px 3px rgb(18 21 28 / 7%), 0 1px 2px rgb(18 21 28 / 4%);
-  --shadow-md: 0 8px 24px -8px rgb(18 21 28 / 16%), 0 2px 6px rgb(18 21 28 / 5%);
-  --shadow-lg: 0 32px 64px -16px rgb(18 21 28 / 26%), 0 4px 12px rgb(18 21 28 / 6%);
-  --shadow-brand: 0 8px 20px -6px rgb(99 102 241 / 45%);
-  --shadow-brand-hover: 0 12px 28px -8px rgb(99 102 241 / 55%);
-  --backdrop: rgb(18 21 28 / 45%);
+  /* --- Elevation ---------------------------------------------------------
+     Hard-edged offsets, not soft blurs — they match the square geometry. */
+  --shadow-hard: 4px 4px 0 var(--gray-150);
+  --shadow-panel: 0 24px 48px -12px rgb(16 19 26 / 22%);
+  --shadow-float: 0 12px 28px -8px rgb(16 19 26 / 28%);
+  --backdrop: rgb(16 19 26 / 48%);
 
   /* --- Motion ------------------------------------------------------------ */
-  --duration-fast: 130ms;
-  --duration: 200ms;
+  --duration-fast: 120ms;
+  --duration: 180ms;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* --- Layout ------------------------------------------------------------ */
-  --sidebar-width: 252px;
-  --topbar-height: 58px;
-  --content-max: 780px;
-  --content-max-wide: 1180px;
+  --sidebar-width: 244px;
+  --topbar-height: 56px;
+  --content-max: 720px;       /* forms and reading columns  */
+  --content-max-wide: 1640px; /* wide enough to fill screens */
+  --assistant-width: 396px;
 }
 
 /*
  * Hue mapping. Any element carrying data-hue adopts that section's colour for
- * itself and its descendants — used on <body> (the active screen) and on each
- * nav link (so every item shows its own colour when active).
+ * itself and its descendants — used on <body> (the active screen), on each nav
+ * link, and on the floating assistant.
  */
 [data-hue="feed"]    { --hue: var(--hue-feed);    --hue-soft: var(--hue-feed-soft); }
 [data-hue="search"]  { --hue: var(--hue-search);  --hue-soft: var(--hue-search-soft); }
