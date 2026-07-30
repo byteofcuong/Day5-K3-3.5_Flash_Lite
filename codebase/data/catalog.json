@@ -1,15 +1,189 @@
 [
-  {"id":"doc-agent-criteria","title":"4 tiêu chí: Khi nào nên dùng AI Agent?","summary":"Bốn tiêu chí đánh giá bài toán có cần agent hay chỉ cần workflow đơn giản.","tags":["agent","problem-selection"],"level":"beginner","source":"official","date":"2026-07-25","available":true},
-  {"id":"doc-day5-summary","title":"Tóm tắt Day 5 — Thiết kế sản phẩm AI","summary":"Pain, evidence, automation, failure modes, golden set và validation.","tags":["day5","ai-product","summary"],"level":"beginner","source":"official","date":"2026-07-29","available":true},
-  {"id":"doc-context-keywords","title":"Context Engineering Cheat Sheet","summary":"Keyword cần nhớ về context window, memory injection, retrieval và compression.","tags":["context-engineering","keywords","cheat-sheet"],"level":"beginner","source":"community","date":"2026-07-28","available":true},
-  {"id":"doc-llm-beginner","title":"LLM nhập môn — Bài đọc dễ tiếp thu","summary":"Giải thích LLM, token, xác suất và giới hạn bằng ngôn ngữ cho người mới.","tags":["llm","foundation","beginner"],"level":"beginner","source":"official","date":"2026-07-22","available":true},
-  {"id":"doc-context-strategies","title":"Write, Select, Compress, Isolate","summary":"Giải thích bốn chiến lược tối ưu context kèm ví dụ ứng dụng.","tags":["context-engineering","rag","memory"],"level":"intermediate","source":"official","date":"2026-07-28","available":true},
-  {"id":"doc-ai-taxonomy","title":"AI, ML, Deep Learning, GenAI và LLM","summary":"Sơ đồ quan hệ các khái niệm nền tảng trong hệ thống AI.","tags":["ai","ml","genai","llm"],"level":"beginner","source":"official","date":"2026-07-22","available":true},
-  {"id":"doc-tool-calling","title":"Tool Calling Flow","summary":"Sơ đồ request, model chọn tool, thực thi và gửi kết quả lại model.","tags":["tool-calling","agent","flow"],"level":"intermediate","source":"official","date":"2026-07-25","available":true},
-  {"id":"doc-foundation","title":"Foundation — LLM hoạt động thế nào","summary":"Tài liệu nền tảng về transformer, attention, token và sinh văn bản.","tags":["foundation","transformer","attention"],"level":"beginner","source":"official","date":"2026-07-22","available":true},
-  {"id":"doc-prompt-beginner","title":"Prompt Engineering cho người mới","summary":"Cấu trúc instruction, context, input và output format với ví dụ.","tags":["prompt-engineering","beginner"],"level":"beginner","source":"community","date":"2026-07-26","available":true},
-  {"id":"doc-ai-spec-template","title":"Template AI Spec chính thức","summary":"Khung 9 phần: evidence, impact, design, failure, eval, assignment và changelog.","tags":["ai-spec","cp4","template"],"level":"all","source":"official","date":"2026-07-30","available":true},
-  {"id":"doc-api-latest","title":"API Integration Guide 2026","summary":"Hướng dẫn tích hợp API phiên bản hiện hành, authentication và error handling.","tags":["api","integration","latest"],"level":"intermediate","source":"official","date":"2026-07-30","available":true},
-  {"id":"doc-agent-advanced","title":"Advanced Agent Orchestration","summary":"Routing, orchestrator-worker và multi-agent cho người đã vững LLM.","tags":["agent","orchestration","advanced"],"level":"advanced","source":"community","date":"2026-07-27","available":true},
-  {"id":"doc-deleted","title":"Tài liệu cũ đã ngừng cung cấp","summary":"Metadata còn lại của một tài liệu đã bị xóa.","tags":["legacy"],"level":"intermediate","source":"community","date":"2025-01-01","available":false}
+  {
+    "id": "doc-agent-criteria",
+    "title": "4 tiêu chí: Khi nào nên dùng AI Agent?",
+    "summary": "Bốn tiêu chí đánh giá bài toán có cần agent hay chỉ cần workflow đơn giản.",
+    "tags": [
+      "agent",
+      "problem-selection"
+    ],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-25",
+    "available": true,
+    "content": "4 ti?u ch?: Khi n?o n?n d?ng AI Agent?\n\nKh?ng ph?i b?i to?n n?o c?ng c?n agent. N?n c?n nh?c agent khi nhi?m v? c? m?c ti?u r? nh?ng ???ng ?i linh ho?t, c?n nhi?u b??c quan s?t v? h?nh ??ng, c?n g?i tool ho?c truy c?p ngu?n d? li?u ngo?i, v? c? ti?u ch? ki?m tra k?t qu?. N?u lu?ng x? l? c? ??nh, ?t nh?nh, ??u v?o ??n gi?n v? kh?ng c?n quy?t ??nh ??ng th? workflow truy?n th?ng th??ng ??. Agent ph? h?p v?i c?c t?c v? nh? t?m ki?m c? ki?m ch?ng, h? tr? ph?n t?ch, l?p k? ho?ch nhi?u b??c ho?c t? ch?n c?ng c?. R?i ro ch?nh l? agent c? th? g?i tool sai, l?p v? h?n, b?a k?t qu? ho?c kh?ng bi?t khi n?o n?n d?ng. V? v?y c?n gi?i h?n s? b??c, log tool call, validate output v? thi?t k? failure mode."
+  },
+  {
+    "id": "doc-day5-summary",
+    "title": "Tóm tắt Day 5 — Thiết kế sản phẩm AI",
+    "summary": "Pain, evidence, automation, failure modes, golden set và validation.",
+    "tags": [
+      "day5",
+      "ai-product",
+      "summary"
+    ],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-29",
+    "available": true
+  },
+  {
+    "id": "doc-context-keywords",
+    "title": "Context Engineering Cheat Sheet",
+    "summary": "Keyword cần nhớ về context window, memory injection, retrieval và compression.",
+    "tags": [
+      "context-engineering",
+      "keywords",
+      "cheat-sheet"
+    ],
+    "level": "beginner",
+    "source": "community",
+    "date": "2026-07-28",
+    "available": true,
+    "content": "Context Engineering Cheat Sheet\n\nContext engineering l? c?ch thi?t k?, ch?n l?c v? qu?n l? th?ng tin ??a v?o context window ?? m? h?nh tr? l?i ??ng vi?c h?n. B?n nh?m thao t?c quan tr?ng l? write, select, compress v? isolate. Write ngh?a l? ghi l?i th?ng tin b?n v?ng nh? y?u c?u, tr?ng th?i, memory ho?c k?t qu? trung gian. Select ngh?a l? ch?n ??ng ph?n d? li?u c?n ??a v?o prompt, th??ng th?ng qua retrieval, filter theo metadata ho?c ch?n ?o?n li?n quan nh?t. Compress ngh?a l? r?t g?n l?ch s? ho?c t?i li?u d?i th?nh b?n t?m t?t gi? l?i quy?t ??nh, r?ng bu?c v? d? ki?n quan tr?ng. Isolate ngh?a l? t?ch c?c lu?ng th?ng tin ho?c t?c v? ?? tr?nh nhi?u, v? d? t?ch context c?a t?ng agent ho?c t?ng b??c x? l?. Khi context qu? d?i, n?n ?u ti?n th?ng tin c? c?n c?, m?i, li?n quan tr?c ti?p ??n c?u h?i v? lo?i b? n?i dung tr?ng l?p."
+  },
+  {
+    "id": "doc-llm-beginner",
+    "title": "LLM nhập môn — Bài đọc dễ tiếp thu",
+    "summary": "Giải thích LLM, token, xác suất và giới hạn bằng ngôn ngữ cho người mới.",
+    "tags": [
+      "llm",
+      "foundation",
+      "beginner"
+    ],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-22",
+    "available": true,
+    "content": "LLM nh?p m?n\n\nLLM l? m? h?nh ng?n ng? l?n h?c t? l??ng v?n b?n r?t l?n ?? d? ?o?n token ti?p theo. Token c? th? l? m?t t?, m?t ph?n c?a t? ho?c k? t? t?y tokenizer. Khi nh?n prompt, model chuy?n v?n b?n th?nh token, t?nh x?c su?t cho c?c token ti?p theo, r?i sinh c?u tr? l?i t?ng b??c. LLM kh?ng c? hi?u bi?t ch?c ch?n nh? c? s? d? li?u; n? t?o c?u tr? l?i d?a tr?n x?c su?t v? ng? c?nh ???c cung c?p. V? v?y ng??i d?ng c?n cung c?p instruction r?, context ??, ??nh d?ng output mong mu?n v? ki?m tra l?i ngu?n khi c?u tr? l?i c? ?nh h??ng quan tr?ng. Gi?i h?n th??ng g?p c?a LLM g?m hallucination, hi?u sai y?u c?u m? h?, ph? thu?c context v? kh? ??m b?o lu?n ??ng ? m?i t?nh hu?ng."
+  },
+  {
+    "id": "doc-context-strategies",
+    "title": "Write, Select, Compress, Isolate",
+    "summary": "Giải thích bốn chiến lược tối ưu context kèm ví dụ ứng dụng.",
+    "tags": [
+      "context-engineering",
+      "rag",
+      "memory"
+    ],
+    "level": "intermediate",
+    "source": "official",
+    "date": "2026-07-28",
+    "available": true,
+    "content": "Write, Select, Compress, Isolate\n\nWrite l? chi?n l??c ??a th?ng tin quan tr?ng ra kh?i tr? nh? t?m c?a model b?ng c?ch ghi v?o state, scratchpad, log ho?c memory. Select l? chi?n l??c l?y ??ng th?ng tin c?n thi?t t? kho d? li?u thay v? nh?i to?n b? d? li?u v?o prompt. Compress l? chi?n l??c t?m t?t ho?c c? ??c context d?i ?? gi? l?i ? ch?nh, quy?t ??nh v? b?ng ch?ng. Isolate l? chi?n l??c chia nh? kh?ng gian l?m vi?c, v? d? m?i agent ho?c m?i b??c ch? th?y ph?n context c?n cho nhi?m v? c?a n?. B?n chi?n l??c n?y th??ng ?i c?ng nhau trong h? th?ng RAG, agent loop v? workflow AI c? nhi?u b??c."
+  },
+  {
+    "id": "doc-ai-taxonomy",
+    "title": "AI, ML, Deep Learning, GenAI và LLM",
+    "summary": "Sơ đồ quan hệ các khái niệm nền tảng trong hệ thống AI.",
+    "tags": [
+      "ai",
+      "ml",
+      "genai",
+      "llm"
+    ],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-22",
+    "available": true
+  },
+  {
+    "id": "doc-tool-calling",
+    "title": "Tool Calling Flow",
+    "summary": "Sơ đồ request, model chọn tool, thực thi và gửi kết quả lại model.",
+    "tags": [
+      "tool-calling",
+      "agent",
+      "flow"
+    ],
+    "level": "intermediate",
+    "source": "official",
+    "date": "2026-07-25",
+    "available": true,
+    "content": "Tool Calling Flow\n\nTool calling l? lu?ng trong ?? model kh?ng t? l?m m?i vi?c m? ch?n m?t function/tool ph? h?p, t?o arguments c? c?u tr?c, backend th?c thi tool, r?i g?i k?t qu? tool l?i cho model. M?t v?ng c? b?n g?m: user g?i y?u c?u, model quy?t ??nh c? c?n tool hay kh?ng, model ph?t functionCall, server ch?y function th?t, server g?i functionResponse, model d?ng k?t qu? ?? ?? tr? l?i cu?i c?ng. Tool calling gi?p model truy c?p d? li?u m?i, t?nh to?n ch?nh x?c ho?c thao t?c h? th?ng. Backend v?n ph?i validate t?n tool, arguments, quy?n truy c?p v? output v? model c? th? g?i sai ho?c thi?u tham s?."
+  },
+  {
+    "id": "doc-foundation",
+    "title": "Foundation — LLM hoạt động thế nào",
+    "summary": "Tài liệu nền tảng về transformer, attention, token và sinh văn bản.",
+    "tags": [
+      "foundation",
+      "transformer",
+      "attention"
+    ],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-22",
+    "available": true,
+    "content": "Foundation - LLM ho?t ??ng th? n?o\n\nTransformer d?ng attention ?? m? h?nh xem x?t quan h? gi?a c?c token trong context. V?n b?n ??u v?o ???c t?ch th?nh token, chuy?n th?nh vector, ?i qua nhi?u l?p t?nh to?n r?i sinh ph?n ph?i x?c su?t cho token ti?p theo. Attention gi?p model c?n nh?c token n?o trong context li?n quan h?n khi t?o c?u tr? l?i. LLM h?u ?ch cho sinh v?n b?n, t?m t?t, ph?n lo?i, h?i ??p v? h? tr? l?p tr?nh, nh?ng c?n prompt r?, d? li?u ngu?n v? ki?m ch?ng v? model c? th? sinh th?ng tin nghe h?p l? nh?ng sai."
+  },
+  {
+    "id": "doc-prompt-beginner",
+    "title": "Prompt Engineering cho người mới",
+    "summary": "Cấu trúc instruction, context, input và output format với ví dụ.",
+    "tags": [
+      "prompt-engineering",
+      "beginner"
+    ],
+    "level": "beginner",
+    "source": "community",
+    "date": "2026-07-26",
+    "available": true,
+    "content": "Prompt Engineering cho ng??i m?i\n\nM?t prompt t?t th??ng c? b?n ph?n: instruction, context, input v? output format. Instruction n?i model c?n l?m g?. Context cung c?p d? ki?n v? r?ng bu?c. Input l? d? li?u c? th? c?a l?n ch?y. Output format m? t? c?u tr?c mong mu?n, v? d? bullet list, JSON ho?c b?ng. Ng??i m?i n?n vi?t y?u c?u r?, n?u vai tr? n?u c?n, th?m v? d? khi output kh?, v? ki?m tra l?i c?u tr? l?i thay v? tin tuy?t ??i."
+  },
+  {
+    "id": "doc-ai-spec-template",
+    "title": "Template AI Spec chính thức",
+    "summary": "Khung 9 phần: evidence, impact, design, failure, eval, assignment và changelog.",
+    "tags": [
+      "ai-spec",
+      "cp4",
+      "template"
+    ],
+    "level": "all",
+    "source": "official",
+    "date": "2026-07-30",
+    "available": true,
+    "content": "Template AI Spec ch?nh th?c\n\nAI Spec l? t?i li?u trung t?m m? t? b?i to?n, b?ng ch?ng, impact, l?t c?t prototype, thi?t k? AI, failure modes, eval, validation v? ph?n c?ng. M?t spec t?t kh?ng ch? n?i ? t??ng m? ph?i cho th?y v? sao v?n ?? ??ng l?m, ng??i d?ng n?o b? ?nh h??ng, gi?i ph?p AI can thi?p ? ?i?m n?o v? ?o th? n?o ?? bi?t c? t?t h?n. Spec c?n c? golden set, ti?u ch? pass/fail, r?i ro, guardrails v? changelog quy?t ??nh."
+  },
+  {
+    "id": "doc-api-latest",
+    "title": "API Integration Guide 2026",
+    "summary": "Hướng dẫn tích hợp API phiên bản hiện hành, authentication và error handling.",
+    "tags": [
+      "api",
+      "integration",
+      "latest"
+    ],
+    "level": "intermediate",
+    "source": "official",
+    "date": "2026-07-30",
+    "available": true
+  },
+  {
+    "id": "doc-agent-advanced",
+    "title": "Advanced Agent Orchestration",
+    "summary": "Routing, orchestrator-worker và multi-agent cho người đã vững LLM.",
+    "tags": [
+      "agent",
+      "orchestration",
+      "advanced"
+    ],
+    "level": "advanced",
+    "source": "community",
+    "date": "2026-07-27",
+    "available": true
+  },
+  {
+    "id": "doc-deleted",
+    "title": "Tài liệu cũ đã ngừng cung cấp",
+    "summary": "Metadata còn lại của một tài liệu đã bị xóa.",
+    "tags": [
+      "legacy"
+    ],
+    "level": "intermediate",
+    "source": "community",
+    "date": "2025-01-01",
+    "available": false
+  }
 ]

@@ -1,5 +1,19 @@
 # VShare AI Search Prototype
 
+## Chạy demo local không cần Firebase
+
+Chế độ này lưu metadata demo vào `codebase/data/local-demo.json` và lưu file upload vào `codebase/uploads`. Không cần Firestore/Firebase Storage.
+
+```powershell
+npm.cmd install
+$env:DATA_SOURCE="local"
+$env:ENABLE_MOCK_AI="true"
+$env:JWT_SECRET="01234567890123456789012345678901"
+npm.cmd start
+```
+
+Mở `http://localhost:3000`, đăng ký một tài khoản bất kỳ rồi upload tài liệu. File `.txt` và `.pdf` sẽ được trích xuất text vào trường `content` để agent có thể tóm tắt/hỏi đáp trong demo. PDF seed trong `backend/docs` cũng được lazy-extract khi user mở hoặc hỏi tài liệu lần đầu. Các định dạng DOCX/PPTX/XLSX/ZIP hiện chỉ lưu file và metadata.
+
 ## Chạy mock để kiểm tra UI
 
 ```powershell
@@ -88,3 +102,5 @@ Các API chính:
 Tệp upload mới được giữ trong `codebase/uploads` khi chạy local. Khi deploy lâu
 dài, cấu hình Firebase Storage hoặc dịch vụ object storage để tệp không mất khi
 máy chủ được tạo lại.
+
+

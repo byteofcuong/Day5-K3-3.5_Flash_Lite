@@ -1,5 +1,6 @@
-import jwt from "jsonwebtoken";
+﻿import jwt from "jsonwebtoken";
 import { getSession, getUser } from "./firebase.js";
+import { getLocalSession, getLocalUser } from "./local-store.js";
 
 function secret() {
   if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
@@ -21,7 +22,11 @@ export async function requireAuth(request, response, next) {
     const header = request.headers.authorization || "";
     if (!header.startsWith("Bearer ")) return response.status(401).json({ error: "Bạn cần đăng nhập." });
     const payload = jwt.verify(header.slice(7), secret(), { issuer: "vshare-api", audience: "vshare-web" });
-    const [session, user] = await Promise.all([getSession(payload.sid), getUser(payload.sub)]);
+    const useFirebaseData = process.env.DATA_SOURCE === "firebase";
+    const [session, user] = await Promise.all([
+      useFirebaseData ? getSession(payload.sid) : getLocalSession(payload.sid),
+      useFirebaseData ? getUser(payload.sub) : getLocalUser(payload.sub),
+    ]);
     if (!session || session.revoked || new Date(session.expiresAt) <= new Date()) {
       return response.status(401).json({ error: "Phiên đăng nhập đã hết hạn hoặc bị thu hồi." });
     }

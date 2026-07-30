@@ -16,7 +16,6 @@
 
     <nav class="tabs">
       <button class="tab active" data-tab="feed">Bảng tin</button>
-      <button class="tab" data-tab="ai-search">✨ Tìm bằng AI</button>
       <button class="tab protected" data-tab="create">Đăng tài liệu</button>
       <button class="tab protected" data-tab="my-docs">Tài liệu của tôi</button>
     </nav>
@@ -28,12 +27,6 @@
       </aside>
       <div class="filters"><input id="feed-search" placeholder="Tìm theo tiêu đề, mô tả hoặc tag..."><select id="category-filter"><option>Tất cả</option><option>Tài liệu</option><option>Kiến thức</option><option>Công cụ</option><option>Khác</option></select></div>
       <p id="feed-count" class="caption"></p><div id="feed-list" class="stack"></div>
-    </section>
-
-    <section id="ai-search" class="panel">
-      <div class="ai-intro"><span class="ai-badge">✨ AI Search</span><h2>Bạn đang cần học liệu gì?</h2><p>Agent chỉ tìm trong kho tài liệu VShare và giải thích căn cứ cho từng gợi ý.</p></div>
-      <form id="search-form" class="search-row"><input id="query" maxlength="500" placeholder="Ví dụ: Tài liệu ReAct cho người mới" required><button class="primary">Tìm tài liệu</button></form>
-      <div id="status"></div><div id="results" class="stack"></div>
     </section>
 
     <section id="create" class="panel">
@@ -49,6 +42,10 @@
     </section>
 
     <section id="my-docs" class="panel"><h2>Tài liệu của tôi</h2><div id="my-list" class="stack"></div></section>
+    <section id="reader" class="panel reader-panel">
+      <button id="reader-back" class="outline" type="button">← Quay lại bảng tin</button>
+      <div id="reader-body"></div>
+    </section>
 
     <dialog id="auth-dialog">
       <button class="close" data-close>×</button>
@@ -65,6 +62,30 @@
     <dialog id="detail"><button class="close" data-detail-close>×</button><div id="detail-body"></div></dialog>
     <footer>VShare · Kết quả AI cần được kiểm tra qua nguồn tài liệu</footer>
   </main>
+
+  <aside id="agent-widget" class="agent-widget" aria-label="VShare AI Agent">
+    <section id="agent-panel" class="agent-panel hidden" aria-live="polite">
+      <div class="agent-head">
+        <div><span class="eyebrow">AI AGENT</span><h2>Hỏi tài liệu VShare</h2></div>
+        <button id="agent-close" class="close" type="button" aria-label="Đóng AI Agent">×</button>
+      </div>
+      <div id="agent-status" class="agent-status"><p class="caption">Agent chỉ dùng nguồn trong kho VShare.</p></div>
+      <div id="agent-context" class="agent-context hidden"></div>
+      <div id="agent-quick-actions" class="agent-quick-actions hidden">
+        <button type="button" data-agent-prompt="Tóm tắt tài liệu này">Tóm tắt</button>
+        <button type="button" data-agent-prompt="Giải thích các ý chính theo cách dễ hiểu">Giải thích</button>
+        <button type="button" data-agent-prompt="Tạo câu hỏi ôn tập từ tài liệu này">Ôn tập</button>
+      </div>
+      <div id="agent-results" class="agent-results"></div>
+      <form id="agent-form" class="agent-form">
+        <input id="agent-query" maxlength="500" placeholder="Hỏi về tài liệu, tóm tắt, hoặc gợi ý lộ trình..." required>
+        <button class="primary" type="submit">Gửi</button>
+      </form>
+    </section>
+    <button id="agent-fab" class="agent-fab" type="button" aria-label="Mở AI Agent">AI</button>
+  </aside>
   <script type="module" src="/app.js"></script>
 </body>
 </html>
+
+
