@@ -2,105 +2,55 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VShare</title>
-  <link rel="stylesheet" href="/styles.css">
+  <meta name="description" content="VShare — tìm học liệu có căn cứ trong kho tài liệu cộng đồng.">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="/assets/logo-cat.jpg">
+  <link rel="stylesheet" href="/styles/tokens.css">
+  <link rel="stylesheet" href="/styles/base.css">
+  <link rel="stylesheet" href="/styles/layout.css">
+  <link rel="stylesheet" href="/styles/components.css">
 </head>
 <body>
-  <main class="shell">
-    <header class="topbar">
-      <div class="page-head"><h1><img src="/logo-cat.jpg" alt="VShare Cat Logo" class="cat-logo-img"> VShare</h1><p>Chia sẻ tài liệu và kết nối cộng đồng</p></div>
-      <div id="guest-actions"><button class="outline" data-auth="login">Đăng nhập</button><button class="primary" data-auth="register">Đăng ký</button></div>
-      <div id="user-actions" class="hidden"><span id="user-name"></span><button id="logout" class="outline">Đăng xuất</button></div>
-    </header>
+  <!--
+    Application shell only. Every screen is rendered by a view module into
+    [data-outlet]; markup lives next to the behaviour that owns it.
+  -->
+  <div class="app">
+    <!-- Mobile-only bar; the sidebar becomes a drawer below 900px. -->
+    <div class="topbar">
+      <button type="button" class="topbar__menu" data-sidebar-toggle aria-label="Mở điều hướng"></button>
+      <a class="topbar__brand" href="#/feed">
+        <img class="brand__mark" src="/assets/logo-cat.jpg" alt="">
+        <span>VShare</span>
+      </a>
+    </div>
 
-    <nav class="tabs">
-      <button class="tab active" data-tab="feed">Bảng tin</button>
-      <button class="tab" data-tab="ai-search">✨ Tìm bằng AI</button>
-      <button class="tab" data-tab="ai-chat">💬 Chatbot AI</button>
-      <button class="tab" data-tab="community-rooms">👥 Phòng Chat Chủ Đề</button>
-      <button class="tab protected" data-tab="create">Đăng tài liệu</button>
-      <button class="tab protected" data-tab="my-docs">Tài liệu của tôi</button>
-    </nav>
+    <div class="sidebar__scrim" data-sidebar-scrim hidden></div>
 
-    <section id="feed" class="panel active">
-      <aside class="contributors">
-        <div class="section-heading"><div><span class="eyebrow">CỘNG ĐỒNG</span><h2>Người đóng góp tích cực</h2></div><span class="caption">Xếp theo bài đã đăng</span></div>
-        <div id="contributors-list" class="contributors-list"><p class="caption">Đang tải…</p></div>
-      </aside>
-      <div class="filters"><input id="feed-search" placeholder="Tìm theo tiêu đề, mô tả hoặc tag..."><select id="category-filter"><option>Tất cả</option><option>Tài liệu</option><option>Kiến thức</option><option>Công cụ</option><option>Khác</option></select></div>
-      <p id="feed-count" class="caption"></p><div id="feed-list" class="stack"></div>
-    </section>
+    <aside class="sidebar" data-sidebar>
+      <a class="brand" href="#/feed">
+        <img class="brand__mark" src="/assets/logo-cat.jpg" alt="">
+        <span class="brand__text">
+          <strong class="brand__name">VShare</strong>
+          <small class="brand__tagline">Kho học liệu cộng đồng</small>
+        </span>
+      </a>
 
-    <section id="ai-search" class="panel">
-      <div class="ai-intro"><span class="ai-badge">✨ AI Search</span><h2>Bạn đang cần học liệu gì?</h2><p>Agent chỉ tìm trong kho tài liệu VShare và giải thích căn cứ cho từng gợi ý.</p></div>
-      <form id="search-form" class="search-row"><input id="query" maxlength="500" placeholder="Ví dụ: Tài liệu ReAct cho người mới" required><button class="primary">Tìm tài liệu</button></form>
-      <div id="status"></div><div id="results" class="stack"></div>
-    </section>
+      <nav class="nav" data-nav aria-label="Điều hướng chính"></nav>
 
-    <section id="ai-chat" class="panel">
-      <div class="ai-intro"><span class="ai-badge">💬 VShare Chatbot</span><h2>Hỏi đáp & Tra cứu cùng AI Trợ Lý</h2><p>Hỏi về bài học, tra cứu tài liệu hoặc thảo luận kiến thức với VShare Assistant.</p></div>
-      <div id="chat-box" class="chat-container">
-        <div id="chat-messages" class="chat-messages"><div class="chat-msg assistant">Xin chào! Mình là VShare Chatbot. Bạn cần hỗ trợ gì về học liệu hoặc bài học hôm nay?</div></div>
-        <form id="chat-form" class="chat-form">
-          <input id="chat-input" placeholder="Nhập câu hỏi của bạn..." required>
-          <button class="primary">Gửi</button>
-        </form>
+      <div class="sidebar__foot" data-account></div>
+    </aside>
+
+    <main class="main" data-outlet>
+      <div class="boot">
+        <span class="spinner"></span>
+        <p>Đang khởi động…</p>
       </div>
-    </section>
+    </main>
+  </div>
 
-    <section id="community-rooms" class="panel">
-      <div class="ai-intro"><span class="ai-badge">👥 Community Rooms</span><h2>Phòng Chat Thảo Luận Theo Chủ Đề</h2><p>Kết nối cùng các học viên đang nghiên cứu chung chủ đề bài học và tài liệu VShare.</p></div>
-      <div class="community-grid">
-        <aside class="room-sidebar">
-          <h3>Các Chủ Đề Nổi Bật</h3>
-          <div id="room-list" class="room-list"><p class="caption">Đang tải phòng chat...</p></div>
-        </aside>
-        <div class="room-chat-area">
-          <div id="active-room-header" class="active-room-header">
-            <h3 id="room-title">Chọn phòng chat để bắt đầu</h3>
-            <p id="room-desc" class="caption">Thảo luận cùng cộng đồng VShare</p>
-          </div>
-          <div id="room-messages" class="chat-messages">
-            <div class="chat-msg assistant">Vui lòng chọn một phòng chat bên trái để tham gia thảo luận.</div>
-          </div>
-          <form id="room-chat-form" class="chat-form">
-            <input id="room-chat-input" placeholder="Nhập nội dung chia sẻ với mọi người..." required disabled>
-            <button class="primary" id="room-send-btn" disabled>Gửi tin nhắn</button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <section id="create" class="panel">
-      <h2>Đăng tài liệu của bạn</h2>
-      <form id="create-form" class="create-form">
-        <label>Tiêu đề<input name="title" maxlength="150" required></label>
-        <label>Mô tả<textarea name="summary" minlength="10" maxlength="2000" rows="5" required></textarea></label>
-        <div class="form-grid"><label>Danh mục<select name="category"><option>Tài liệu</option><option>Kiến thức</option><option>Công cụ</option><option>Khác</option></select></label><label>Trình độ<select name="level"><option value="all">Mọi trình độ</option><option value="beginner">Cơ bản</option><option value="intermediate">Trung cấp</option><option value="advanced">Nâng cao</option></select></label></div>
-        <label>Tags, phân cách bằng dấu phẩy<input name="tags" placeholder="ai, react, agent"></label>
-        <label>Tệp đính kèm, tối đa 20 MB<input name="file" type="file" accept=".pdf,.docx,.xlsx,.pptx,.txt,.png,.jpg,.jpeg,.zip" required></label>
-        <button class="primary">Đăng tài liệu</button>
-      </form><div id="create-status"></div>
-    </section>
-
-    <section id="my-docs" class="panel"><h2>Tài liệu của tôi</h2><div id="my-list" class="stack"></div></section>
-
-    <dialog id="auth-dialog">
-      <button class="close" data-close>×</button>
-      <h2 id="auth-title">Đăng nhập</h2>
-      <form id="auth-form">
-        <label id="name-field" class="hidden">Họ tên<input name="displayName" minlength="2" maxlength="60"></label>
-        <label>Email<input name="email" type="email" required></label>
-        <label>Mật khẩu<input name="password" type="password" minlength="8" required></label>
-        <button class="primary full" id="auth-submit">Đăng nhập</button>
-      </form><div id="auth-status"></div>
-      <p class="demo">Tài khoản demo: <code>viet@vshare.local</code> / <code>VShare@2026</code></p>
-    </dialog>
-
-    <dialog id="detail"><button class="close" data-detail-close>×</button><div id="detail-body"></div></dialog>
-    <footer>VShare · Kết quả AI cần được kiểm tra qua nguồn tài liệu</footer>
-  </main>
-  <script type="module" src="/app.js"></script>
+  <script type="module" src="/js/main.js"></script>
 </body>
 </html>

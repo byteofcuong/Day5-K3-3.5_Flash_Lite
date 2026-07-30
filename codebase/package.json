@@ -1,6 +1,6 @@
 {
   "name": "vshare-ai-search-prototype",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,13 +8,12 @@
     "start": "node src/server.js",
     "test": "node --test",
     "eval": "node scripts/run-eval.js",
-    "firebase:seed": "node scripts/seed-firebase.js"
+    "seed": "node scripts/seed.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "firebase-admin": "^13.4.0",
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.2.0"
   }

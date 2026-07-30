@@ -3,3 +3,5 @@ node_modules/
 traces/*.jsonl
 uploads/*
 !uploads/.gitkeep
+data/db.json
+data/db.json.*.tmp

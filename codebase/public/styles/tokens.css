@@ -1,0 +1,165 @@
+/*
+ * Design tokens — the single source for every colour, size and motion value.
+ *
+ * The system is built on one brand gradient (indigo → violet) plus a set of
+ * per-section hues. Each area of the app owns a hue, which shows up in its nav
+ * item, its page icon and its accents — so a screen is recognisable before you
+ * read a word of it.
+ *
+ * Surfaces stay quiet (white cards on an off-white canvas); colour is spent on
+ * actions, identity and state.
+ */
+:root {
+  /* --- Neutral ramp (cool) --------------------------------------------- */
+  --gray-0:   #ffffff;
+  --gray-50:  #f7f8fa;
+  --gray-100: #f1f2f6;
+  --gray-150: #e9ebf0;
+  --gray-200: #e2e5eb;
+  --gray-300: #d0d5de;
+  --gray-400: #a2aab9;
+  --gray-500: #6b7280;
+  --gray-600: #4b5261;
+  --gray-900: #12151c;
+
+  /* --- Brand ------------------------------------------------------------ */
+  --brand-50:  #eef2ff;
+  --brand-200: #c7d2fe;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+
+  --grad-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #a855f7 100%);
+  --grad-brand-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #9333ea 100%);
+  --grad-text: linear-gradient(120deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+
+  /* --- Section hues ------------------------------------------------------
+     Each solid shade clears WCAG AA on white; `-soft` is its tint background.
+     Names match route ids so [data-hue] can map them mechanically below. */
+  --hue-feed:     #4f46e5;  --hue-feed-soft:     #eef2ff;
+  --hue-search:   #9333ea;  --hue-search-soft:   #f9f0ff;
+  --hue-chat:     #0e7490;  --hue-chat-soft:     #ecfeff;
+  --hue-rooms:    #b45309;  --hue-rooms-soft:    #fff7ed;
+  --hue-upload:   #047857;  --hue-upload-soft:   #ecfdf5;
+  --hue-my-docs:  #be185d;  --hue-my-docs-soft:  #fdf2f8;
+
+  /* Hue of the current screen. Set on <body> by the router, and on each nav
+     link, so navigation and page chrome always agree. */
+  --hue: var(--brand-600);
+  --hue-soft: var(--brand-50);
+
+  /* --- Surfaces ---------------------------------------------------------- */
+  --bg-app: var(--gray-50);
+  --bg-surface: var(--gray-0);
+  --bg-sunken: var(--gray-100);
+  --bg-hover: var(--gray-100);
+
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+
+  --scrim-light: rgb(255 255 255 / 65%);
+
+  /* --- Text -------------------------------------------------------------- */
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-600);
+  --text-tertiary: var(--gray-500);
+  --text-on-dark: var(--gray-0);
+  --text-on-dark-dim: rgb(255 255 255 / 72%);
+
+  /* --- Semantic ---------------------------------------------------------- */
+  --success: #047857;  --success-bg: #ecfdf5;  --success-border: #a7f3d0;
+  --warning: #b45309;  --warning-bg: #fffbeb;  --warning-border: #fcd9a4;
+  --danger:  #be123c;  --danger-bg:  #fff1f2;  --danger-border:  #fecdd3;
+
+  --confidence-high: #047857;
+  --confidence-medium: #b45309;
+  --confidence-low: var(--gray-400);
+  --grad-confidence-high: linear-gradient(90deg, #10b981, #047857);
+  --grad-confidence-medium: linear-gradient(90deg, #f59e0b, #b45309);
+
+  /* Podium tints for the top three contributors. */
+  --medal-gold: #b45309;
+  --medal-silver: #6b7280;
+  --medal-bronze: #9a5b2e;
+
+  /* Decorative colour wash behind the search hero. */
+  --glow-hero:
+    radial-gradient(38% 60% at 22% 40%, rgb(99 102 241 / 16%) 0%, transparent 70%),
+    radial-gradient(34% 55% at 78% 32%, rgb(168 85 247 / 15%) 0%, transparent 70%),
+    radial-gradient(30% 50% at 52% 68%, rgb(236 72 153 / 10%) 0%, transparent 70%);
+
+  /* --- Spacing ----------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 56px;
+  --space-10: 80px;
+
+  /* --- Radius ------------------------------------------------------------ */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 22px;
+  --radius-pill: 999px;
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-sans: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  --text-2xs: 0.6875rem;  /* 11 */
+  --text-xs:  0.75rem;    /* 12 */
+  --text-sm:  0.8125rem;  /* 13 */
+  --text-base:0.875rem;   /* 14 — body default */
+  --text-md:  0.9375rem;  /* 15 */
+  --text-lg:  1.0625rem;  /* 17 */
+  --text-xl:  1.25rem;    /* 20 */
+  --text-2xl: 1.5rem;     /* 24 */
+  --text-3xl: 2.125rem;   /* 34 */
+
+  --leading-tight: 1.22;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+
+  --tracking-tight: -0.02em;
+  --tracking-tighter: -0.035em;
+  --tracking-wide: 0.06em;
+
+  /* --- Elevation --------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgb(18 21 28 / 6%);
+  --shadow-sm: 0 1px 3px rgb(18 21 28 / 7%), 0 1px 2px rgb(18 21 28 / 4%);
+  --shadow-md: 0 8px 24px -8px rgb(18 21 28 / 16%), 0 2px 6px rgb(18 21 28 / 5%);
+  --shadow-lg: 0 32px 64px -16px rgb(18 21 28 / 26%), 0 4px 12px rgb(18 21 28 / 6%);
+  --shadow-brand: 0 8px 20px -6px rgb(99 102 241 / 45%);
+  --shadow-brand-hover: 0 12px 28px -8px rgb(99 102 241 / 55%);
+  --backdrop: rgb(18 21 28 / 45%);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --duration-fast: 130ms;
+  --duration: 200ms;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* --- Layout ------------------------------------------------------------ */
+  --sidebar-width: 252px;
+  --topbar-height: 58px;
+  --content-max: 780px;
+  --content-max-wide: 1180px;
+}
+
+/*
+ * Hue mapping. Any element carrying data-hue adopts that section's colour for
+ * itself and its descendants — used on <body> (the active screen) and on each
+ * nav link (so every item shows its own colour when active).
+ */
+[data-hue="feed"]    { --hue: var(--hue-feed);    --hue-soft: var(--hue-feed-soft); }
+[data-hue="search"]  { --hue: var(--hue-search);  --hue-soft: var(--hue-search-soft); }
+[data-hue="chat"]    { --hue: var(--hue-chat);    --hue-soft: var(--hue-chat-soft); }
+[data-hue="rooms"]   { --hue: var(--hue-rooms);   --hue-soft: var(--hue-rooms-soft); }
+[data-hue="upload"]  { --hue: var(--hue-upload);  --hue-soft: var(--hue-upload-soft); }
+[data-hue="my-docs"] { --hue: var(--hue-my-docs); --hue-soft: var(--hue-my-docs-soft); }
