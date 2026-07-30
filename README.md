@@ -1,96 +1,176 @@
-# Mini Hackathon AI — Batch 03
+# VShare
 
-**SPEC → Prototype → Demo.** Đây không phải cuộc thi code — đây là cuộc thi **tư duy sản phẩm AI**.
+VShare là MVP Streamlit để một cộng đồng khoảng 200 người đăng bài, chia sẻ
+tài liệu và tìm lại nội dung. Metadata bài viết được lưu trong Cloudflare D1;
+tệp được lưu riêng trong Cloudflare R2.
 
-- Thời lượng: **1,5 ngày** (một ngày build + một buổi demo)
-- Nhóm: **4-5 người** · zone tối đa 5 nhóm · thi theo lớp
+## Tính năng
 
-## Bắt đầu từ đâu?
+- Đăng bài có tên người đăng, tiêu đề, nội dung và danh mục.
+- Đính kèm PDF, DOCX, XLSX, PPTX, TXT, PNG, JPG hoặc ZIP, tối đa 20 MB.
+- Bảng tin mới nhất, tìm theo tiêu đề/nội dung, lọc danh mục và phân trang.
+- Tạo URL tải R2 có thời hạn 15 phút.
+- Thông báo lỗi thân thiện; không đưa secret hoặc URL tạm vào database.
 
-1. Đọc **`01-de-bai.md`** để chọn hướng và hiểu tiêu chí.
-2. Mở **`02-guide.md`** — hướng dẫn từng giai đoạn, đứng ở đâu đọc mục đó.
-3. Viết spec theo **`03-template-ai-spec.md`** — deliverable trung tâm của cả sự kiện.
-4. Đọc **`04-rubric.md`** ngay từ đầu — biết trước bài được chấm theo tiêu chí nào.
+Không thuộc phạm vi MVP: đăng nhập/phân quyền, bình luận, reaction, realtime,
+microservice và search engine riêng.
 
-| File / thư mục | Nội dung |
-|---|---|
-| `01-de-bai.md` | Đề bài 3 hướng · 5 tiêu chí nghiệm thu · ràng buộc chung |
-| `02-guide.md` | Hướng dẫn 5 giai đoạn: khám phá → spec → build → đo & validate → demo |
-| `03-template-ai-spec.md` | Template AI Spec (nộp 23:59 ngày 1) |
-| `04-rubric.md` | Rubric 100 điểm (25 nộp checkpoint + 75 chấm bài) + checklist xác minh 6 mốc |
-| `data/` | Dữ liệu thật đã ẩn danh: chatlog VLearn tutor + 6 transcript bài giảng bản sạch — dùng để tìm bằng chứng và xây golden set |
-| `tham-khao/` | JTBD Playbook (PDF) + worksheet JTBD đầy đủ — đọc khi muốn đào sâu |
+## Kiến trúc
 
-## Lịch — 6 mốc
+Streamlit chạy server-side, gọi trực tiếp Cloudflare D1 REST API và R2
+S3-compatible API. D1 chỉ giữ metadata và `file_key`; R2 giữ bytes của tệp.
 
-| Mốc | Khoá 3 | Khoá 4 |
-|---|---|---|
-| Khai mạc + phát đề | 09:00 ngày 1 | 14:00 ngày 1 |
-| CP1 · Chốt Canvas | 10:00 ngày 1 | 15:00 ngày 1 |
-| CP2 · Show được thứ bấm được | 12:00 ngày 1 | 17:00 ngày 1 |
-| CP3 · AI chạy thật + đo lượt đầu | 16:00 ngày 1 | 10:30 ngày 2 |
-| CP4 · Chốt tiến độ — spec nộp hạn cứng **23:59 ngày 1** | 17:30 ngày 1 | 12:00 ngày 2 |
-| CP5 · Xác minh + validation + dry run | 09:00 ngày 2 | 14:00 ngày 2 |
-| CP6 · Demo | 10:00 ngày 2 | 15:00 ngày 2 |
-
-Mỗi mốc cần show gì và được xác minh thế nào: xem bảng trong `04-rubric.md`.
-
-## Nộp bài
-
-Một repo nhóm, cấu trúc như sau. Spec chốt lúc 23:59 ngày 1; bản hoàn chỉnh trước CP6.
-
-```
-repo/
-├── README.md          ← thành viên (mã HV + tên) + phân công có tên từng phần
-├── spec.md            ← AI Spec theo 03-template-ai-spec.md
-├── demo-slides.pdf    ← slide 6 trang theo 02-guide.md §5.1
-├── codebase/          ← prototype (ghi rõ phần nào mock)
-├── eval/              ← golden set + bảng kết quả các lượt chạy
-├── validation/        ← feedback log từ vòng user test
-└── reflection/        ← mỗi người 1 file
+```text
+.
+├── .streamlit/
+│   ├── config.toml
+│   └── secrets.toml.example
+├── migrations/0001_initial.sql
+├── src/
+│   ├── config.py
+│   ├── models.py
+│   ├── services/
+│   │   ├── d1_service.py
+│   │   └── r2_service.py
+│   ├── ui/
+│   │   ├── feed_tab.py
+│   │   └── form_tab.py
+│   └── utils/helpers.py
+├── tests/
+├── app.py
+├── requirements.txt
+└── requirements-dev.txt
 ```
 
-## Chấm điểm
+## Yêu cầu
 
-Tổng **100 điểm = 25 điểm nộp checkpoint + 75 điểm chấm bài nộp**. Chi tiết từng ý điểm: `04-rubric.md`.
+- Python 3.10 trở lên.
+- Tài khoản Cloudflare có D1 và R2.
+- Cloudflare API token có quyền chạy truy vấn trên D1.
+- R2 access key có quyền đọc, ghi và xóa object trong bucket.
 
-**25 điểm nộp — mỗi checkpoint 5 điểm (CP1-CP5):** nộp đúng hạn → 5 điểm · nộp muộn → 0 điểm cho mốc đó. Mỗi thành viên nộp riêng, cả nhóm dùng chung một link repo.
+## Tạo D1 và R2
 
-**75 điểm chấm — trên artifact trong repo, mỗi con điểm trỏ về một file:**
+Có thể dùng Cloudflare dashboard hoặc Wrangler:
 
-| Khối | Điểm | Chấm trên file nào |
-|---|---|---|
-| R1 · Bằng chứng & impact | 15 | `spec.md` §1-§2 + log khảo sát/mining |
-| R2 · Lát cắt & thiết kế | 15 | `spec.md` §4 |
-| R3 · Chỗ khó & kịch bản rủi ro | 11 | `spec.md` §5-§6 |
-| R4 · Kiểm thử | 15 | `spec.md` §7 + `eval/` |
-| R5 · Prototype chạy được | 8 | `codebase/` + demo |
-| R6 · Validation với user | 8 | `validation/` |
-| R7 · Quy trình & repo | 3 | cấu trúc repo |
+```bash
+npx wrangler d1 create vshare
+npx wrangler r2 bucket create vshare
+```
 
-Ba điều nên biết trước khi làm:
+Ghi lại D1 database ID và Cloudflare account ID. Tạo một API token giới hạn cho
+D1 trong Cloudflare dashboard. Trong **R2 > Manage R2 API Tokens**, tạo access
+key chỉ cho bucket VShare với quyền Object Read & Write.
 
-- Điểm dựa trên **chuỗi quyết định và bằng chứng**, không dựa trên mức độ hoành tráng của sản phẩm.
-- Kết quả đo **ghi nhận trung thực** — kể cả khi không đạt mục tiêu nhóm tự đặt — vẫn được tính đủ điểm. Số liệu bị chỉnh sửa hoặc che giấu sẽ không được tính.
-- Reflection cá nhân chấm riêng theo rubric của khoá. Điểm vòng demo, chấm chéo trong zone và thưởng thêm (nếu có) theo thể lệ công bố lúc khai mạc.
+Không dùng Global API Key và không commit bất kỳ credential nào.
 
-## Luật chung
+## Cấu hình local
 
-1. Prototype có 3 mức **Sketch / Mock / Working** — mức nào cũng bắt buộc **≥1 lời gọi AI chạy thật**.
-2. **Vibe-coding rule:** dùng AI để build thoải mái, nhưng không giải thích được phần có tên mình thì phần đó 0 điểm (kiểm tra tại CP5).
-3. **Quality bar** chốt tại spec.md 23:59 ngày 1 và giữ nguyên sau đó.
-4. Chỉ dùng dữ liệu trong `data/` hoặc dữ liệu giả tự sinh — không dùng dữ liệu thật của người thật. Không commit API key.
-5. Tuân thủ **quy định bảo mật dữ liệu** bên dưới — đây là điều kiện để được cấp data.
+Tạo file local từ mẫu:
 
-## Bảo mật dữ liệu được cung cấp
+```bash
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+```
 
-Dữ liệu trong `data/` là dữ liệu thật của khoá học (đã ẩn danh), cấp riêng cho hackathon này. Khi nhận data, nhóm cam kết:
+Nội dung cần có:
 
-1. **Chỉ dùng trong phạm vi hackathon** — cho việc tìm bằng chứng, xây golden set và build prototype. Không dùng cho mục đích khác.
-2. **Không chia sẻ ra ngoài khoá học** — không đăng lên mạng xã hội, không gửi cho người ngoài, không đưa vào bất kỳ dataset hay repo công khai nào.
-3. **Không commit data pack vào repo nộp bài** — repo nhóm chỉ chứa trích dẫn ngắn để minh hoạ (vài dòng); golden set trích từ data ghi rõ mã đoạn/mã hội thoại thay vì dán nguyên văn dài.
-4. **Cẩn trọng khi đưa data vào công cụ ngoài** — chỉ đưa phần tối thiểu cần cho việc đang làm; lưu ý API/công cụ free tier có thể dùng dữ liệu để huấn luyện (xem `02-guide.md` §3.4).
-5. **Không cố suy ngược danh tính** từ dữ liệu đã ẩn danh ([học viên], mã U/C/T/M).
-6. Sau sự kiện, **xoá các bản sao data pack** khỏi máy cá nhân và các công cụ đã upload nếu ban tổ chức yêu cầu.
+```toml
+[cloudflare]
+account_id = "your-cloudflare-account-id"
+api_token = "your-d1-api-token"
+d1_database_id = "your-d1-database-id"
 
-Vi phạm được xử lý theo quy định của khoá và có thể ảnh hưởng trực tiếp đến điểm của nhóm.
+[r2]
+access_key_id = "your-r2-access-key-id"
+secret_access_key = "your-r2-secret-access-key"
+bucket_name = "vshare"
+```
+
+`.streamlit/secrets.toml` đã nằm trong `.gitignore`. File example chỉ chứa
+placeholder.
+
+## Chạy migration
+
+Migration không tự chạy khi Streamlit rerun. Chạy một lần cho từng môi trường:
+
+```bash
+npx wrangler d1 execute vshare --remote \
+  --file=migrations/0001_initial.sql
+```
+
+Nếu Wrangler không tìm thấy database theo tên, thêm `database_id` vào
+`wrangler.toml` hoặc dùng đúng binding/database name theo hướng dẫn mà lệnh
+`wrangler d1 create` trả về.
+
+## Cài và chạy local
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+streamlit run app.py
+```
+
+App mặc định mở tại `http://localhost:8501`. Nếu thiếu cấu hình, app dừng an
+toàn và liệt kê chính xác tên setting còn thiếu.
+
+## Chạy kiểm thử
+
+Network calls được mock; test không cần credential thật:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest
+python -m compileall -q app.py src tests
+```
+
+## Deploy Streamlit Community Cloud
+
+1. Đẩy repo lên GitHub nhưng kiểm tra chắc chắn không có
+   `.streamlit/secrets.toml`.
+2. Trong Streamlit Community Cloud, chọn repo, branch và entrypoint `app.py`.
+3. Mở **Advanced settings > Secrets**, dán cấu hình TOML ở trên với giá trị
+   production.
+4. Deploy, sau đó smoke test: đăng bài không file, đăng bài có file, tìm/lọc,
+   chuyển trang và tải file trên desktop lẫn mobile.
+5. Nếu Cloudflare giới hạn token theo IP, cho phép hạ tầng deploy hoặc bỏ giới
+   hạn IP cho token riêng của app, nhưng vẫn giữ quyền tối thiểu.
+
+Migration production phải được chạy thủ công trước deploy. Không thêm migration
+logic vào app.
+
+## Troubleshooting
+
+- **Thiếu cấu hình bắt buộc**: kiểm tra đúng section `[cloudflare]`, `[r2]` và
+  tên key trong file mẫu; restart Streamlit sau khi sửa secret.
+- **D1 trả 401/403**: token sai, hết hạn, sai account hoặc thiếu quyền D1.
+- **`no such table: posts`**: migration chưa chạy trên đúng remote database.
+- **Upload R2 bị 403**: access key không có Object Write hoặc bucket name sai.
+- **Tải file thất bại**: access key cần Object Read; URL chỉ có hạn 15 phút,
+  hãy tạo lại liên kết.
+- **File bị từ chối**: kiểm tra dung lượng tối đa 20 MB, extension và MIME type.
+  Trình duyệt/hệ điều hành đôi khi gán MIME type lạ; đổi sang file đúng định
+  dạng thay vì chỉ đổi đuôi.
+- **Bảng tin chưa cập nhật ngay**: tạo bài thành công sẽ xóa cache; các thay đổi
+  ghi ngoài app có thể cần tối đa 30 giây.
+
+Lỗi hiển thị cho người dùng cố ý không chứa token, secret hay presigned URL.
+Muốn debug sâu hơn, kiểm tra status/error trong Cloudflare dashboard và log
+server, không in object credential.
+
+## Architecture Rules for Codex
+
+- Giữ `app.py` chỉ làm page config, header, tabs và gọi hàm render; dưới 50 dòng.
+- UI chỉ chứa Streamlit widgets/layout. Network và storage nằm trong `services`.
+- `services` không import Streamlit; mọi HTTP request phải có timeout.
+- Cấu hình được đọc/validate tập trung trong `src/config.py`.
+- Model và validation dữ liệu nằm trong `src/models.py`; helper dùng chung phải
+  là hàm thuần.
+- Mọi input trong SQL phải đi qua `params`; không nối hoặc nội suy input vào SQL.
+  Chỉ các fragment SQL cố định do code kiểm soát được phép ghép.
+- D1 lưu `file_key`, không lưu presigned URL. Object key dùng UUID và filename
+  đã sanitize.
+- Nếu upload R2 xong nhưng ghi D1 thất bại, luôn cố xóa object vừa upload.
+- Migration có version và chỉ chạy thủ công, không chạy trong Streamlit rerun.
+- Không thêm auth phức tạp, Worker API, Docker, queue, Redis hay abstraction
+  nhiều tầng nếu yêu cầu sản phẩm chưa thay đổi.

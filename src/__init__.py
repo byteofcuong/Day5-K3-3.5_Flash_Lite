@@ -1,0 +1,2 @@
+"""VShare application package."""
+
