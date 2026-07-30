@@ -9,7 +9,7 @@
 <body>
   <main class="shell">
     <header class="topbar">
-      <div class="page-head"><h1>📚 VShare</h1><p>Chia sẻ tài liệu và kết nối cộng đồng</p></div>
+      <div class="page-head"><h1><img src="/logo-cat.jpg" alt="VShare Cat Logo" class="cat-logo-img"> VShare</h1><p>Chia sẻ tài liệu và kết nối cộng đồng</p></div>
       <div id="guest-actions"><button class="outline" data-auth="login">Đăng nhập</button><button class="primary" data-auth="register">Đăng ký</button></div>
       <div id="user-actions" class="hidden"><span id="user-name"></span><button id="logout" class="outline">Đăng xuất</button></div>
     </header>
@@ -17,6 +17,8 @@
     <nav class="tabs">
       <button class="tab active" data-tab="feed">Bảng tin</button>
       <button class="tab" data-tab="ai-search">✨ Tìm bằng AI</button>
+      <button class="tab" data-tab="ai-chat">💬 Chatbot AI</button>
+      <button class="tab" data-tab="community-rooms">👥 Phòng Chat Chủ Đề</button>
       <button class="tab protected" data-tab="create">Đăng tài liệu</button>
       <button class="tab protected" data-tab="my-docs">Tài liệu của tôi</button>
     </nav>
@@ -34,6 +36,40 @@
       <div class="ai-intro"><span class="ai-badge">✨ AI Search</span><h2>Bạn đang cần học liệu gì?</h2><p>Agent chỉ tìm trong kho tài liệu VShare và giải thích căn cứ cho từng gợi ý.</p></div>
       <form id="search-form" class="search-row"><input id="query" maxlength="500" placeholder="Ví dụ: Tài liệu ReAct cho người mới" required><button class="primary">Tìm tài liệu</button></form>
       <div id="status"></div><div id="results" class="stack"></div>
+    </section>
+
+    <section id="ai-chat" class="panel">
+      <div class="ai-intro"><span class="ai-badge">💬 VShare Chatbot</span><h2>Hỏi đáp & Tra cứu cùng AI Trợ Lý</h2><p>Hỏi về bài học, tra cứu tài liệu hoặc thảo luận kiến thức với VShare Assistant.</p></div>
+      <div id="chat-box" class="chat-container">
+        <div id="chat-messages" class="chat-messages"><div class="chat-msg assistant">Xin chào! Mình là VShare Chatbot. Bạn cần hỗ trợ gì về học liệu hoặc bài học hôm nay?</div></div>
+        <form id="chat-form" class="chat-form">
+          <input id="chat-input" placeholder="Nhập câu hỏi của bạn..." required>
+          <button class="primary">Gửi</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="community-rooms" class="panel">
+      <div class="ai-intro"><span class="ai-badge">👥 Community Rooms</span><h2>Phòng Chat Thảo Luận Theo Chủ Đề</h2><p>Kết nối cùng các học viên đang nghiên cứu chung chủ đề bài học và tài liệu VShare.</p></div>
+      <div class="community-grid">
+        <aside class="room-sidebar">
+          <h3>Các Chủ Đề Nổi Bật</h3>
+          <div id="room-list" class="room-list"><p class="caption">Đang tải phòng chat...</p></div>
+        </aside>
+        <div class="room-chat-area">
+          <div id="active-room-header" class="active-room-header">
+            <h3 id="room-title">Chọn phòng chat để bắt đầu</h3>
+            <p id="room-desc" class="caption">Thảo luận cùng cộng đồng VShare</p>
+          </div>
+          <div id="room-messages" class="chat-messages">
+            <div class="chat-msg assistant">Vui lòng chọn một phòng chat bên trái để tham gia thảo luận.</div>
+          </div>
+          <form id="room-chat-form" class="chat-form">
+            <input id="room-chat-input" placeholder="Nhập nội dung chia sẻ với mọi người..." required disabled>
+            <button class="primary" id="room-send-btn" disabled>Gửi tin nhắn</button>
+          </form>
+        </div>
+      </div>
     </section>
 
     <section id="create" class="panel">

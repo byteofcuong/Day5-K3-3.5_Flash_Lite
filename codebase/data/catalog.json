@@ -1,15 +1,134 @@
 [
-  {"id":"doc-agent-criteria","title":"4 tiêu chí: Khi nào nên dùng AI Agent?","summary":"Bốn tiêu chí đánh giá bài toán có cần agent hay chỉ cần workflow đơn giản.","tags":["agent","problem-selection"],"level":"beginner","source":"official","date":"2026-07-25","available":true},
-  {"id":"doc-day5-summary","title":"Tóm tắt Day 5 — Thiết kế sản phẩm AI","summary":"Pain, evidence, automation, failure modes, golden set và validation.","tags":["day5","ai-product","summary"],"level":"beginner","source":"official","date":"2026-07-29","available":true},
-  {"id":"doc-context-keywords","title":"Context Engineering Cheat Sheet","summary":"Keyword cần nhớ về context window, memory injection, retrieval và compression.","tags":["context-engineering","keywords","cheat-sheet"],"level":"beginner","source":"community","date":"2026-07-28","available":true},
-  {"id":"doc-llm-beginner","title":"LLM nhập môn — Bài đọc dễ tiếp thu","summary":"Giải thích LLM, token, xác suất và giới hạn bằng ngôn ngữ cho người mới.","tags":["llm","foundation","beginner"],"level":"beginner","source":"official","date":"2026-07-22","available":true},
-  {"id":"doc-context-strategies","title":"Write, Select, Compress, Isolate","summary":"Giải thích bốn chiến lược tối ưu context kèm ví dụ ứng dụng.","tags":["context-engineering","rag","memory"],"level":"intermediate","source":"official","date":"2026-07-28","available":true},
-  {"id":"doc-ai-taxonomy","title":"AI, ML, Deep Learning, GenAI và LLM","summary":"Sơ đồ quan hệ các khái niệm nền tảng trong hệ thống AI.","tags":["ai","ml","genai","llm"],"level":"beginner","source":"official","date":"2026-07-22","available":true},
-  {"id":"doc-tool-calling","title":"Tool Calling Flow","summary":"Sơ đồ request, model chọn tool, thực thi và gửi kết quả lại model.","tags":["tool-calling","agent","flow"],"level":"intermediate","source":"official","date":"2026-07-25","available":true},
-  {"id":"doc-foundation","title":"Foundation — LLM hoạt động thế nào","summary":"Tài liệu nền tảng về transformer, attention, token và sinh văn bản.","tags":["foundation","transformer","attention"],"level":"beginner","source":"official","date":"2026-07-22","available":true},
-  {"id":"doc-prompt-beginner","title":"Prompt Engineering cho người mới","summary":"Cấu trúc instruction, context, input và output format với ví dụ.","tags":["prompt-engineering","beginner"],"level":"beginner","source":"community","date":"2026-07-26","available":true},
-  {"id":"doc-ai-spec-template","title":"Template AI Spec chính thức","summary":"Khung 9 phần: evidence, impact, design, failure, eval, assignment và changelog.","tags":["ai-spec","cp4","template"],"level":"all","source":"official","date":"2026-07-30","available":true},
-  {"id":"doc-api-latest","title":"API Integration Guide 2026","summary":"Hướng dẫn tích hợp API phiên bản hiện hành, authentication và error handling.","tags":["api","integration","latest"],"level":"intermediate","source":"official","date":"2026-07-30","available":true},
-  {"id":"doc-agent-advanced","title":"Advanced Agent Orchestration","summary":"Routing, orchestrator-worker và multi-agent cho người đã vững LLM.","tags":["agent","orchestration","advanced"],"level":"advanced","source":"community","date":"2026-07-27","available":true},
-  {"id":"doc-deleted","title":"Tài liệu cũ đã ngừng cung cấp","summary":"Metadata còn lại của một tài liệu đã bị xóa.","tags":["legacy"],"level":"intermediate","source":"community","date":"2025-01-01","available":false}
+  {
+    "id": "doc-agent-criteria",
+    "title": "4 tiêu chí: Khi nào nên dùng AI Agent?",
+    "summary": "Bốn tiêu chí đánh giá bài toán có cần agent hay chỉ cần workflow đơn giản.",
+    "tags": ["agent", "problem-selection"],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-25",
+    "available": true,
+    "content": "Để xác định một bài toán có thực sự cần sử dụng AI Agent hay chỉ cần Workflow/Pipeline tự động thông thường, ta dựa vào 4 tiêu chí cốt lõi:\n1. Tính không chắc chắn của luồng thực thi (Dynamic Routing): Nếu luồng xử lý không cố định mà phụ thuộc vào kết quả từng bước của LLM, cần dùng Agent.\n2. Yêu cầu tương tác với môi trường ngoài (Tool Calling): Agent có khả năng gọi API, tra cứu CSDL hoặc chạy code để lấy dữ liệu thực tế.\n3. Năng lực tự sửa lỗi (Self-Correction & Reflection): Agent có khả năng nhận phản hồi lỗi từ môi trường và thử lại với chiến thuật khác.\n4. Đa bước lập kế hoạch (Multi-step Planning): Bài toán phức tạp đòi hỏi chia nhỏ thành các tác vụ con và thực thi tuần tự."
+  },
+  {
+    "id": "doc-day5-summary",
+    "title": "Tóm tắt Day 5 — Thiết kế sản phẩm AI",
+    "summary": "Pain, evidence, automation, failure modes, golden set và validation.",
+    "tags": ["day5", "ai-product", "summary"],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-29",
+    "available": true,
+    "content": "Nội dung Day 5 tập trung vào quy trình thiết kế sản phẩm AI chuẩn mực:\n- Pain & Evidence: Xác định đúng điểm đau của người dùng dựa trên bằng chứng dữ liệu thực tế, tránh giả định ngây thơ.\n- Automation Level: Xác định mức độ tự động hóa phù hợp (Human-in-the-loop vs Fully Autonomous).\n- Failure Modes: Liệt kê trước các kịch bản thất bại của AI (Hallucination, Tool Error, Prompt Drift) và thiết kế cơ chế phòng vệ (Guardrails).\n- Golden Set & Eval: Xây dựng tập dữ liệu kiểm thử chuẩn (Golden Dataset) để đo lường độ chính xác trước khi ra mắt."
+  },
+  {
+    "id": "doc-context-keywords",
+    "title": "Context Engineering Cheat Sheet",
+    "summary": "Keyword cần nhớ về context window, memory injection, retrieval và compression.",
+    "tags": ["context-engineering", "keywords", "cheat-sheet"],
+    "level": "beginner",
+    "source": "community",
+    "date": "2026-07-28",
+    "available": true,
+    "content": "Bảng thuật ngữ về Context Engineering:\n- Context Window: Giới hạn số lượng token tối đa mô hình có thể nhận trong một lần gọi.\n- Retrieval-Augmented Generation (RAG): Kỹ thuật trích xuất văn bản liên quan từ kho dữ liệu để đính kèm vào context.\n- Context Compression: Nén và lọc bớt thông tin dư thừa trước khi gửi cho LLM để tiết kiệm chi phí token.\n- System Prompt Injection: Đưa quy tắc ứng xử và bối cảnh cố định vào phần hướng dẫn hệ thống."
+  },
+  {
+    "id": "doc-llm-beginner",
+    "title": "LLM nhập môn — Bài đọc dễ tiếp thu",
+    "summary": "Giải thích LLM, token, xác suất và giới hạn bằng ngôn ngữ cho người mới.",
+    "tags": ["llm", "foundation", "beginner"],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-22",
+    "available": true,
+    "content": "Khái niệm nền tảng về Large Language Model (LLM):\n1. LLM hoạt động dựa trên mô hình xác suất thống kê để dự đoán từ tiếp theo (Next Token Prediction).\n2. Token không phải là từ nguyên vẹn, 1 token trung bình bằng khoảng 0.75 từ tiếng Anh hoặc 1-2 ký tự tiếng Việt.\n3. Giới hạn của LLM: LLM không có bộ nhớ thực tế theo thời gian thực nếu không được kết nối với công cụ tìm kiếm hoặc CSDL ngoài (RAG)."
+  },
+  {
+    "id": "doc-context-strategies",
+    "title": "Write, Select, Compress, Isolate",
+    "summary": "Giải thích bốn chiến lược tối ưu context kèm ví dụ ứng dụng.",
+    "tags": ["context-engineering", "rag", "memory"],
+    "level": "intermediate",
+    "source": "official",
+    "date": "2026-07-28",
+    "available": true,
+    "content": "Bốn chiến lược quản lý Context nâng cao:\n1. Write: Ghi lại trạng thái và bộ nhớ ra file/database để tái sử dụng sau.\n2. Select: Chọn lọc đúng các đoạn văn bản (chunks) có độ tương đồng cao nhất với truy vấn của user.\n3. Compress: Tóm tắt lại lịch sử hội thoại dài để giảm số lượng token tích lũy.\n4. Isolate: Tách biệt bối cảnh giữa các task khác nhau để tránh làm nhiễu thông tin của LLM."
+  },
+  {
+    "id": "doc-ai-taxonomy",
+    "title": "AI, ML, Deep Learning, GenAI và LLM",
+    "summary": "Sơ đồ quan hệ các khái niệm nền tảng trong hệ thống AI.",
+    "tags": ["ai", "ml", "genai", "llm"],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-22",
+    "available": true,
+    "content": "Mối quan hệ phân cấp giữa các khái niệm AI:\n- Trí tuệ nhân tạo (AI) là tập hợp rộng nhất bao gồm mọi hệ thống thông minh.\n- Machine Learning (ML) là tập con của AI, sử dụng thuật toán học từ dữ liệu.\n- Deep Learning (DL) sử dụng mạng thần kinh nhân tạo nhiều lớp (Neural Networks).\n- Generative AI (GenAI) là ứng dụng DL để sáng tạo nội dung mới (văn bản, hình ảnh, âm thanh).\n- LLM là nhánh chuyên biệt của GenAI tập trung xử lý và tạo ngôn ngữ tự nhiên."
+  },
+  {
+    "id": "doc-tool-calling",
+    "title": "Tool Calling Flow",
+    "summary": "Sơ đồ request, model chọn tool, thực thi và gửi kết quả lại model.",
+    "tags": ["tool-calling", "agent", "flow"],
+    "level": "intermediate",
+    "source": "official",
+    "date": "2026-07-25",
+    "available": true,
+    "content": "Luồng thực thi Tool Calling trong AI Agent:\n1. User gửi yêu cầu -> LLM phân tích xem có cần gọi tool không.\n2. Nếu cần, LLM trả về tên Function và tham số dưới dạng JSON (Tool Call Request).\n3. Hệ thống ứng dụng (Backend) thực thi Function đó và thu về kết quả (Tool Execution Result).\n4. Backend gửi lại kết quả đó cho LLM kèm lịch sử hội thoại để LLM tổng hợp câu trả lời cuối cùng."
+  },
+  {
+    "id": "doc-foundation",
+    "title": "Foundation — LLM hoạt động thế nào",
+    "summary": "Tài liệu nền tảng về transformer, attention, token và sinh văn bản.",
+    "tags": ["foundation", "transformer", "attention"],
+    "level": "beginner",
+    "source": "official",
+    "date": "2026-07-22",
+    "available": true,
+    "content": "Kiến trúc Transformer và Cơ chế Self-Attention:\n- Kiến trúc Transformer (năm 2017) cách mạng hóa xử lý ngôn ngữ nhờ cơ chế Self-Attention.\n- Self-Attention cho phép mô hình tính toán mối liên hệ giữa tất cả các từ trong câu cùng lúc thay vì xử lý tuần tự như RNN.\n- Nhờ đó, LLM có thể hiểu được bối cảnh dài và nắm bắt quan hệ ngữ nghĩa phức tạp."
+  },
+  {
+    "id": "doc-prompt-beginner",
+    "title": "Prompt Engineering cho người mới",
+    "summary": "Cấu trúc instruction, context, input và output format với ví dụ.",
+    "tags": ["prompt-engineering", "beginner"],
+    "level": "beginner",
+    "source": "community",
+    "date": "2026-07-26",
+    "available": true,
+    "content": "Cấu trúc một Prompt chuẩn mực bao gồm 4 thành phần:\n1. Instruction (Chỉ thị): Vai trò và nhiệm vụ chính AI cần thực hiện.\n2. Context (Bối cảnh): Thông tin nền tảng, dữ liệu tài liệu đính kèm.\n3. Input Data (Dữ liệu đầu vào): Câu hỏi hoặc nội dung cụ thể cần xử lý.\n4. Output Indicator (Định dạng đầu ra): Yêu cầu định dạng JSON, Markdown, hoặc danh sách."
+  },
+  {
+    "id": "doc-ai-spec-template",
+    "title": "Template AI Spec chính thức",
+    "summary": "Khung 9 phần: evidence, impact, design, failure, eval, assignment và changelog.",
+    "tags": ["ai-spec", "cp4", "template"],
+    "level": "all",
+    "source": "official",
+    "date": "2026-07-30",
+    "available": true,
+    "content": "Khung tài liệu thiết kế đặc tả AI Spec (9 phần):\n1. Background & Problem Statement\n2. Evidence & Target Users\n3. System Architecture & Workflows\n4. AI Model & Prompt Engineering\n5. Guardrails & Failure Mode Management\n6. Evaluation Strategy (Golden Dataset & Metrics)\n7. Data Pipeline & Privacy\n8. Implementation Plan & Milestones\n9. Appendix & Changelog"
+  },
+  {
+    "id": "doc-api-latest",
+    "title": "API Integration Guide 2026",
+    "summary": "Hướng dẫn tích hợp API phiên bản hiện hành, authentication và error handling.",
+    "tags": ["api", "integration", "latest"],
+    "level": "intermediate",
+    "source": "official",
+    "date": "2026-07-30",
+    "available": true,
+    "content": "Quy chuẩn tích hợp API 2026:\n- Sử dụng Bearer JWT Token để xác thực qua Header Authorization.\n- Áp dụng Rate Limiting và Circuit Breaker khi gọi LLM API ngoài.\n- Xử lý lỗi chuẩn HTTP Status Codes: 400 Bad Request, 401 Unauthorized, 429 Too Many Requests, 502 Bad Gateway."
+  },
+  {
+    "id": "doc-agent-advanced",
+    "title": "Advanced Agent Orchestration",
+    "summary": "Routing, orchestrator-worker và multi-agent cho người đã vững LLM.",
+    "tags": ["agent", "orchestration", "advanced"],
+    "level": "advanced",
+    "source": "community",
+    "date": "2026-07-27",
+    "available": true,
+    "content": "Mô hình Multi-Agent Orchestration nâng cao:\n- Orchestrator Agent: Đóng vai trò làm điều phối viên nhận request chính và phân chia nhiệm vụ.\n- Worker Agents: Các agent chuyên biệt (ví dụ: Researcher Agent, Coder Agent, Critic Agent) thực thi công việc nhỏ.\n- Evaluation & Aggregation: Orchestrator kiểm tra kết quả từ các Workers và tổng hợp phản hồi cuối cùng."
+  }
 ]

@@ -11,7 +11,7 @@ import {
   createSession, createUser, findUserByEmail, getDocument, incrementDownload,
   isFirebaseConfigured, listDocuments, listTopContributors, revokeSession, saveDocument, saveInteraction, savePost,
 } from "./firebase.js";
-import { agentTools, buildAgentInstruction, executeAgentTool, mockSearch, parseAndValidate } from "./search.js";
+import { agentTools, buildAgentInstruction, executeAgentTool, mockSearch, parseAndValidate, summarizeDocument, chatWithAi, chatWithDocument, generateFlashcards } from "./search.js";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "..");
@@ -133,10 +133,10 @@ app.post("/api/auth/logout", requireAuth, async (request, response) => {
   response.json({ message: "Đã đăng xuất." });
 });
 
-app.get("/api/catalog", async (request, response) => {
+app.get(["/api/catalog", "/api/documents"], async (request, response) => {
   try {
     const items = await loadCatalog();
-    response.json({ items });
+    response.json(items);
   } catch (error) {
     response.status(503).json({ error: error.message });
   }
@@ -145,14 +145,16 @@ app.get("/api/catalog", async (request, response) => {
 app.get("/api/contributors", async (request, response) => {
   try {
     const limit = Math.min(10, Math.max(1, Number(request.query.limit) || 5));
-    response.json({ items: await listTopContributors(limit) });
+    const items = await listTopContributors(limit);
+    response.json(items);
   } catch (error) {
     response.status(503).json({ error: error.message });
   }
 });
 
 app.get("/api/my/documents", requireAuth, async (request, response) => {
-  response.json({ items: await listDocuments({ ownerId: request.auth.user.id, includeUnavailable: true }) });
+  const items = await listDocuments({ ownerId: request.auth.user.id, includeUnavailable: true });
+  response.json(items);
 });
 
 app.get("/api/documents/:id", async (request, response) => {
@@ -175,8 +177,16 @@ app.post("/api/documents", requireAuth, upload.single("file"), async (request, r
     if (title.length < 3 || summary.length < 10) return response.status(400).json({ error: "Tiêu đề hoặc mô tả quá ngắn." });
     if (!request.file) return response.status(400).json({ error: "Bạn cần chọn một tệp hợp lệ, tối đa 20 MB." });
     const createdAt = now();
+    let extractedContent = summary;
+    try {
+      if (request.file.mimetype?.includes("text") || request.file.originalname?.endsWith(".txt") || request.file.originalname?.endsWith(".md")) {
+        const textData = await fs.readFile(request.file.path, "utf8");
+        if (textData.trim()) extractedContent = textData;
+      }
+    } catch {}
+
     const document = await saveDocument({
-      title, summary, category: request.body.category || "Tài liệu",
+      title, summary, content: extractedContent, category: request.body.category || "Tài liệu",
       tags: String(request.body.tags || "").split(",").map((tag) => tag.trim().toLowerCase()).filter(Boolean).slice(0, 10),
       level: request.body.level || "all", source: "community", date: createdAt.slice(0, 10),
       available: true, status: "published", ownerId: request.auth.user.id,
@@ -221,6 +231,141 @@ app.post("/api/search", async (request, response) => {
   } catch (error) {
     response.status(502).json({ error: error.message || "Không thể gọi AI." });
   }
+});
+
+app.post("/api/documents/:id/summarize", async (request, response) => {
+  try {
+    const document = await loadDocument(request.params.id, true);
+    if (!document) return response.status(404).json({ error: "Không tìm thấy tài liệu cần tóm tắt." });
+    const result = await summarizeDocument(document);
+    response.json(result);
+  } catch (error) {
+    response.status(500).json({ error: error.message || "Lỗi tóm tắt tài liệu." });
+  }
+});
+
+app.post("/api/documents/:id/chat", async (request, response) => {
+  const messages = Array.isArray(request.body.messages) ? request.body.messages : [];
+  if (!messages.length) return response.status(400).json({ error: "Tin nhắn không được để trống." });
+  try {
+    const document = await loadDocument(request.params.id, true);
+    if (!document) return response.status(404).json({ error: "Không tìm thấy tài liệu." });
+    const result = await chatWithDocument(messages, document);
+    response.json(result);
+  } catch (error) {
+    response.status(500).json({ error: error.message || "Lỗi trò chuyện Trợ giảng AI." });
+  }
+});
+
+app.post("/api/documents/:id/flashcards", async (request, response) => {
+  try {
+    const document = await loadDocument(request.params.id, true);
+    if (!document) return response.status(404).json({ error: "Không tìm thấy tài liệu." });
+    const result = await generateFlashcards(document);
+    response.json({ flashcards: result });
+  } catch (error) {
+    response.status(500).json({ error: error.message || "Lỗi sinh Thẻ Flashcard AI." });
+  }
+});
+
+app.post("/api/chat", async (request, response) => {
+  const messages = Array.isArray(request.body.messages) ? request.body.messages : [];
+  if (!messages.length) return response.status(400).json({ error: "Tin nhắn không được để trống." });
+  try {
+    const catalog = await loadCatalog();
+    const result = await chatWithAi(messages, request.body.documentId, catalog);
+    response.json(result);
+  } catch (error) {
+    response.status(500).json({ error: error.message || "Lỗi trò chuyện AI." });
+  }
+});
+
+const ratingsMap = new Map();
+
+app.post("/api/documents/:id/rate", async (request, response) => {
+  const docId = request.params.id;
+  const rating = Number(request.body.rating) || 5;
+  const comment = String(request.body.comment || "").trim();
+  const userName = request.body.userName || "Học viên VShare";
+  
+  const list = ratingsMap.get(docId) || [];
+  list.push({ rating, comment, userName, createdAt: new Date().toISOString() });
+  ratingsMap.set(docId, list);
+  
+  const avg = (list.reduce((acc, curr) => acc + curr.rating, 0) / list.length).toFixed(1);
+  response.json({ message: "Đánh giá thành công!", averageRating: avg, totalReviews: list.length, reviews: list });
+});
+
+app.get("/api/documents/:id/ratings", async (request, response) => {
+  const docId = request.params.id;
+  const list = ratingsMap.get(docId) || [
+    { rating: 5, comment: "Tài liệu rất hay và đúng trọng tâm!", userName: "Học viên A", createdAt: "2026-07-28" },
+    { rating: 4, comment: "Rất hữu ích cho bài tập về nhà.", userName: "Học viên B", createdAt: "2026-07-29" }
+  ];
+  const avg = (list.reduce((acc, curr) => acc + curr.rating, 0) / list.length).toFixed(1);
+  response.json({ averageRating: avg, totalReviews: list.length, reviews: list });
+});
+
+// --- Topic-Based Community Chat Rooms API ---
+const topicRooms = [
+  { id: "room-agent", name: "🤖 AI Agent & ReAct Framework", description: "Thảo luận về mô hình suy luận ReAct, Tool Calling và tự động hóa tác vụ." },
+  { id: "room-prompt", name: "📝 Prompt & Context Engineering", description: "Chia sẻ kỹ thuật viết Instruction, Context Window và nén thông tin." },
+  { id: "room-rag", name: "📚 RAG & Tri Thức Hợp Lệ", description: "Trao đổi giải pháp trích xuất văn bản, Vector Search và loại bỏ Hallucination." },
+  { id: "room-general", name: "💬 Thảo Luận Học Tập Chung", description: "Giao lưu, kết nối bạn học và trao đổi các tài liệu trên VShare." },
+];
+
+const roomMessages = new Map([
+  ["room-agent", [
+    { id: "m1", userName: "Việt", content: "Chào mọi người! Có bạn nào đang thử áp dụng Tool Calling với Gemini 2.5 không?", createdAt: "2026-07-30T10:15:00Z" },
+    { id: "m2", userName: "Quản trị viên", content: "Chào Việt! Bạn nên tham khảo bài '4 tiêu chí: Khi nào nên dùng AI Agent' trên VShare nhé.", createdAt: "2026-07-30T10:18:00Z" }
+  ]],
+  ["room-prompt", [
+    { id: "m3", userName: "Học viên A", content: "Mọi người cho mình hỏi cấu trúc System Instruction cho RAG thế nào là tối ưu?", createdAt: "2026-07-30T11:00:00Z" },
+    { id: "m4", userName: "Quản trị viên", content: "Nên chia rõ 4 phần: Instruction, Context, Input Data và Output Format nhé!", createdAt: "2026-07-30T11:05:00Z" }
+  ]],
+  ["room-rag", [
+    { id: "m5", userName: "Học viên B", content: "Kho RAG của VShare hiện tại đã đọc trực tiếp nội dung văn bản chưa mọi người?", createdAt: "2026-07-30T14:20:00Z" },
+    { id: "m6", userName: "Việt", content: "Đã cập nhật đọc full-text từ catalog và file upload rồi nhé!", createdAt: "2026-07-30T14:22:00Z" }
+  ]],
+  ["room-general", [
+    { id: "m7", userName: "Cộng đồng VShare", content: "Chào mừng các bạn đến với phòng thảo luận chung của VShare! Hãy thoải mái hỏi đáp và kết nối.", createdAt: "2026-07-30T09:00:00Z" }
+  ]]
+]);
+
+app.get("/api/rooms", (_request, response) => {
+  const roomsList = topicRooms.map(r => {
+    const msgs = roomMessages.get(r.id) || [];
+    return {
+      ...r,
+      messageCount: msgs.length,
+      lastMessage: msgs.length ? msgs[msgs.length - 1] : null
+    };
+  });
+  response.json({ rooms: roomsList });
+});
+
+app.get("/api/rooms/:id/messages", (request, response) => {
+  const roomId = request.params.id;
+  const msgs = roomMessages.get(roomId) || [];
+  response.json({ roomId, messages: msgs });
+});
+
+app.post("/api/rooms/:id/messages", (request, response) => {
+  const roomId = request.params.id;
+  const content = String(request.body.content || "").trim();
+  const userName = request.body.userName || "Học viên VShare";
+  if (!content) return response.status(400).json({ error: "Nội dung tin nhắn không được để trống." });
+
+  const msgs = roomMessages.get(roomId) || [];
+  const newMsg = {
+    id: `msg-${Date.now()}`,
+    userName,
+    content,
+    createdAt: new Date().toISOString()
+  };
+  msgs.push(newMsg);
+  roomMessages.set(roomId, msgs);
+  response.status(201).json({ message: "Gửi tin nhắn thành công!", chatMessage: newMsg });
 });
 
 app.get("/api/health", (_request, response) => response.json({
