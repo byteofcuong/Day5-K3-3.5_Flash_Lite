@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "main": "src/index.ts",
+  "compatibility_date": "2024-04-05",
+  "compatibility_flags": [
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    // The path to the directory containing the `index.html` file to be served at `/`
+    "directory": "./public"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "my-database",
+      "database_id": "YOUR_DATABASE_ID_HERE"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MY_BUCKET",
+      "bucket_name": "my-bucket"
+    }
+  ],
+  "vars": {
+    "ENVIRONMENT": "development",
+    "API_URL": "https://api.example.com"
+  }
+}
