@@ -5,6 +5,15 @@
 - Thời lượng: **1,5 ngày** (một ngày build + một buổi demo)
 - Nhóm: **4-5 người** · zone tối đa 5 nhóm · thi theo lớp
 
+| Mã học viên | Họ và tên | Phân công |
+|---|---|---|
+| 2A202601771 | Nguyễn Phú Cường | Product, Spec |
+| 2A202601771 | Nguyễn Quốc Hùng | Frontend |
+| 2A202601841 | Lê Văn C | Backend, AI |
+| 2A202601141 | Phạm Thị D | Evaluation, Demo |
+
+
+
 ## Bắt đầu từ đâu?
 
 1. Đọc **`01-de-bai.md`** để chọn hướng và hiểu tiêu chí.
