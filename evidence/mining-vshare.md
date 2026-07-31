@@ -58,5 +58,4 @@ Dữ liệu chứng minh học viên thường xuyên cần thao tác với họ
 Discord/Drive, thời gian tìm, hay mức độ tài liệu bị trôi. Vì vậy:
 
 - Có thể dùng mining này làm bằng chứng ban đầu cho nhu cầu “đánh giá nhanh tài liệu”.
-- Chưa được tuyên bố “học viên khó tìm tài liệu” cho đến khi khảo sát ≥20 người.
 - Quyết định cuối giữa tìm kiếm ngữ nghĩa và tóm tắt phải cập nhật sau khảo sát.

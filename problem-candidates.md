@@ -1,8 +1,5 @@
 # Bảng ứng viên bài toán VShare
 
-> Trạng thái: quyết định có điều kiện dựa trên mining; các ô khảo sát phải cập
-> nhật sau khi thu ≥20 câu trả lời.
-
 | Ứng viên | Tín hiệu hiện có | Người gặp | Tần suất | Tổn thất/lần | Khả thi 1,5 ngày | Quyết định |
 |---|---|---:|---:|---|---|---|
 | A. Tìm tài liệu bằng câu hỏi tự nhiên | 33/1.261 lượt có tín hiệu tìm/vị trí | 26 user trong log | Chưa biết | Chưa biết | Trung bình | **Chọn có điều kiện** nếu khảo sát ≥50% xác nhận |

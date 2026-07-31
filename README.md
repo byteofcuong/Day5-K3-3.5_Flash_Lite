@@ -8,8 +8,8 @@ kết quả kèm lý do, độ tin cậy và link mở file.
 
 | Mã học viên | Họ và tên | Phân công |
 |---|---|---|
-| 2A202601940 | Nguyễn Hoàng Việt | Phân tích nhu cầu; Product Canvas; golden set; evaluation; user validation; hoàn thiện `spec.md`; hỗ trợ Backend |
-| 2A202601771 | Nguyễn Phú Cường | Phân tích nhu cầu; Làm khảo sát, nhận định số liệu; Product Canvas; UI/UX; Frontend; responsive UI; kết nối API |
+| 2A202601940 | Nguyễn Hoàng Việt | Phân tích nhu cầu; Product Canvas; golden set; evaluation; user validation; hoàn thiện `spec.md`; hỗ trợ Backend; hoàn thành báo cáo nhóm |
+| 2A202601771 | Nguyễn Phú Cường | Phân tích nhu cầu; Làm khảo sát, nhận định số liệu; Product Canvas; UI/UX; Frontend; responsive UI; kết nối API; hoàn thành báo cáo nhóm |
 | 2A202601841 | Nguyễn Quốc Hùng | Phân tích nhu cầu; Product Canvas; Backend và API; AI/RAG; xử lý PDF, tìm kiếm và lưu trữ |
 | 2A202601141 | Mai Quốc Hiếu | Phân tích nhu cầu; Product Canvas; tổng hợp khảo sát; hỗ trợ Backend; slide, kịch bản và demo |
 | 2A202601425 | Nguyễn Chí Công | Đề xuất ý tưởng sản phẩm và ý tưởng giao diện, phản biện câu hỏi của các nhóm khác |

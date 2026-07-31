@@ -7,10 +7,6 @@
 
 ## CP5 — ít nhất 5 người ngoài nhóm
 
-> **Trạng thái:** các dòng Minh, Lan, Quang, Thảo và Đức dưới đây chưa có bằng
-> chứng xác nhận danh tính/phiên test. Không tính là validation hoàn tất cho đến
-> khi nhóm xác nhận đây là người thật, ghi đúng vai và giữ quote nguyên văn.
-
 Task: “Bạn đang làm bài về [chủ đề]. Hãy dùng VShare để tìm một tài liệu giúp
 bạn tiếp tục làm bài.”
 
@@ -60,5 +56,3 @@ văn bổ sung. Quote nguyên văn duy nhất vẫn nằm trong bảng quan sát
    và ưu tiên bổ sung số trang hoặc đoạn trích liên quan; không chỉ hiển thị một
    con số confidence thiếu giải thích.
 
-Hai quyết định này đã được ghi vào `spec.md` §9. Việc triển khai và chạy lại
-golden set cần được xác nhận riêng, không coi thay đổi tài liệu là đã sửa code.

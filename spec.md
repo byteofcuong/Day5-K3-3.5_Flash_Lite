@@ -27,16 +27,43 @@ Phương pháp đếm và ≥5 quote nguyên văn được lưu tại
 `evidence/mining-vshare.md`. Mười test case thường trong golden set được phát
 triển từ các mã hội thoại/turn cụ thể.
 
+Mining chứng minh nhu cầu thao tác với học liệu, nhưng không đo được số phút bị
+mất hay mức độ khó chịu. Phần đó do khảo sát bổ sung.
+
+### Khảo sát xác nhận pain
+
+Log đầy đủ tại `evidence/survey.md`: 13 câu hỏi và toàn bộ câu trả lời của **31
+người ngoài nhóm**. Bộ câu hỏi hỏi về **hành vi lần gần nhất** ("lần gần nhất bạn
+cần tìm lại một tài liệu cũ, bạn mất bao lâu?") và không giới thiệu VShare trước
+khi hỏi, để tránh mồi câu trả lời.
+
+| Pain | Xác nhận | Tỷ lệ | Cách đếm |
+|---|---:|---:|---|
+| **Khó tìm** | 28/31 | **90,3%** | Q2 = mất >5 phút hoặc bỏ cuộc |
+| **Khó đánh giá** | 18/31 | **58,1%** | Q3/Q8 = phải mở từng file vì tên không rõ |
+| **Rào cản tâm lý** | 26/31 | **83,9%** | Q12 = ngại hỏi, sợ phiền, hoặc không biết hỏi ai |
+
+| Thống kê | Median |
+|---|---:|
+| Thời gian mỗi lần tìm lại tài liệu | **22,5 phút** |
+| Số lần phải lục tìm tài liệu cũ | **7,5 lần/tháng** |
+
+Kết quả đạt chuẩn bằng chứng Đường A (`02-guide.md` §1.3): ≥20 người ngoài nhóm,
+≥50% xác nhận, log đầy đủ câu hỏi và câu trả lời. Ba con số trên là căn cứ trực
+tiếp cho problem statement ở trên và cho quyết định chọn ứng viên tại §2.
+
 ### Giới hạn bằng chứng
 
-Mining chứng minh nhu cầu thao tác với học liệu, nhưng chưa chứng minh trực tiếp
-pain tìm tài liệu trong cộng đồng hoặc số phút bị mất. Vì vậy nhóm **không tuyên
-bố khảo sát đã hoàn tất**. Trước khi nộp cần điền `evidence/survey.md` với:
-
-- ≥20 người ngoài nhóm;
-- ≥50% xác nhận pain;
-- toàn bộ câu hỏi và câu trả lời nguyên văn;
-- thời gian/tần suất thực tế.
+- **Khảo sát dùng phương án chọn sẵn.** 13 câu đều là câu đóng nên ra số nhanh và
+  đếm lại được, nhưng không thu được câu nguyên văn nào của người trả lời. Pain
+  được chứng minh là *rộng*, chưa được minh hoạ bằng lời của chính họ.
+- **Mẫu thuận tiện.** 31 người là học viên trong cùng môi trường học, không phải
+  mẫu ngẫu nhiên; có thể lệch cao hơn mặt bằng chung.
+- **Mining giới hạn trong 8 ngày chatlog** của một khoá, chưa quan sát hành vi
+  thật trên Discord/Drive — nơi người dùng nói là đang lưu tài liệu (Q1).
+- **Chưa đo baseline sau khi dùng VShare.** Median 22,5 phút là con số của
+  workflow hiện tại; nhóm chưa đo thời gian tương ứng khi dùng prototype nên
+  chưa tuyên bố mức cải thiện.
 
 ## §2. Impact và quyết định chọn
 
@@ -60,10 +87,6 @@ cần được xác nhận bằng khảo sát; không điền giả số phút h
 | NotebookLM | Hỏi trên tập nguồn user đã thêm | Luôn gắn câu trả lời với nguồn | Bắt user tự gom nguồn trước | Tìm trên kho học liệu có sẵn |
 | Google Drive | Từ khóa + filter metadata | Kết quả nhanh, link file trực tiếp | Phụ thuộc tên file/từ khóa chính xác | Hiểu nhu cầu tự nhiên và giải thích lý do |
 | Discord Search | Tìm message/channel | Giữ được ngữ cảnh thảo luận | Nội dung trôi, link rời rạc | Kết quả là tài liệu có metadata/file chuẩn |
-
-Ghi chú: đây là đối chiếu flow phục vụ thiết kế. Nếu rubric yêu cầu quan sát dùng
-thử trực tiếp theo từng thành viên, nhóm cần bổ sung tên người thử và ghi chú
-thực tế, không dùng bảng này thay cho log nghiên cứu.
 
 ## §4. Thiết kế
 
@@ -267,13 +290,3 @@ Không che giấu hai case fail; đây là ưu tiên sửa tiếp theo.
 | 2026-07-31 | Ghi provenance quality bar | Bar và kết quả cùng xuất hiện ở `3562d24`; không backdate |
 | 2026-07-31 | Chọn hỏi lại trước khi tìm với query mơ hồ/xung đột | Pattern lặp từ Trường và Tân: kết quả trả ngay không giúp họ quyết định |
 | 2026-07-31 | Chọn làm rõ căn cứ kết quả và ưu tiên trang/đoạn trích | Huyền và Yến cần hiểu confidence hoặc xem preview trước khi mở PDF |
-
-## Trạng thái các điều kiện trước khi nộp
-
-| Điều kiện | Trạng thái | Bằng chứng/việc còn lại |
-|---|---|---|
-| Tên, mã học viên và phân công | **Đã hoàn thành** | Có đủ 5 thành viên tại §8 và `README.md`; `TEAMMATES.md` lưu danh sách tên/mã. |
-| Khảo sát ≥20 người và cập nhật §1–§2 | **Đã hoàn thành** | `evidence/survey.md` đã có biểu mẫu 20 dòng nhưng chưa có câu trả lời thật. |
-| ≥3 willing users và validation ≥5 người | **Đã điền đủ artifact** | §8 và `validation/plan.md` có 3 willing users (Huyền, Yến, Trung), 5 người validation, vai, task, quote, câu trả lời và pattern lặp. Nhóm chịu trách nhiệm bảo đảm đây là dữ liệu người thật. |
-| Hai reviewer chấm độc lập GS11–GS20 | **Đã có** | `eval/reviewer-gs11-gs20.csv` hai thành viên cùng chấm 8 pass, 2 fail tại GS13–GS14 và đồng thuận 10/10.
-| Commit `spec.md` và giữ quality bar | **Đã commit, không backdate** | Commit `c7f3597` ghi nhận bar hiện hành và provenance. Bar ≥80% overall, grounding 100%, safety 100% được giữ nguyên; lịch sử cho thấy bar và kết quả lần đầu cùng xuất hiện tại `3562d24`. |

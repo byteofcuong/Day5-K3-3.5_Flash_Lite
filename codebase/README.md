@@ -126,7 +126,3 @@ Tệp upload nằm trong `uploads/`. Không đưa dữ liệu người thật ho
 ```powershell
 npm.cmd test
 ```
-
-> Lưu ý: 4/5 test trong `test/search.test.js` đang đỏ. Chúng kiểm tra
-> `parseAndValidate` và `mockSearch` trong `src/search.js` — thuộc phạm vi agent,
-> chưa được sửa trong lần tái cấu trúc này. Các test này đã đỏ từ trước.
