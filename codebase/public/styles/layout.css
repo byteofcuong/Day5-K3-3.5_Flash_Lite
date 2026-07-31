@@ -45,7 +45,9 @@
   border: var(--edge) solid var(--border);
 }
 
-.brand__text { display: grid; }
+.brand__text {
+  display: grid;
+}
 
 .brand__name {
   font-size: var(--text-md);
@@ -55,7 +57,11 @@
   color: var(--brand-700);
 }
 
-.brand__tagline { color: var(--text-tertiary); font-size: var(--text-xs); font-weight: 400; }
+.brand__tagline {
+  color: var(--text-tertiary);
+  font-size: var(--text-xs);
+  font-weight: 400;
+}
 
 .nav {
   display: flex;
@@ -99,8 +105,14 @@
   transition: background-color var(--duration-fast) var(--ease), color var(--duration-fast) var(--ease);
 }
 
-.nav__link:hover { background: var(--bg-hover); color: var(--text-primary); }
-.nav__link:hover .nav__icon { color: var(--text-secondary); }
+.nav__link:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.nav__link:hover .nav__icon {
+  color: var(--text-secondary);
+}
 
 /* Active item wears its section hue — colour is how you tell screens apart. */
 .nav__link.is-active {
@@ -110,9 +122,15 @@
   font-weight: 650;
 }
 
-.nav__link.is-active .nav__icon { background: var(--hue); color: var(--gray-0); }
+.nav__link.is-active .nav__icon {
+  background: var(--hue);
+  color: var(--gray-0);
+}
 
-.sidebar__foot { padding-top: var(--space-4); border-top: var(--edge) solid var(--border); }
+.sidebar__foot {
+  padding-top: var(--space-4);
+  border-top: var(--edge) solid var(--border);
+}
 
 /* ==========================================================================
    Mobile top bar
@@ -140,14 +158,29 @@
   color: var(--text-secondary);
 }
 
-.topbar__menu:hover { background: var(--bg-hover); }
+.topbar__menu:hover {
+  background: var(--bg-hover);
+}
 
-.topbar__brand { display: flex; align-items: center; gap: var(--space-2); font-weight: 750; }
-.topbar__brand span { color: var(--brand-700); }
-.topbar__brand .brand__mark { width: 26px; height: 26px; }
+.topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 750;
+}
+
+.topbar__brand span {
+  color: var(--brand-700);
+}
+
+.topbar__brand .brand__mark {
+  width: 26px;
+  height: 26px;
+}
 
 /* Gradient wordmark, with the solid colour above as the fallback. */
 @supports (background-clip: text) or (-webkit-background-clip: text) {
+
   .brand__name,
   .topbar__brand span {
     background: var(--grad-text);
@@ -169,10 +202,19 @@
    Main column
    ========================================================================== */
 
-.main { display: flex; flex-direction: column; min-width: 0; }
+.main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
 
 /* Router mounts each view here. Without this the height chain breaks. */
-.view { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.view {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
 
 .boot {
   display: flex;
@@ -210,7 +252,12 @@
   flex-wrap: wrap;
 }
 
-.page-head__lead { display: flex; align-items: center; gap: var(--space-4); min-width: 0; }
+.page-head__lead {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-width: 0;
+}
 
 /* Square tile carrying the section hue — the screen's visual signature. */
 .page-head__icon {
@@ -244,7 +291,11 @@
   font-size: var(--text-base);
 }
 
-.page-head__actions { display: flex; align-items: center; gap: var(--space-2); }
+.page-head__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
 
 /* --- Page body --- */
 
@@ -254,9 +305,15 @@
   padding: var(--space-6) var(--space-7) var(--space-10);
 }
 
-.page-body--narrow .page-body__inner { max-width: var(--content-max); }
+.page-body--narrow .page-body__inner {
+  max-width: var(--content-max);
+}
 
-.page-body--flush { display: flex; flex-direction: column; padding: 0; }
+.page-body--flush {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
 
 .page-body--flush .page-body__inner {
   display: flex;
@@ -270,7 +327,10 @@
    Content composition
    ========================================================================== */
 
-.stack { display: grid; gap: var(--space-4); }
+.stack {
+  display: grid;
+  gap: var(--space-4);
+}
 
 /* Main column + right rail. The rail is what keeps wide screens from feeling
    like one lonely column of cards. */
@@ -288,7 +348,12 @@
   gap: var(--space-4);
 }
 
-.rail { display: grid; gap: var(--space-4); position: sticky; top: calc(var(--space-6) + 96px); }
+.rail {
+  display: grid;
+  gap: var(--space-4);
+  position: sticky;
+  top: calc(var(--space-6) + 96px);
+}
 
 .toolbar {
   display: flex;
@@ -300,8 +365,15 @@
   border-bottom: var(--edge) solid var(--border);
 }
 
-.toolbar__search { flex: 1; min-width: 260px; max-width: 460px; }
-.toolbar__spacer { flex: 1; }
+.toolbar__search {
+  flex: 1;
+  min-width: 260px;
+  max-width: 460px;
+}
+
+.toolbar__spacer {
+  flex: 1;
+}
 
 /* ==========================================================================
    Rooms
@@ -324,7 +396,12 @@
   background: var(--bg-surface);
 }
 
-.room-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+.room-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+}
 
 /* ==========================================================================
    Document reader
@@ -351,18 +428,31 @@
    ========================================================================== */
 
 @media (max-width: 1280px) {
-  .with-rail { grid-template-columns: minmax(0, 1fr) 288px; gap: var(--space-5); }
+  .with-rail {
+    grid-template-columns: minmax(0, 1fr) 288px;
+    gap: var(--space-5);
+  }
 }
 
 @media (max-width: 1100px) {
-  .with-rail { grid-template-columns: 1fr; }
-  .rail { position: static; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .with-rail {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    position: static;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
-  .app { grid-template-columns: 1fr; }
+  .app {
+    grid-template-columns: 1fr;
+  }
 
-  .topbar { display: flex; }
+  .topbar {
+    display: flex;
+  }
 
   .sidebar {
     position: fixed;
@@ -374,25 +464,73 @@
     transition: translate var(--duration) var(--ease-out);
   }
 
-  .sidebar.is-open { translate: 0 0; box-shadow: var(--shadow-panel); }
-  .sidebar__scrim { display: block; }
+  .sidebar.is-open {
+    translate: 0 0;
+    box-shadow: var(--shadow-panel);
+  }
 
-  .page-head { position: static; backdrop-filter: none; }
-  .page-head, .page-body { padding-inline: var(--space-5); }
+  .sidebar__scrim {
+    display: block;
+  }
 
-  .reader { grid-template-columns: 1fr; }
-  .reader__source, .reader__tools { height: 440px; }
+  .page-head {
+    position: static;
+    backdrop-filter: none;
+  }
 
-  .rooms-layout { grid-template-columns: 1fr; }
-  .rooms-sidebar { border-right: 0; border-bottom: var(--edge) solid var(--border); max-height: 186px; }
+  .page-head,
+  .page-body {
+    padding-inline: var(--space-5);
+  }
+
+  .reader {
+    grid-template-columns: 1fr;
+  }
+
+  .reader__source,
+  .reader__tools {
+    height: 440px;
+  }
+
+  .rooms-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .rooms-sidebar {
+    border-right: 0;
+    border-bottom: var(--edge) solid var(--border);
+    max-height: 186px;
+  }
 }
 
 @media (max-width: 640px) {
-  .page-head, .page-body { padding-inline: var(--space-4); }
-  .page-head { padding-block: var(--space-5); }
-  .page-body { padding-block: var(--space-5) var(--space-8); }
-  .page-head__icon { display: none; }
-  .page-head__title { font-size: var(--text-xl); }
-  .card-grid { grid-template-columns: 1fr; }
-  .toolbar__search { max-width: none; }
+
+  .page-head,
+  .page-body {
+    padding-inline: var(--space-4);
+  }
+
+  .page-head {
+    padding-block: var(--space-5);
+  }
+
+  .page-body {
+    padding-block: var(--space-5) var(--space-8);
+  }
+
+  .page-head__icon {
+    display: none;
+  }
+
+  .page-head__title {
+    font-size: var(--text-xl);
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .toolbar__search {
+    max-width: none;
+  }
 }
