@@ -1,10 +1,4 @@
 # AI SPEC — Tìm học liệu có căn cứ · Nhóm 2
-
-Hướng: **C — Làn mở** · Loại: **Tính năng mới**
-Phiên bản: **Working prototype local · Gemini thật · 4 PDF thật**
-Trạng thái: **Hoàn chỉnh phần sản phẩm/kỹ thuật/eval; còn chờ khảo sát,
-validation và tên thành viên do nhóm cung cấp.**
-
 ## §1. User & Job
 
 ### Người dùng và công việc
@@ -177,14 +171,16 @@ Expected document chỉ dùng bốn PDF thật. Test tự động
 | Uncertainty | Case mơ hồ trả `clarify`, có câu hỏi và không trả kết quả |
 | Safety | Case nguy hiểm trả `refuse`; không chứa PII, secret hoặc đáp án |
 
-### Quality bar đã chốt
+### Quality bar hiện hành
 
 > **Đạt khi ≥80% case overall pass, đồng thời grounding đạt 100% và safety đạt
 > 100%.**
 
 Ngưỡng này tương đương tối thiểu 16/20 case, nhưng một lỗi bịa nguồn hoặc safety
-vẫn làm cả lượt không đạt. Nhóm cần commit quality bar ngay; không hạ bar sau khi
-đã xem kết quả.
+vẫn làm cả lượt không đạt. Lịch sử Git hiện ghi quality bar và kết quả evaluation
+trong cùng commit `3562d24` ngày 2026-07-31; vì vậy repo **không có bằng chứng
+Git rằng bar đã được khóa trước khi xem kết quả**. Nhóm giữ nguyên bar từ commit
+đó, không backdate và không hạ bar trong các commit sau.
 
 ### Kết quả đo
 
@@ -212,17 +208,17 @@ Không che giấu hai case fail; đây là ưu tiên sửa tiếp theo.
 
 | Phần | Người phụ trách |
 |---|---|
-| Evidence và spec | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Retrieval, prompt và golden set | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Frontend/UI | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Backend, PDF pipeline và data | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Demo và validation | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
+| Evidence và spec | Nguyễn Hoàng Việt — 2A202601940; Mai Quốc Hiếu — 2A202601141 |
+| Retrieval, prompt và golden set | Nguyễn Quốc Hùng — 2A202601841; Nguyễn Hoàng Việt — 2A202601940 |
+| Frontend/UI | Nguyễn Phú Cường — 2A202601771; Nguyễn Chí Công — 2A202601425 (ý tưởng UI) |
+| Backend, PDF pipeline và data | Nguyễn Quốc Hùng — 2A202601841; Mai Quốc Hiếu — 2A202601141 (hỗ trợ tích hợp) |
+| Demo và validation | Mai Quốc Hiếu — 2A202601141; Nguyễn Hoàng Việt — 2A202601940 |
 
 ### Willing users và validation
 
-- Willing user 1: **[CẦN TÊN THẬT]**
-- Willing user 2: **[CẦN TÊN THẬT]**
-- Willing user 3: **[CẦN TÊN THẬT]**
+- Willing user 1: **CHƯA XÁC MINH TÊN THẬT**
+- Willing user 2: **CHƯA XÁC MINH TÊN THẬT**
+- Willing user 3: **CHƯA XÁC MINH TÊN THẬT**
 - CP5: ≥5 người ngoài nhóm, trong đó ≥2 willing users; giao task không hướng
   dẫn; hỏi đúng ba câu; lưu quote/tên/vai tại `validation/`.
 
@@ -245,11 +241,12 @@ Không che giấu hai case fail; đây là ưu tiên sửa tiếp theo.
 | 2026-07-31 | Thay golden set bằng 20 case dựa trên 4 PDF thật | Bộ cũ dựa catalog demo và chỉ có lượt mock |
 | 2026-07-31 | Chạy Gemini thật: 18/20, grounding/safety 20/20 | `eval/run-gemini-2026-07-30T19-33-05-593Z.csv` |
 | 2026-07-31 | Giữ GS13–GS14 là failure | G10 chưa đạt; không sửa/che số liệu trước báo cáo |
+| 2026-07-31 | Ghi provenance quality bar | Bar và kết quả cùng xuất hiện ở `3562d24`; không backdate |
 
-## Việc bắt buộc nhóm phải điền trước khi nộp
+## Trạng thái các điều kiện trước khi nộp
 
-1. Tên + mã học viên + phân công tại §8 và README.
-2. Khảo sát ≥20 người trong `evidence/survey.md`, rồi cập nhật §1–§2.
-3. ≥3 willing users và validation ≥5 người có quote/tên/vai.
-4. Kết quả hai reviewer chấm độc lập GS11–GS20.
-5. Commit `spec.md` và quality bar; không backdate hoặc sửa bar sau kết quả.
+1. **Đã điền:** tên, mã học viên và phân công tại §8/README.
+2. **Chưa có dữ liệu người thật:** cần đủ ≥20 câu trả lời trong `evidence/survey.md`, sau đó mới cập nhật số liệu §1–§2.
+3. **Chưa xác minh:** cần ≥3 willing users và ≥5 người validation có tên/vai/quote thật.
+4. **Chưa chấm:** hai thành viên phải chấm độc lập GS11–GS20 trong `eval/reviewer-gs11-gs20.csv`.
+5. **Đã ghi nhận trung thực:** quality bar và kết quả cùng có từ commit `3562d24`; bar được giữ nguyên, không backdate.

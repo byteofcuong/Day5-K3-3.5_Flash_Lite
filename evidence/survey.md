@@ -32,6 +32,37 @@ Xác định trong hành vi thật gần đây: học viên có gặp khó khăn
 | # | Người trả lời/tên | Vai | Lần gần nhất | Nơi tìm | Phút | Tìm được? | Khó nhất | Tần suất/tuần | Hậu quả | Đồng ý test? | Quote nguyên văn |
 |---:|---|---|---|---|---:|---|---|---:|---|---|---|
 | 1 | CHƯA THU | | | | | | | | | | |
+| 2 | CHƯA THU | | | | | | | | | | |
+| 3 | CHƯA THU | | | | | | | | | | |
+| 4 | CHƯA THU | | | | | | | | | | |
+| 5 | CHƯA THU | | | | | | | | | | |
+| 6 | CHƯA THU | | | | | | | | | | |
+| 7 | CHƯA THU | | | | | | | | | | |
+| 8 | CHƯA THU | | | | | | | | | | |
+| 9 | CHƯA THU | | | | | | | | | | |
+| 10 | CHƯA THU | | | | | | | | | | |
+| 11 | CHƯA THU | | | | | | | | | | |
+| 12 | CHƯA THU | | | | | | | | | | |
+| 13 | CHƯA THU | | | | | | | | | | |
+| 14 | CHƯA THU | | | | | | | | | | |
+| 15 | CHƯA THU | | | | | | | | | | |
+| 16 | CHƯA THU | | | | | | | | | | |
+| 17 | CHƯA THU | | | | | | | | | | |
+| 18 | CHƯA THU | | | | | | | | | | |
+| 19 | CHƯA THU | | | | | | | | | | |
+| 20 | CHƯA THU | | | | | | | | | | |
+
+## Tổng hợp
+
+- Số người hợp lệ: **0/20**
+- Số người xác nhận “khó tìm”: **CHƯA TÍNH**
+- Số người xác nhận “khó đánh giá”: **CHƯA TÍNH**
+- Median thời gian: **CHƯA TÍNH**
+- Median tần suất/tuần: **CHƯA TÍNH**
+- Willing users có tên thật: **0/3**
+
+Chỉ cập nhật các số trên sau khi có câu trả lời thật; không dùng dữ liệu mô phỏng
+hoặc nội dung do AI tạo để thay người tham gia.
 
 ## Quy tắc tổng hợp sau khi đủ mẫu
 
