@@ -39,6 +39,8 @@ lưu `run-gemini-*.csv`. Không dùng `run-mock-*` làm kết quả CP3.
 Hai thành viên chấm độc lập GS11–GS20 trong `reviewer-gs11-gs20.csv`; mỗi người
 điền decision và notes trước khi xem phần chấm của người còn lại. Nếu lệch với
 chấm tự động, ghi lý do và sửa định nghĩa/changelog — không sửa quality bar
+
+File hiện có hai lượt chấm của  Việt và Cường: cùng kết luận 8 pass, 2 fail (GS13–GS14)
 sau hạn chốt.
 
 Quality bar đề xuất trong `spec.md`: ≥80% overall pass, đồng thời 100% grounding
