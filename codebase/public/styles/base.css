@@ -4,7 +4,8 @@
 *::before,
 *::after {
   box-sizing: border-box;
-  border-radius: 0;   /* square by decree — see tokens.css */
+  border-radius: 0;
+  /* square by decree — see tokens.css */
 }
 
 html {
@@ -27,7 +28,11 @@ body {
   font-feature-settings: "cv05" 1, "ss01" 1;
 }
 
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   margin: 0;
   color: var(--text-primary);
   font-weight: 650;
@@ -35,17 +40,27 @@ h1, h2, h3, h4, h5 {
   letter-spacing: var(--tracking-tight);
 }
 
-p { margin: 0; }
+p {
+  margin: 0;
+}
 
-ul, ol {
+ul,
+ol {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-a { color: inherit; text-decoration: none; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-img, svg { display: block; max-width: 100%; }
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
 
 button {
   font: inherit;
@@ -56,11 +71,24 @@ button {
   cursor: pointer;
 }
 
-input, select, textarea { font: inherit; color: inherit; }
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
 
-strong, b { color: var(--text-primary); font-weight: 650; }
+strong,
+b {
+  color: var(--text-primary);
+  font-weight: 650;
+}
 
-.tnum, .stat, time { font-variant-numeric: tabular-nums; }
+.tnum,
+.stat,
+time {
+  font-variant-numeric: tabular-nums;
+}
 
 code {
   font-family: var(--font-mono);
@@ -71,20 +99,36 @@ code {
   color: var(--text-primary);
 }
 
-.icon { flex-shrink: 0; }
+.icon {
+  flex-shrink: 0;
+}
 
 :focus-visible {
   outline: 2px solid var(--hue);
   outline-offset: 2px;
 }
 
-::selection { background: var(--hue-soft); color: var(--text-primary); }
+::selection {
+  background: var(--hue-soft);
+  color: var(--text-primary);
+}
 
 /* --- Utilities --- */
 
-.muted { color: var(--text-tertiary); font-size: var(--text-sm); }
-.dot { color: var(--border-strong); user-select: none; }
-.is-hidden, [hidden] { display: none !important; }
+.muted {
+  color: var(--text-tertiary);
+  font-size: var(--text-sm);
+}
+
+.dot {
+  color: var(--border-strong);
+  user-select: none;
+}
+
+.is-hidden,
+[hidden] {
+  display: none !important;
+}
 
 /* Micro label: uppercase, letterspaced. Used for every section heading. */
 .overline {
@@ -116,7 +160,9 @@ code {
   transition: text-decoration-color var(--duration) var(--ease);
 }
 
-.link:hover { text-decoration-color: var(--hue); }
+.link:hover {
+  text-decoration-color: var(--hue);
+}
 
 .visually-hidden {
   position: absolute;
@@ -129,9 +175,19 @@ code {
 
 /* --- Scrollbars: thin, square --- */
 
-* { scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent; }
-*::-webkit-scrollbar { width: 10px; height: 10px; }
-*::-webkit-scrollbar-track { background: transparent; }
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
 
 *::-webkit-scrollbar-thumb {
   background: var(--border-strong);
@@ -139,10 +195,16 @@ code {
   background-clip: content-box;
 }
 
-*::-webkit-scrollbar-thumb:hover { background: var(--gray-400); background-clip: content-box; }
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+  background-clip: content-box;
+}
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

@@ -12,148 +12,173 @@
  *    read a word of it.
  */
 :root {
-  /* --- Neutral ramp (cool) --------------------------------------------- */
-  --gray-0:   #ffffff;
-  --gray-50:  #f6f7f9;
-  --gray-100: #eef0f4;
-  --gray-150: #e5e8ee;
-  --gray-200: #dce0e8;
-  --gray-300: #c7ccd8;
-  --gray-400: #98a0b0;
-  --gray-500: #6b7280;
-  --gray-600: #4b5261;
-  --gray-900: #10131a;
+   /* --- Neutral ramp (cool) --------------------------------------------- */
+   --gray-0: #ffffff;
+   --gray-50: #f6f7f9;
+   --gray-100: #eef0f4;
+   --gray-150: #e5e8ee;
+   --gray-200: #dce0e8;
+   --gray-300: #c7ccd8;
+   --gray-400: #98a0b0;
+   --gray-500: #6b7280;
+   --gray-600: #4b5261;
+   --gray-900: #10131a;
 
-  /* --- Brand ------------------------------------------------------------ */
-  --brand-50:  #eef2ff;
-  --brand-200: #c7d2fe;
-  --brand-600: #4f46e5;
-  --brand-700: #4338ca;
+   /* --- Brand ------------------------------------------------------------ */
+   --brand-50: #eef2ff;
+   --brand-200: #c7d2fe;
+   --brand-600: #4f46e5;
+   --brand-700: #4338ca;
 
-  --grad-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #a855f7 100%);
-  --grad-brand-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #9333ea 100%);
-  --grad-text: linear-gradient(120deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+   --grad-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #a855f7 100%);
+   --grad-brand-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #9333ea 100%);
+   --grad-text: linear-gradient(120deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
 
-  /* --- Section hues ------------------------------------------------------
+   /* --- Section hues ------------------------------------------------------
      Each solid shade clears WCAG AA on white; `-soft` is its tint background.
      Names match route ids so [data-hue] can map them mechanically below. */
-  --hue-feed:     #4f46e5;  --hue-feed-soft:     #eef2ff;
-  --hue-search:   #9333ea;  --hue-search-soft:   #f8f0ff;
-  --hue-chat:     #0e7490;  --hue-chat-soft:     #e9fcff;
-  --hue-rooms:    #b45309;  --hue-rooms-soft:    #fff6ea;
-  --hue-upload:   #047857;  --hue-upload-soft:   #eafdf3;
-  --hue-my-docs:  #be185d;  --hue-my-docs-soft:  #fdf1f6;
+   --hue-feed: #4f46e5;
+   --hue-feed-soft: #eef2ff;
+   --hue-search: #9333ea;
+   --hue-search-soft: #f8f0ff;
+   --hue-chat: #0e7490;
+   --hue-chat-soft: #e9fcff;
+   --hue-rooms: #b45309;
+   --hue-rooms-soft: #fff6ea;
+   --hue-upload: #047857;
+   --hue-upload-soft: #eafdf3;
+   --hue-my-docs: #be185d;
+   --hue-my-docs-soft: #fdf1f6;
 
-  /* Hue of the current screen. Set on <body> by the router and on each nav
+   /* Hue of the current screen. Set on <body> by the router and on each nav
      link, so navigation and page chrome always agree. */
-  --hue: var(--brand-600);
-  --hue-soft: var(--brand-50);
+   --hue: var(--brand-600);
+   --hue-soft: var(--brand-50);
 
-  /* --- Surfaces ---------------------------------------------------------- */
-  --bg-app: var(--gray-50);
-  --bg-surface: var(--gray-0);
-  --bg-sunken: var(--gray-100);
-  --bg-hover: var(--gray-100);
+   /* --- Surfaces ---------------------------------------------------------- */
+   --bg-app: var(--gray-50);
+   --bg-surface: var(--gray-0);
+   --bg-sunken: var(--gray-100);
+   --bg-hover: var(--gray-100);
 
-  --border: var(--gray-200);
-  --border-strong: var(--gray-300);
+   --border: var(--gray-200);
+   --border-strong: var(--gray-300);
 
-  /* Faint blueprint grid on the app canvas — geometry, not decoration. */
-  --pattern-grid:
-    linear-gradient(to right, rgb(16 19 26 / 3.5%) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(16 19 26 / 3.5%) 1px, transparent 1px);
-  --pattern-grid-size: 28px 28px;
+   /* Faint blueprint grid on the app canvas — geometry, not decoration. */
+   --pattern-grid:
+      linear-gradient(to right, rgb(16 19 26 / 3.5%) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(16 19 26 / 3.5%) 1px, transparent 1px);
+   --pattern-grid-size: 28px 28px;
 
-  --scrim-light: rgb(255 255 255 / 65%);
-  --scrim-hover: rgb(255 255 255 / 18%);
+   --scrim-light: rgb(255 255 255 / 65%);
+   --scrim-hover: rgb(255 255 255 / 18%);
 
-  /* --- Text -------------------------------------------------------------- */
-  --text-primary: var(--gray-900);
-  --text-secondary: var(--gray-600);
-  --text-tertiary: var(--gray-500);
-  --text-on-dark: var(--gray-0);
-  --text-on-dark-dim: rgb(255 255 255 / 72%);
+   /* --- Text -------------------------------------------------------------- */
+   --text-primary: var(--gray-900);
+   --text-secondary: var(--gray-600);
+   --text-tertiary: var(--gray-500);
+   --text-on-dark: var(--gray-0);
+   --text-on-dark-dim: rgb(255 255 255 / 72%);
 
-  /* --- Semantic ---------------------------------------------------------- */
-  --success: #047857;  --success-bg: #eafdf3;  --success-border: #a7f3d0;
-  --warning: #b45309;  --warning-bg: #fff8ec;  --warning-border: #fcd9a4;
-  --danger:  #be123c;  --danger-bg:  #fff0f3;  --danger-border:  #fecdd3;
+   /* --- Semantic ---------------------------------------------------------- */
+   --success: #047857;
+   --success-bg: #eafdf3;
+   --success-border: #a7f3d0;
+   --warning: #b45309;
+   --warning-bg: #fff8ec;
+   --warning-border: #fcd9a4;
+   --danger: #be123c;
+   --danger-bg: #fff0f3;
+   --danger-border: #fecdd3;
 
-  --confidence-high: #047857;
-  --confidence-medium: #b45309;
-  --confidence-low: var(--gray-400);
-  --grad-confidence-high: linear-gradient(90deg, #10b981, #047857);
-  --grad-confidence-medium: linear-gradient(90deg, #f59e0b, #b45309);
+   --confidence-high: #047857;
+   --confidence-medium: #b45309;
+   --confidence-low: var(--gray-400);
+   --grad-confidence-high: linear-gradient(90deg, #10b981, #047857);
+   --grad-confidence-medium: linear-gradient(90deg, #f59e0b, #b45309);
 
-  --medal-gold: #b45309;
-  --medal-silver: #6b7280;
-  --medal-bronze: #9a5b2e;
+   --medal-gold: #b45309;
+   --medal-silver: #6b7280;
+   --medal-bronze: #9a5b2e;
 
-  --glow-hero:
-    radial-gradient(40% 62% at 20% 38%, rgb(99 102 241 / 15%) 0%, transparent 70%),
-    radial-gradient(36% 56% at 80% 30%, rgb(168 85 247 / 14%) 0%, transparent 70%),
-    radial-gradient(32% 52% at 52% 72%, rgb(236 72 153 / 10%) 0%, transparent 70%);
+   --glow-hero:
+      radial-gradient(40% 62% at 20% 38%, rgb(99 102 241 / 15%) 0%, transparent 70%),
+      radial-gradient(36% 56% at 80% 30%, rgb(168 85 247 / 14%) 0%, transparent 70%),
+      radial-gradient(32% 52% at 52% 72%, rgb(236 72 153 / 10%) 0%, transparent 70%);
 
-  /* --- Spacing ----------------------------------------------------------- */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-7: 32px;
-  --space-8: 40px;
-  --space-9: 56px;
-  --space-10: 72px;
+   /* --- Spacing ----------------------------------------------------------- */
+   --space-1: 4px;
+   --space-2: 8px;
+   --space-3: 12px;
+   --space-4: 16px;
+   --space-5: 20px;
+   --space-6: 24px;
+   --space-7: 32px;
+   --space-8: 40px;
+   --space-9: 56px;
+   --space-10: 72px;
 
-  /* --- Geometry ----------------------------------------------------------
+   /* --- Geometry ----------------------------------------------------------
      Square by design: the global `border-radius: 0` lives in base.css, so
      there is no radius token to accidentally re-introduce softness. */
-  --edge: 1px;          /* hairline border width   */
-  --edge-accent: 3px;   /* solid hue bar on a card */
+   --edge: 1px;
+   /* hairline border width   */
+   --edge-accent: 3px;
+   /* solid hue bar on a card */
 
-  /* --- Typography -------------------------------------------------------- */
-  --font-sans: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+   /* --- Typography -------------------------------------------------------- */
+   --font-sans: Inter, ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+   --font-mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
 
-  --text-2xs: 0.6875rem;  /* 11 */
-  --text-xs:  0.75rem;    /* 12 */
-  --text-sm:  0.8125rem;  /* 13 */
-  --text-base:0.875rem;   /* 14 — body default */
-  --text-md:  0.9375rem;  /* 15 */
-  --text-lg:  1.0625rem;  /* 17 */
-  --text-xl:  1.25rem;    /* 20 */
-  --text-2xl: 1.5rem;     /* 24 */
-  --text-3xl: 2.25rem;    /* 36 */
+   --text-2xs: 0.6875rem;
+   /* 11 */
+   --text-xs: 0.75rem;
+   /* 12 */
+   --text-sm: 0.8125rem;
+   /* 13 */
+   --text-base: 0.875rem;
+   /* 14 — body default */
+   --text-md: 0.9375rem;
+   /* 15 */
+   --text-lg: 1.0625rem;
+   /* 17 */
+   --text-xl: 1.25rem;
+   /* 20 */
+   --text-2xl: 1.5rem;
+   /* 24 */
+   --text-3xl: 2.25rem;
+   /* 36 */
 
-  --leading-tight: 1.2;
-  --leading-normal: 1.55;
-  --leading-relaxed: 1.7;
+   --leading-tight: 1.2;
+   --leading-normal: 1.55;
+   --leading-relaxed: 1.7;
 
-  --tracking-tight: -0.02em;
-  --tracking-tighter: -0.035em;
-  --tracking-wide: 0.08em;
-  --tracking-wider: 0.14em;
+   --tracking-tight: -0.02em;
+   --tracking-tighter: -0.035em;
+   --tracking-wide: 0.08em;
+   --tracking-wider: 0.14em;
 
-  /* --- Elevation ---------------------------------------------------------
+   /* --- Elevation ---------------------------------------------------------
      Hard-edged offsets, not soft blurs — they match the square geometry. */
-  --shadow-hard: 4px 4px 0 var(--gray-150);
-  --shadow-panel: 0 24px 48px -12px rgb(16 19 26 / 22%);
-  --shadow-float: 0 12px 28px -8px rgb(16 19 26 / 28%);
-  --backdrop: rgb(16 19 26 / 48%);
+   --shadow-hard: 4px 4px 0 var(--gray-150);
+   --shadow-panel: 0 24px 48px -12px rgb(16 19 26 / 22%);
+   --shadow-float: 0 12px 28px -8px rgb(16 19 26 / 28%);
+   --backdrop: rgb(16 19 26 / 48%);
 
-  /* --- Motion ------------------------------------------------------------ */
-  --duration-fast: 120ms;
-  --duration: 180ms;
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+   /* --- Motion ------------------------------------------------------------ */
+   --duration-fast: 120ms;
+   --duration: 180ms;
+   --ease: cubic-bezier(0.4, 0, 0.2, 1);
+   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* --- Layout ------------------------------------------------------------ */
-  --sidebar-width: 244px;
-  --topbar-height: 56px;
-  --content-max: 720px;       /* forms and reading columns  */
-  --content-max-wide: 1640px; /* wide enough to fill screens */
-  --assistant-width: 396px;
+   /* --- Layout ------------------------------------------------------------ */
+   --sidebar-width: 244px;
+   --topbar-height: 56px;
+   --content-max: 720px;
+   /* forms and reading columns  */
+   --content-max-wide: 1640px;
+   /* wide enough to fill screens */
+   --assistant-width: 396px;
 }
 
 /*
@@ -161,9 +186,32 @@
  * itself and its descendants — used on <body> (the active screen), on each nav
  * link, and on the floating assistant.
  */
-[data-hue="feed"]    { --hue: var(--hue-feed);    --hue-soft: var(--hue-feed-soft); }
-[data-hue="search"]  { --hue: var(--hue-search);  --hue-soft: var(--hue-search-soft); }
-[data-hue="chat"]    { --hue: var(--hue-chat);    --hue-soft: var(--hue-chat-soft); }
-[data-hue="rooms"]   { --hue: var(--hue-rooms);   --hue-soft: var(--hue-rooms-soft); }
-[data-hue="upload"]  { --hue: var(--hue-upload);  --hue-soft: var(--hue-upload-soft); }
-[data-hue="my-docs"] { --hue: var(--hue-my-docs); --hue-soft: var(--hue-my-docs-soft); }
+[data-hue="feed"] {
+   --hue: var(--hue-feed);
+   --hue-soft: var(--hue-feed-soft);
+}
+
+[data-hue="search"] {
+   --hue: var(--hue-search);
+   --hue-soft: var(--hue-search-soft);
+}
+
+[data-hue="chat"] {
+   --hue: var(--hue-chat);
+   --hue-soft: var(--hue-chat-soft);
+}
+
+[data-hue="rooms"] {
+   --hue: var(--hue-rooms);
+   --hue-soft: var(--hue-rooms-soft);
+}
+
+[data-hue="upload"] {
+   --hue: var(--hue-upload);
+   --hue-soft: var(--hue-upload-soft);
+}
+
+[data-hue="my-docs"] {
+   --hue: var(--hue-my-docs);
+   --hue-soft: var(--hue-my-docs-soft);
+}
