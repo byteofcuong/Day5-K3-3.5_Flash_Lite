@@ -12,9 +12,8 @@ kết quả kèm lý do, độ tin cậy và link mở file.
 | 2A202601771 | Nguyễn Phú Cường | Phân tích nhu cầu; Làm khảo sát, nhận định số liệu; Product Canvas; UI/UX; Frontend; responsive UI; kết nối API |
 | 2A202601841 | Nguyễn Quốc Hùng | Phân tích nhu cầu; Product Canvas; Backend và API; AI/RAG; xử lý PDF, tìm kiếm và lưu trữ |
 | 2A202601141 | Mai Quốc Hiếu | Phân tích nhu cầu; Product Canvas; tổng hợp khảo sát; hỗ trợ Backend; slide, kịch bản và demo |
-| Chưa cung cấp | Nguyễn Chí Công | Đề xuất ý tưởng sản phẩm và ý tưởng giao diện |
+| 2A202601425 | Nguyễn Chí Công | Đề xuất ý tưởng sản phẩm và ý tưởng giao diện, phản biện câu hỏi của các nhóm khác |
 
-> Cần bổ sung mã học viên của Nguyễn Chí Công trước khi nộp.
 
 ## Vấn đề và giải pháp
 
@@ -97,9 +96,9 @@ thực tế từ 5 người ngoài nhóm**, vì vậy validation chưa hoàn t�
 | Prototype (`codebase/`) | Đã có |
 | Golden set và kết quả (`eval/`) | Đã có |
 | Kế hoạch validation (`validation/plan.md`) | Đã có |
-| Feedback user test | Chưa thu thập |
-| `demo-slides.pdf` | Chưa có |
-| Reflection cá nhân (`reflection/`) | Chưa có |
+| Feedback user test | Có bản ghi nháp, chưa xác minh người tham gia |
+| `demo-slides.pdf` | Đã có |
+| Reflection cá nhân (`reflection/`) | Đã có |
 
 ## Kiểm thử
 

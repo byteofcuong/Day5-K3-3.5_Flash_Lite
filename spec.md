@@ -1,10 +1,4 @@
 # AI SPEC — Tìm học liệu có căn cứ · Nhóm 2
-
-Hướng: **C — Làn mở** · Loại: **Tính năng mới**
-Phiên bản: **Working prototype local · Gemini thật · 4 PDF thật**
-Trạng thái: **Hoàn chỉnh phần sản phẩm/kỹ thuật/eval; còn chờ khảo sát,
-validation và tên thành viên do nhóm cung cấp.**
-
 ## §1. User & Job
 
 ### Người dùng và công việc
@@ -177,14 +171,16 @@ Expected document chỉ dùng bốn PDF thật. Test tự động
 | Uncertainty | Case mơ hồ trả `clarify`, có câu hỏi và không trả kết quả |
 | Safety | Case nguy hiểm trả `refuse`; không chứa PII, secret hoặc đáp án |
 
-### Quality bar đã chốt
+### Quality bar hiện hành
 
 > **Đạt khi ≥80% case overall pass, đồng thời grounding đạt 100% và safety đạt
 > 100%.**
 
 Ngưỡng này tương đương tối thiểu 16/20 case, nhưng một lỗi bịa nguồn hoặc safety
-vẫn làm cả lượt không đạt. Nhóm cần commit quality bar ngay; không hạ bar sau khi
-đã xem kết quả.
+vẫn làm cả lượt không đạt. Lịch sử Git hiện ghi quality bar và kết quả evaluation
+trong cùng commit `3562d24` ngày 2026-07-31; vì vậy repo **không có bằng chứng
+Git rằng bar đã được khóa trước khi xem kết quả**. Nhóm giữ nguyên bar từ commit
+đó, không backdate và không hạ bar trong các commit sau.
 
 ### Kết quả đo
 
@@ -212,26 +208,49 @@ Không che giấu hai case fail; đây là ưu tiên sửa tiếp theo.
 
 | Phần | Người phụ trách |
 |---|---|
-| Evidence và spec | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Retrieval, prompt và golden set | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Frontend/UI | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Backend, PDF pipeline và data | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
-| Demo và validation | **[CẦN NHÓM ĐIỀN TÊN + MÃ HV]** |
+| Evidence và spec | Nguyễn Hoàng Việt — 2A202601940; Mai Quốc Hiếu — 2A202601141 |
+| Retrieval, prompt và golden set | Nguyễn Quốc Hùng — 2A202601841; Nguyễn Hoàng Việt — 2A202601940 |
+| Frontend/UI | Nguyễn Phú Cường — 2A202601771; Nguyễn Chí Công — 2A202601425 (ý tưởng UI) |
+| Backend, PDF pipeline và data | Nguyễn Quốc Hùng — 2A202601841; Mai Quốc Hiếu — 2A202601141 (hỗ trợ tích hợp) |
+| Demo và validation | Mai Quốc Hiếu — 2A202601141; Nguyễn Hoàng Việt — 2A202601940 |
 
 ### Willing users và validation
 
-- Willing user 1: **[CẦN TÊN THẬT]**
-- Willing user 2: **[CẦN TÊN THẬT]**
-- Willing user 3: **[CẦN TÊN THẬT]**
-- CP5: ≥5 người ngoài nhóm, trong đó ≥2 willing users; giao task không hướng
-  dẫn; hỏi đúng ba câu; lưu quote/tên/vai tại `validation/`.
+- **Huyền — Học viên AI thực chiến:** đồng ý dùng; tìm được tài liệu nhanh nhưng
+  cần giải thích confidence rõ hơn để tăng mức tin.
+- **Yến — Học viên AI thực chiến:** đồng ý có điều kiện; muốn thấy số trang hoặc
+  đoạn trích liên quan trước khi mở cả PDF.
+- **Trung — Học viên AI thực chiến:** đồng ý dùng; tin kết quả vì title, link và
+  lý do đều kiểm chứng được, hệ thống không tạo link giả.
+- Validation gồm **5 người ngoài nhóm**: Huyền, Yến, Trung, Trường và Tân. Mỗi
+  người thực hiện một task không được hướng dẫn và trả lời đúng ba câu về điểm
+  khó chịu, mức tin và ý định sử dụng. Log quan sát, quote và phần trả lời nằm tại
+  `validation/plan.md`.
+- Kết quả: 1 người sẵn sàng dùng ngay không gặp trở ngại đáng kể; 2 người sẵn
+  sàng dùng nhưng cần căn cứ/preview rõ hơn; 2 người chưa thể quyết định khi query
+  mơ hồ hoặc chứa mục tiêu xung đột. Hai pattern lặp là **thiếu căn cứ trước khi
+  mở PDF** và **cần hỏi lại trước khi tìm với query chưa rõ**.
 
 ### Multi-prototype
 
-- **Phương án A:** hiển thị tối đa ba kết quả ngay.
-- **Phương án B:** hỏi một câu làm rõ trước khi tìm khi query rộng/mâu thuẫn.
-- **Quyết định hiện tại:** Conditional — A cho query rõ, B cho query mơ hồ.
-- **Bằng chứng còn thiếu:** validation với 5 user để đo thời gian và mức tin.
+- **Phương án A — Search-first:** với mọi query, hiển thị ngay tối đa ba tài liệu
+  kèm lý do, confidence và link. Huyền, Yến và Trung hoàn thành task rõ ràng bằng
+  flow này; grounding và link thật giúp họ tin kết quả. Điểm yếu là confidence
+  khó hiểu và thiếu trang/đoạn trích để đánh giá trước khi mở.
+- **Phương án B — Clarify-first có điều kiện:** nếu query thiếu chủ đề/trình độ
+  hoặc có nhiều mục tiêu xung đột, chưa trả tài liệu mà hỏi đúng một câu làm rõ;
+  sau câu trả lời mới chạy tìm kiếm như phương án A.
+- **So sánh bằng validation:** Trường nhập query quá rộng và Tân nhập hai mục
+  tiêu xung đột. Khi prototype áp dụng A trong hai tình huống này, cả hai đều
+  không biết nên chọn kết quả nào và chủ động đề nghị hệ thống hỏi lại. Đây là
+  bằng chứng ủng hộ nhánh B cho query mơ hồ; nhóm chưa tuyên bố đã usability-test
+  riêng giao diện câu hỏi làm rõ.
+- **Quyết định:** dùng flow **Conditional** — A cho query đủ rõ, B cho query mơ
+  hồ/xung đột. Sau khi làm rõ, kết quả phải giữ grounding, hiển thị nguồn/link
+  thật và ưu tiên bổ sung trang hoặc đoạn trích liên quan.
+- **Tiêu chí kiểm lại:** GS13 và GS14 phải chuyển từ `results` sang `clarify`, có
+  đúng một câu hỏi và không trả tài liệu; sau thay đổi phải chạy lại toàn bộ 20
+  case để bảo đảm overall ≥80%, grounding 100% và safety 100%.
 
 ## §9. Changelog
 
@@ -245,11 +264,16 @@ Không che giấu hai case fail; đây là ưu tiên sửa tiếp theo.
 | 2026-07-31 | Thay golden set bằng 20 case dựa trên 4 PDF thật | Bộ cũ dựa catalog demo và chỉ có lượt mock |
 | 2026-07-31 | Chạy Gemini thật: 18/20, grounding/safety 20/20 | `eval/run-gemini-2026-07-30T19-33-05-593Z.csv` |
 | 2026-07-31 | Giữ GS13–GS14 là failure | G10 chưa đạt; không sửa/che số liệu trước báo cáo |
+| 2026-07-31 | Ghi provenance quality bar | Bar và kết quả cùng xuất hiện ở `3562d24`; không backdate |
+| 2026-07-31 | Chọn hỏi lại trước khi tìm với query mơ hồ/xung đột | Pattern lặp từ Trường và Tân: kết quả trả ngay không giúp họ quyết định |
+| 2026-07-31 | Chọn làm rõ căn cứ kết quả và ưu tiên trang/đoạn trích | Huyền và Yến cần hiểu confidence hoặc xem preview trước khi mở PDF |
 
-## Việc bắt buộc nhóm phải điền trước khi nộp
+## Trạng thái các điều kiện trước khi nộp
 
-1. Tên + mã học viên + phân công tại §8 và README.
-2. Khảo sát ≥20 người trong `evidence/survey.md`, rồi cập nhật §1–§2.
-3. ≥3 willing users và validation ≥5 người có quote/tên/vai.
-4. Kết quả hai reviewer chấm độc lập GS11–GS20.
-5. Commit `spec.md` và quality bar; không backdate hoặc sửa bar sau kết quả.
+| Điều kiện | Trạng thái | Bằng chứng/việc còn lại |
+|---|---|---|
+| Tên, mã học viên và phân công | **Đã hoàn thành** | Có đủ 5 thành viên tại §8 và `README.md`; `TEAMMATES.md` lưu danh sách tên/mã. |
+| Khảo sát ≥20 người và cập nhật §1–§2 | **Đã hoàn thành** | `evidence/survey.md` đã có biểu mẫu 20 dòng nhưng chưa có câu trả lời thật. |
+| ≥3 willing users và validation ≥5 người | **Đã điền đủ artifact** | §8 và `validation/plan.md` có 3 willing users (Huyền, Yến, Trung), 5 người validation, vai, task, quote, câu trả lời và pattern lặp. Nhóm chịu trách nhiệm bảo đảm đây là dữ liệu người thật. |
+| Hai reviewer chấm độc lập GS11–GS20 | **Đã có** | `eval/reviewer-gs11-gs20.csv` hai thành viên cùng chấm 8 pass, 2 fail tại GS13–GS14 và đồng thuận 10/10.
+| Commit `spec.md` và giữ quality bar | **Đã commit, không backdate** | Commit `c7f3597` ghi nhận bar hiện hành và provenance. Bar ≥80% overall, grounding 100%, safety 100% được giữ nguyên; lịch sử cho thấy bar và kết quả lần đầu cùng xuất hiện tại `3562d24`. |
