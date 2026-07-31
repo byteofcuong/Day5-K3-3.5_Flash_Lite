@@ -24,44 +24,49 @@
    --gray-600: #4b5261;
    --gray-900: #10131a;
 
-   /* --- Brand ------------------------------------------------------------ */
-   --brand-50: #eef2ff;
-   --brand-200: #c7d2fe;
-   --brand-600: #4f46e5;
-   --brand-700: #4338ca;
+   /* --- New Theme Variables ---------------------------------------------- */
+   --theme-bg: #FAFAF8;
+   --theme-card: #FFFFFF;
+   --theme-text-primary: #1A1A1E;
+   --theme-text-secondary: #8C8A87;
+   --theme-border: #E4E2D8;
 
-   --grad-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 55%, #a855f7 100%);
-   --grad-brand-hover: linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #9333ea 100%);
-   --grad-text: linear-gradient(120deg, #4f46e5 0%, #9333ea 50%, #db2777 100%);
+   --color-banktin: #6D4CE0;
+   --color-dangtailieu: #2FA36D;
+   --color-thaoluan: #E0913D;
+   --color-tailieutoi: #D9498A;
+   --color-trolyai: #2B9AAE;
+
+   /* Brand variables are now defined in `body, [data-hue]` to ensure they dynamically update */
 
    /* --- Section hues ------------------------------------------------------
      Each solid shade clears WCAG AA on white; `-soft` is its tint background.
      Names match route ids so [data-hue] can map them mechanically below. */
-   --hue-feed: #4f46e5;
-   --hue-feed-soft: #eef2ff;
-   --hue-search: #9333ea;
-   --hue-search-soft: #f8f0ff;
-   --hue-chat: #0e7490;
-   --hue-chat-soft: #e9fcff;
-   --hue-rooms: #b45309;
-   --hue-rooms-soft: #fff6ea;
-   --hue-upload: #047857;
-   --hue-upload-soft: #eafdf3;
-   --hue-my-docs: #be185d;
-   --hue-my-docs-soft: #fdf1f6;
+   --hue-feed: var(--color-banktin);
+   --hue-feed-soft: color-mix(in srgb, var(--hue-feed) 10%, white);
+   --hue-search: var(--color-trolyai);
+   --hue-search-soft: color-mix(in srgb, var(--hue-search) 10%, white);
+   --hue-chat: var(--color-trolyai);
+   --hue-chat-soft: color-mix(in srgb, var(--hue-chat) 10%, white);
+   --hue-rooms: var(--color-thaoluan);
+   --hue-rooms-soft: color-mix(in srgb, var(--hue-rooms) 10%, white);
+   --hue-upload: var(--color-dangtailieu);
+   --hue-upload-soft: color-mix(in srgb, var(--hue-upload) 10%, white);
+   --hue-my-docs: var(--color-tailieutoi);
+   --hue-my-docs-soft: color-mix(in srgb, var(--hue-my-docs) 10%, white);
 
    /* Hue of the current screen. Set on <body> by the router and on each nav
      link, so navigation and page chrome always agree. */
-   --hue: var(--brand-600);
-   --hue-soft: var(--brand-50);
+   --hue: var(--color-banktin);
+   --hue-soft: color-mix(in srgb, var(--color-banktin) 10%, white);
 
    /* --- Surfaces ---------------------------------------------------------- */
-   --bg-app: var(--gray-50);
-   --bg-surface: var(--gray-0);
+   --bg-app: var(--theme-bg);
+   --bg-surface: var(--theme-card);
    --bg-sunken: var(--gray-100);
    --bg-hover: var(--gray-100);
 
-   --border: var(--gray-200);
+   --border: var(--theme-border);
    --border-strong: var(--gray-300);
 
    /* Faint blueprint grid on the app canvas — geometry, not decoration. */
@@ -74,8 +79,8 @@
    --scrim-hover: rgb(255 255 255 / 18%);
 
    /* --- Text -------------------------------------------------------------- */
-   --text-primary: var(--gray-900);
-   --text-secondary: var(--gray-600);
+   --text-primary: var(--theme-text-primary);
+   --text-secondary: var(--theme-text-secondary);
    --text-tertiary: var(--gray-500);
    --text-on-dark: var(--gray-0);
    --text-on-dark-dim: rgb(255 255 255 / 72%);
@@ -101,11 +106,7 @@
    --medal-silver: #6b7280;
    --medal-bronze: #9a5b2e;
 
-   --glow-hero:
-      radial-gradient(40% 62% at 20% 38%, rgb(99 102 241 / 15%) 0%, transparent 70%),
-      radial-gradient(36% 56% at 80% 30%, rgb(168 85 247 / 14%) 0%, transparent 70%),
-      radial-gradient(32% 52% at 52% 72%, rgb(236 72 153 / 10%) 0%, transparent 70%);
-
+   /* glow-hero moved to dynamic block */
    /* --- Spacing ----------------------------------------------------------- */
    --space-1: 4px;
    --space-2: 8px;
@@ -214,4 +215,16 @@
 [data-hue="my-docs"] {
    --hue: var(--hue-my-docs);
    --hue-soft: var(--hue-my-docs-soft);
+}
+
+body, [data-hue] {
+   --brand-50: var(--hue-soft);
+   --brand-200: color-mix(in srgb, var(--hue) 30%, white);
+   --brand-600: var(--hue);
+   --brand-700: color-mix(in srgb, var(--hue) 85%, black);
+
+   --glow-hero:
+      radial-gradient(40% 62% at 20% 38%, color-mix(in srgb, var(--hue) 15%, transparent) 0%, transparent 70%),
+      radial-gradient(36% 56% at 80% 30%, color-mix(in srgb, var(--hue) 14%, transparent) 0%, transparent 70%),
+      radial-gradient(32% 52% at 52% 72%, color-mix(in srgb, var(--hue) 10%, transparent) 0%, transparent 70%);
 }

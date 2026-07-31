@@ -41,14 +41,14 @@
   margin-inline: -2px;
 }
 
-/* Primary carries the brand gradient — the most saturated thing on screen. */
+/* Primary carries the brand color — the most saturated thing on screen. */
 .btn--primary {
-  background-image: var(--grad-brand);
+  background: var(--brand-600);
   color: var(--text-on-dark);
 }
 
 .btn--primary:hover:not(:disabled) {
-  background-image: var(--grad-brand-hover);
+  background: var(--brand-700);
   box-shadow: 3px 3px 0 var(--gray-900);
   translate: -1px -1px;
 }
@@ -146,7 +146,7 @@
   width: 32px;
   height: 32px;
   flex-shrink: 0;
-  background-image: var(--grad-brand);
+  background: var(--brand-600);
   color: var(--text-on-dark);
   font-size: var(--text-sm);
   font-weight: 700;
@@ -838,7 +838,7 @@ input[type="file"].input {
   place-items: center;
   width: 22px;
   height: 22px;
-  background-image: var(--grad-brand);
+  background: var(--brand-600);
   color: var(--text-on-dark);
   font-size: var(--text-2xs);
   font-weight: 700;
@@ -1100,7 +1100,7 @@ input[type="file"].input {
 .msg--user {
   align-self: flex-end;
   padding: var(--space-3) var(--space-4);
-  background-image: var(--grad-brand);
+  background: var(--brand-600);
   color: var(--text-on-dark);
 }
 

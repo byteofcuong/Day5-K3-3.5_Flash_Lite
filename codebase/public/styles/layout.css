@@ -178,17 +178,7 @@
   height: 26px;
 }
 
-/* Gradient wordmark, with the solid colour above as the fallback. */
-@supports (background-clip: text) or (-webkit-background-clip: text) {
-
-  .brand__name,
-  .topbar__brand span {
-    background: var(--grad-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-}
+/* Gradient wordmark removed; solid color is used as the fallback (which is now the main design). */
 
 .sidebar__scrim {
   display: none;
