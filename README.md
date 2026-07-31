@@ -7,12 +7,10 @@
 
 | Mã học viên | Họ và tên | Phân công |
 |---|---|---|
-| 2A202601771 | Nguyễn Phú Cường | Product, Spec |
-| 2A202601771 | Nguyễn Quốc Hùng | Frontend |
-| 2A202601841 | Lê Văn C | Backend, AI |
-| 2A202601141 | Phạm Thị D | Evaluation, Demo |
-
-
+| 2A202601940 | Nguyễn Hoàng Việt | Phân tích nhu cầu người dùng; xây dựng Product Canvas; Xây dựng golden set; chạy evaluation và tổng hợp kết quả; thực hiện user validation viết và hoàn thiện `spec.md`, thiết kế Backend |
+| 2A202601771 | Nguyễn Phú Cường | Xây dựng Product Canvas; Thiết kế giao diện và luồng trải nghiệm; phát triển Frontend; hoàn thiện responsive UI và kết nối giao diện với API |
+| 2A202601841 | Nguyễn Quốc Hùng | Xây dựng Product Canvas; Phát triển Backend và API; tích hợp AI/RAG; xử lý tài liệu PDF, tìm kiếm và lưu trữ dữ liệu |
+| 2A202601141 | Mai Quốc Hiếu | Xây dựng Product Canvas; Tổng hợp bằng chứng khảo sát;chuẩn bị slide, kịch bản và demo sản phẩm; thiết kế Backend  |
 
 ## Bắt đầu từ đâu?
 
