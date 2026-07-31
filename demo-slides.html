@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VShare — Demo Pitch</title>
+  <style>
+    :root {
+      --ink: #10253f;
+      --muted: #64748b;
+      --paper: #f7f5ef;
+      --card: rgba(255, 255, 255, .82);
+      --line: rgba(16, 37, 63, .14);
+      --blue: #246bfd;
+      --cyan: #29c7ac;
+      --orange: #ff8c42;
+      --shadow: 0 28px 80px rgba(22, 42, 70, .14);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      overflow: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 15%, rgba(41, 199, 172, .18), transparent 27rem),
+        radial-gradient(circle at 91% 88%, rgba(36, 107, 253, .16), transparent 30rem),
+        var(--paper);
+      font-family: Inter, "Segoe UI", system-ui, sans-serif;
+    }
+
+    .deck { height: 100vh; position: relative; }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(28px, 5vw, 72px);
+      opacity: 0;
+      transform: translateX(44px) scale(.985);
+      pointer-events: none;
+      transition: opacity .42s ease, transform .42s ease;
+    }
+    .slide.is-active { opacity: 1; transform: none; pointer-events: auto; }
+    .slide::after {
+      content: "";
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      right: -120px;
+      top: -100px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { content: ""; width: 42px; height: 3px; background: var(--cyan); }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { max-width: 920px; font-size: clamp(56px, 8vw, 110px); line-height: .92; letter-spacing: -.065em; }
+    h2 { max-width: 900px; font-size: clamp(38px, 5.2vw, 72px); line-height: 1; letter-spacing: -.045em; }
+    .accent { color: var(--blue); }
+    .lede { max-width: 760px; font-size: clamp(18px, 2vw, 27px); line-height: 1.45; color: var(--muted); }
+    .content { align-self: center; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .grid.two { grid-template-columns: 1.08fr .92fr; align-items: stretch; }
+    .card {
+      padding: clamp(22px, 3vw, 36px);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+    .card h3 { margin-bottom: 12px; font-size: 22px; }
+    .card p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.55; }
+    .number { color: var(--blue); font-size: 52px; font-weight: 850; letter-spacing: -.06em; }
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: center; }
+    .step { min-height: 170px; padding: 24px; border-radius: 20px; background: var(--ink); color: white; }
+    .step:nth-child(2) { background: var(--blue); }
+    .step:nth-child(3) { background: #175a70; }
+    .step:nth-child(4) { background: #117a68; }
+    .step b { display: block; margin-bottom: 30px; color: rgba(255,255,255,.68); font-size: 12px; letter-spacing: .13em; }
+    .step span { font-size: 20px; font-weight: 750; line-height: 1.25; }
+    .score { display: flex; align-items: baseline; gap: 8px; }
+    .score strong { font-size: clamp(78px, 10vw, 142px); line-height: .8; letter-spacing: -.08em; color: var(--blue); }
+    .score span { color: var(--muted); font-size: 24px; font-weight: 700; }
+    .bar { height: 14px; margin: 28px 0 14px; overflow: hidden; border-radius: 999px; background: #dce3ea; }
+    .bar i { display: block; width: 90%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--cyan)); }
+    .checks { display: grid; gap: 14px; }
+    .check { display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 18px; }
+    .check b { color: #087765; }
+    .risk { margin-top: 22px; padding: 18px 20px; border-left: 5px solid var(--orange); background: rgba(255, 140, 66, .1); color: #7a3b10; font-size: 17px; }
+    .footer { display: flex; align-items: end; justify-content: space-between; color: var(--muted); font-size: 13px; }
+    .brand { font-weight: 850; color: var(--ink); letter-spacing: -.02em; }
+    .nav { display: flex; align-items: center; gap: 10px; }
+    .nav button {
+      width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 50%;
+      background: rgba(255,255,255,.7); color: var(--ink); cursor: pointer; font-size: 19px;
+    }
+    .dots { display: flex; gap: 7px; }
+    .dot { width: 7px; height: 7px; border-radius: 99px; background: #c4ced8; transition: .25s; }
+    .dot.is-active { width: 25px; background: var(--blue); }
+    kbd { padding: 3px 7px; border: 1px solid var(--line); border-radius: 6px; background: white; }
+
+    @media (max-width: 780px) {
+      body { overflow: auto; }
+      .deck { height: auto; }
+      .slide { position: relative; min-height: 100vh; display: none; }
+      .slide.is-active { display: grid; }
+      .grid, .grid.two, .flow { grid-template-columns: 1fr; }
+      .flow { gap: 8px; }
+      .step { min-height: auto; }
+      .step b { margin-bottom: 12px; }
+    }
+
+    @media print {
+      body { overflow: visible; background: white; }
+      .deck { height: auto; }
+      .slide { position: relative; width: 297mm; height: 167mm; opacity: 1; transform: none; page-break-after: always; }
+      .nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="deck" aria-label="Slide thuyết trình VShare">
+    <section class="slide is-active">
+      <div class="eyebrow">Mini Hackathon AI · Batch 03</div>
+      <div class="content">
+        <h1>Tìm đúng học liệu.<br><span class="accent">Không bịa nguồn.</span></h1>
+        <p class="lede">VShare dùng AI Agent để hiểu nhu cầu, tìm trong kho PDF thật và giải thích vì sao mỗi tài liệu phù hợp.</p>
+      </div>
+      <footer class="footer">
+        <span class="brand">VSHARE / AI SEARCH</span>
+        <div class="nav"><span>Dùng <kbd>←</kbd> <kbd>→</kbd></span><button data-prev>←</button><button data-next>→</button></div>
+      </footer>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">01 · Pain point</div>
+      <div class="content">
+        <h2>Học liệu có sẵn, nhưng <span class="accent">tìm không ra.</span></h2>
+        <div class="grid">
+          <article class="card"><div class="number">01</div><h3>Phân tán</h3><p>PDF nằm ở nhiều nơi, tên file không nói hết nội dung.</p></article>
+          <article class="card"><div class="number">02</div><h3>Tìm theo từ khóa</h3><p>Người học phải biết đúng từ khóa mới chạm tới tài liệu phù hợp.</p></article>
+          <article class="card"><div class="number">03</div><h3>Thiếu niềm tin</h3><p>AI có thể trả lời trôi chảy nhưng bịa tiêu đề, ID hoặc đường dẫn.</p></article>
+        </div>
+      </div>
+      <footer class="footer"><span>Người học cần câu trả lời có thể kiểm chứng.</span><div class="dots"></div></footer>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">02 · Giải pháp</div>
+      <div class="content">
+        <h2>Một luồng tìm kiếm <span class="accent">có grounding.</span></h2>
+        <div class="flow">
+          <div class="step"><b>BƯỚC 1</b><span>Người học mô tả nhu cầu tự nhiên</span></div>
+          <div class="step"><b>BƯỚC 2</b><span>Gemini Agent gọi công cụ tìm kiếm</span></div>
+          <div class="step"><b>BƯỚC 3</b><span>Backend đối chiếu catalog PDF thật</span></div>
+          <div class="step"><b>BƯỚC 4</b><span>Trả ≤3 kết quả, lý do và link thật</span></div>
+        </div>
+        <div class="risk"><strong>Guardrail:</strong> ID không có trong catalog bị loại; truy vấn không an toàn bị từ chối; không có kết quả thì không bịa.</div>
+      </div>
+      <footer class="footer"><span class="brand">ReAct · Tools · Grounding</span><div class="dots"></div></footer>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">03 · Trải nghiệm sản phẩm</div>
+      <div class="content">
+        <h2>Từ câu hỏi đến tài liệu trong <span class="accent">một luồng.</span></h2>
+        <div class="grid">
+          <article class="card">
+            <div class="number">01</div>
+            <h3>Hỏi tự nhiên</h3>
+            <p>“Tìm tài liệu giải thích ReAct, Agent Loop và cách debug agent.”</p>
+          </article>
+          <article class="card">
+            <div class="number">02</div>
+            <h3>Kiểm chứng kết quả</h3>
+            <p>Xem lý do đề xuất, confidence và mở trực tiếp đúng file PDF.</p>
+          </article>
+          <article class="card">
+            <div class="number">03</div>
+            <h3>Hỏi sâu tài liệu</h3>
+            <p>AI đọc nội dung đã trích xuất để trả lời, tóm tắt và tạo flashcard.</p>
+          </article>
+        </div>
+      </div>
+      <footer class="footer"><span class="brand">SEARCH → VERIFY → LEARN</span><div class="dots"></div></footer>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">04 · Bằng chứng</div>
+      <div class="content grid two">
+        <article class="card">
+          <h3>Evaluation với Gemini thật</h3>
+          <div class="score"><strong>90%</strong><span>18 / 20 case</span></div>
+          <div class="bar"><i></i></div>
+          <p>Vượt quality bar 80%. Hai case fail đều thuộc nhóm truy vấn mơ hồ chưa hỏi lại.</p>
+        </article>
+        <article class="card">
+          <div class="checks">
+            <div class="check"><span>Grounding</span><b>20/20 · 100%</b></div>
+            <div class="check"><span>Safety</span><b>20/20 · 100%</b></div>
+            <div class="check"><span>Case thường</span><b>10/10</b></div>
+          </div>
+          <div class="risk"><strong>Tiếp theo:</strong> hỏi lại tốt hơn với query mơ hồ và bổ sung trích đoạn/số trang làm căn cứ.</div>
+        </article>
+      </div>
+      <footer class="footer">
+        <span>Golden set 20 case · lưu cả kết quả fail</span>
+        <div class="dots"></div>
+      </footer>
+    </section>
+
+    <section class="slide">
+      <div class="eyebrow">05 · Bước tiếp theo</div>
+      <div class="content">
+        <h2>Từ prototype đến công cụ học tập <span class="accent">đáng tin.</span></h2>
+        <div class="grid">
+          <article class="card"><h3>Hỏi lại thông minh</h3><p>Cải thiện hành vi clarify cho truy vấn mơ hồ như GS13 và GS14.</p></article>
+          <article class="card"><h3>Căn cứ sâu hơn</h3><p>Hiển thị đoạn trích và số trang để người học kiểm chứng ngay.</p></article>
+          <article class="card"><h3>Validation thật</h3><p>Thử với người ngoài nhóm, ghi nhận quote và đo thời gian hoàn thành task.</p></article>
+        </div>
+        <p class="lede" style="margin-top:34px"><strong>Tìm đúng. Mở đúng. Tin được.</strong></p>
+      </div>
+      <footer class="footer">
+        <span class="brand">VSHARE / AI SEARCH</span>
+        <div class="nav"><button data-prev>←</button><button data-next>→</button></div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const slides = [...document.querySelectorAll(".slide")];
+    let current = 0;
+
+    function show(index) {
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
+      document.querySelectorAll(".dots").forEach((host) => {
+        host.innerHTML = slides.map((_, i) => `<i class="dot ${i === current ? "is-active" : ""}"></i>`).join("");
+      });
+    }
+
+    document.addEventListener("click", (event) => {
+      if (event.target.closest("[data-next]")) show(current + 1);
+      if (event.target.closest("[data-prev]")) show(current - 1);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (["ArrowRight", "PageDown", " "].includes(event.key)) show(current + 1);
+      if (["ArrowLeft", "PageUp"].includes(event.key)) show(current - 1);
+      if (event.key === "Home") show(0);
+      if (event.key === "End") show(slides.length - 1);
+    });
+    show(0);
+  </script>
+</body>
+</html>

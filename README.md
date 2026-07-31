@@ -1,16 +1,118 @@
-# Mini Hackathon AI — Batch 03
+# VShare — AI Search Prototype
 
-**SPEC → Prototype → Demo.** Đây không phải cuộc thi code — đây là cuộc thi **tư duy sản phẩm AI**.
+VShare là web app giúp học viên tìm học liệu trong kho tài liệu cộng đồng bằng
+ngôn ngữ tự nhiên. AI chỉ đề xuất tài liệu có thật trong catalog, trả tối đa ba
+kết quả kèm lý do, độ tin cậy và link mở file.
 
-- Thời lượng: **1,5 ngày** (một ngày build + một buổi demo)
-- Nhóm: **4-5 người** · zone tối đa 5 nhóm · thi theo lớp
+## Thông tin nhóm
 
 | Mã học viên | Họ và tên | Phân công |
 |---|---|---|
-| 2A202601940 | Nguyễn Hoàng Việt | Phân tích nhu cầu người dùng; xây dựng Product Canvas; Xây dựng golden set; chạy evaluation và tổng hợp kết quả; thực hiện user validation viết và hoàn thiện `spec.md`, thiết kế Backend |
-| 2A202601771 | Nguyễn Phú Cường | Xây dựng Product Canvas; Thiết kế giao diện và luồng trải nghiệm; phát triển Frontend; hoàn thiện responsive UI và kết nối giao diện với API |
-| 2A202601841 | Nguyễn Quốc Hùng | Xây dựng Product Canvas; Phát triển Backend và API; tích hợp AI/RAG; xử lý tài liệu PDF, tìm kiếm và lưu trữ dữ liệu |
-| 2A202601141 | Mai Quốc Hiếu | Xây dựng Product Canvas; Tổng hợp bằng chứng khảo sát;chuẩn bị slide, kịch bản và demo sản phẩm; thiết kế Backend  |
+| 2A202601940 | Nguyễn Hoàng Việt | Phân tích nhu cầu; Product Canvas; golden set; evaluation; user validation; hoàn thiện `spec.md`; hỗ trợ Backend |
+| 2A202601771 | Nguyễn Phú Cường | Phân tích nhu cầu; Product Canvas; UI/UX; Frontend; responsive UI; kết nối API |
+| 2A202601841 | Nguyễn Quốc Hùng | Phân tích nhu cầu; Product Canvas; Backend và API; AI/RAG; xử lý PDF, tìm kiếm và lưu trữ |
+| 2A202601141 | Mai Quốc Hiếu | Phân tích nhu cầu; Product Canvas; tổng hợp khảo sát; hỗ trợ Backend; slide, kịch bản và demo |
+| Chưa cung cấp | Nguyễn Chí Công | Đề xuất ý tưởng sản phẩm và ý tưởng giao diện |
+
+> Cần bổ sung mã học viên của Nguyễn Chí Công trước khi nộp.
+
+## Vấn đề và giải pháp
+
+Học liệu trong cộng đồng thường nằm rải rác, tên file không phản ánh đầy đủ nội
+dung và tìm kiếm từ khóa dễ trả kết quả thiếu liên quan. VShare dùng AI Agent kết
+hợp công cụ tìm kiếm catalog để hiểu nhu cầu, tìm tài liệu và giải thích vì sao
+từng kết quả phù hợp. Backend kiểm tra grounding nên AI không được tự tạo ID,
+tiêu đề hoặc link tài liệu.
+
+## Tính năng chính
+
+- Tìm học liệu bằng câu hỏi tự nhiên và lọc theo metadata.
+- Trả tối đa tài liệu kèm lý do, confidence và link mở file.
+- Hỏi lại khi yêu cầu chưa rõ; từ chối yêu cầu ngoài phạm vi hoặc không an toàn.
+- Đăng ký, đăng nhập, tải lên, quản lý và đánh giá tài liệu.
+- Phòng thảo luận; tóm tắt, chat với tài liệu và tạo flashcard bằng AI.
+- Lưu trace các lượt gọi AI để kiểm tra và tái lập evaluation.
+
+## Chạy prototype
+
+Yêu cầu: Node.js và npm.
+
+```powershell
+cd codebase
+npm.cmd install
+Copy-Item .env.example .env
+npm.cmd run seed
+npm.cmd start
+```
+
+Trong `codebase/.env`, điền `JWT_SECRET` dài tối thiểu 32 ký tự và
+`GEMINI_API_KEY`, sau đó mở `http://localhost:3000`.
+
+Tài khoản demo:
+
+- `viet@vshare.local` hoặc `admin@vshare.local`
+- Mật khẩu: `VShare@2026`
+
+Muốn chạy offline, đặt `ENABLE_MOCK_AI=true`. Chế độ mock chỉ kiểm tra luồng ứng
+dụng, không được dùng làm kết quả evaluation chính thức.
+
+## Kiến trúc và mức độ hoàn thiện
+
+- Frontend: HTML, CSS và JavaScript ES modules trong `codebase/public/`.
+- Backend: Express theo luồng `routes → services → repositories → store`.
+- AI: Gemini chạy vòng lặp ReAct và gọi công cụ tìm kiếm tài liệu.
+- Dữ liệu: JSON store sinh từ catalog, không yêu cầu database ngoài.
+- Grounding: Backend loại kết quả không tồn tại trong catalog PDF thật.
+
+Prototype ở mức **Working** với giao diện, API và tìm kiếm AI. Chế độ mock chỉ là
+phương án dự phòng offline; evaluation chính thức sử dụng Gemini thật.
+
+## Evaluation
+
+Golden set gồm 20 case: 10 case thường, 8 case khó và 2 case hiếm. Mỗi case được
+chấm theo relevance, grounding, explanation, uncertainty và safety.
+
+| Chỉ số | Kết quả | Quality bar | Đánh giá |
+|---|---:|---:|---|
+| Overall | 18/20 = **90%** | ≥80% | Đạt |
+| Grounding | 20/20 = **100%** | 100% | Đạt |
+| Safety | 20/20 = **100%** | 100% | Đạt |
+
+GS13 và GS14 chưa đạt vì truy vấn mơ hồ nhưng AI trả tài liệu thay vì hỏi lại.
+Nhóm giữ nguyên các case fail để phản ánh trung thực hạn chế hiện tại.
+
+- Quy tắc chấm: `eval/README.md`
+- Golden set: `eval/golden-set.csv`
+- Kết quả chính thức: `eval/run-gemini-2026-07-30T19-33-05-593Z.csv`
+- Chạy lại: `cd codebase; npm.cmd run eval`
+
+## Validation và trạng thái bài nộp
+
+Kế hoạch user test nằm trong `validation/plan.md`. Repo hiện **chưa có feedback
+thực tế từ 5 người ngoài nhóm**, vì vậy validation chưa hoàn tất.
+
+| Deliverable | Trạng thái |
+|---|---|
+| AI Spec (`spec.md`) | Đã có |
+| Prototype (`codebase/`) | Đã có |
+| Golden set và kết quả (`eval/`) | Đã có |
+| Kế hoạch validation (`validation/plan.md`) | Đã có |
+| Feedback user test | Chưa thu thập |
+| `demo-slides.pdf` | Chưa có |
+| Reflection cá nhân (`reflection/`) | Chưa có |
+
+## Kiểm thử
+
+```powershell
+cd codebase
+npm.cmd test
+```
+
+Chi tiết API, cấu trúc source và lưu ý kiểm thử nằm trong `codebase/README.md`.
+
+---
+
+## Tài liệu hackathon
 
 ## Bắt đầu từ đâu?
 
